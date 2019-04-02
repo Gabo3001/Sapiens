@@ -19,16 +19,20 @@ public class Game implements Runnable{
     String title;
     private int width;
     private int height;
+    private int nivel;
     private Thread thread;
     private boolean running;
     private Menu menu;
+    private Nivel1 nivel1;
     private KeyManager keyManager;
     private MouseManager mouseManager;
+    private Graphics g;
     
     public Game(String title, int width, int height){
         this.title = title;
         this.width = width;
         this.height = height;
+        this.nivel = 0;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
@@ -45,12 +49,22 @@ public class Game implements Runnable{
     public int getHeight() {
         return height;
     }
+   
     
     private void init(){
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
-        menu = new Menu(title, getWidth(), getHeight(), this);
-        menu.init();
+
+                menu = new Menu(title, getWidth(), getHeight(), this);
+                menu.init();
+
+
+                nivel1 = new Nivel1(title,getWidth(),getHeight(),this);
+                nivel1.init();
+
+        
+
+        
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
         display.getJframe().addMouseMotionListener(mouseManager);
@@ -88,6 +102,13 @@ public class Game implements Runnable{
         }
         stop();    
     }
+    public int getNivel(){
+        return nivel;
+    }
+    
+    public void setNivel(int level){
+        this.nivel=level;
+    }
 
     public KeyManager getKeyManager() {
         return keyManager;
@@ -99,11 +120,29 @@ public class Game implements Runnable{
     
     private void tick(){
         keyManager.tick();
-        menu.tick();
+        switch(getNivel()){
+            case 0:
+                menu.tick();
+                break;
+            case 1:
+                nivel1.tick();
+                break;
+        }
+        
     }
     
     private void render(){
-        menu.render();
+        switch(getNivel()){
+            case 0:
+                menu.render();
+                break;
+            case 1:
+                nivel1.render();
+       
+                break;
+                
+        }
+        
     }
     
     public synchronized void start(){
