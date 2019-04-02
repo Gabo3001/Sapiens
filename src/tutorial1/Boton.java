@@ -6,6 +6,7 @@
 package tutorial1;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -53,6 +54,14 @@ public class Boton extends Item {
     @Override
     public void tick() {
         
+    }
+    
+    public Rectangle getPerimetro() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    }
+    
+    public boolean intersecta(Object obj) {
+        return obj instanceof MouseManager && getPerimetro().intersects(((MouseManager) obj).getPerimetro());
     }
 
     @Override

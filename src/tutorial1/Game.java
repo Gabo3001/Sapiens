@@ -15,8 +15,6 @@ import java.awt.image.BufferStrategy;
  */
 public class Game implements Runnable{
     
-    private BufferStrategy bs;
-    private Graphics g;
     private Display display;
     String title;
     private int width;
@@ -36,10 +34,10 @@ public class Game implements Runnable{
         mouseManager = new MouseManager();
     }
 
-    public Menu getMenu() {
-        return menu;
+    public Display getDisplay() {
+        return display;
     }
-    
+
     public int getWidth(){
         return width;
     }
@@ -52,6 +50,7 @@ public class Game implements Runnable{
         display = new Display(title, getWidth(), getHeight());
         Assets.init();
         menu = new Menu(title, getWidth(), getHeight(), this);
+        menu.init();
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
         display.getJframe().addMouseMotionListener(mouseManager);
@@ -101,22 +100,10 @@ public class Game implements Runnable{
     private void tick(){
         keyManager.tick();
         menu.tick();
-        
     }
     
     private void render(){
-        bs = display.getCanvas().getBufferStrategy();
-        
-        if(bs == null){
-            display.getCanvas().createBufferStrategy(3);
-        }
-        else
-        {
-            g = bs.getDrawGraphics();
-            menu.render(g);
-            bs.show();
-            g.dispose();
-        }
+        menu.render();
     }
     
     public synchronized void start(){

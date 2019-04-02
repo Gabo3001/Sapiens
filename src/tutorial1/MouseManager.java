@@ -5,6 +5,7 @@
  */
 package tutorial1;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -49,13 +50,15 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 
     @Override
     public void mousePressed(MouseEvent e) {
-          
+          if (e.getButton() == MouseEvent.BUTTON1){
+            izquierdo = true;
+        }
     }
     
     @Override
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1){
-            izquierdo = true;
+            izquierdo = false;
             x = e.getX();
             y = e.getY();
         }
@@ -76,10 +79,10 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1){
-            izquierdo = true;
-            x = e.getX();
-            y = e.getY();
-        }
+       
+    }
+    
+    public Rectangle getPerimetro() {
+        return new Rectangle(getX(), getY(), 10, 10);
     }
 }

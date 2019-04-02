@@ -11,7 +11,7 @@ package tutorial1;
  */
 public class VideoGame {
     public static void main(String[] args){
-        Game g = new Game("Juego", 800, 500);
+        Game g = new Game("Sapiens", 800, 500);
         g.start();
     }
     

@@ -14,6 +14,7 @@ import java.awt.image.BufferStrategy;
  * @author HOME
  */
 public class Menu {
+
     private int width;
     private int height;
     private KeyManager keyManager;
@@ -23,17 +24,26 @@ public class Menu {
     private Boton back;
     private Game game;
     private BufferStrategy bs;
-    private Graphics gr;
-    private Display display;
+    private Graphics g;
     String title;
+    private boolean info;   //Boolean that determain if the information is show or not
 
     public Menu(String title, int width, int height, Game game) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.game = game;
+        info = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
+    }
+
+    public void setInfo(boolean info) {
+        this.info = info;
+    }
+
+    public boolean isInfo() {
+        return info;
     }
 
     public int getWidth() {
@@ -53,21 +63,46 @@ public class Menu {
     }
 
     public void init() {
-       display = new Display(title, getWidth(), getHeight());
-       start = new Boton (0, getHeight() - 100, 100, 150, game, 1);
-       help = new Boton (100, getHeight() - 100, 100, 150, game, 2);
-       back = new Boton (0, getHeight() - 200, 100, 150, game, 3);
+        start = new Boton(20, 150, 150, 75, game, 1);
+        help = new Boton(20, 235, 150, 75, game, 2);
+        back = new Boton(310, 500, 150, 75, game, 3);
     }
 
     public void tick() {
         keyManager.tick();
-        
+        start.tick();
+        if (help.intersecta(game.getMouseManager())) {
+            setInfo(true);
+            start.setX(start.getX() - 200);
+            help.setX(help.getX() - 200);
+            back.setY(back.getY() - 100);
+        }
+        if (back.intersecta(game.getMouseManager())) {
+            setInfo(false);
+            start.setX(start.getX() + 200);
+            help.setX(help.getX() + 200);
+            back.setY(back.getY() + 100);
+        }
     }
-    
-    public void render(Graphics g){
-        g.drawImage(Assets.background, 0, 0, width, height, null);
-        //El problema esta al intentar mandar a llamar el render de otro objeto
-        //start.render(g);
+
+    public void render() {
+        bs = game.getDisplay().getCanvas().getBufferStrategy();
+
+        if (bs == null) {
+            game.getDisplay().getCanvas().createBufferStrategy(3);
+        } else {
+            g = bs.getDrawGraphics();
+            if(!isInfo()){
+                g.drawImage(Assets.background, 0, 0, width, height, null);
+            } else{
+                g.drawImage(Assets.info, 0, 0, width, height, null);
+            }
+            start.render(g);
+            help.render(g);
+            back.render(g);
+            bs.show();
+            g.dispose();
+        }
     }
 
 }
