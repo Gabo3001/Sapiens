@@ -17,8 +17,6 @@ public class Menu {
 
     private int width;
     private int height;
-    private KeyManager keyManager;
-    private MouseManager mouseManager;
     private Boton start;
     private Boton help;
     private Boton back;
@@ -34,8 +32,6 @@ public class Menu {
         this.height = height;
         this.game = game;
         info = false;
-        keyManager = new KeyManager();
-        mouseManager = new MouseManager();
     }
 
     public void setInfo(boolean info) {
@@ -54,33 +50,32 @@ public class Menu {
         return height;
     }
 
-    public KeyManager getKeyManager() {
-        return keyManager;
-    }
-
-    public MouseManager getMouseManager() {
-        return mouseManager;
-    }
-
     public void init() {
+        //Start, help and back are initialized
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
     }
 
     public void tick() {
-        keyManager.tick();
-        start.tick();
+        //if help is clicked
         if (help.intersecta(game.getMouseManager())) {
+            //info is set in true
             setInfo(true);
+            //The buttons start and help dissapear from the screen
             start.setX(start.getX() - 200);
             help.setX(help.getX() - 200);
+            //Back appear on the screen
             back.setY(back.getY() - 100);
         }
+        //if help is clicked
         if (back.intersecta(game.getMouseManager())) {
+            //info is set in false
             setInfo(false);
+            //The buttons start and help apear on the screen
             start.setX(start.getX() + 200);
             help.setX(help.getX() + 200);
+            //Back dissapear from the screen
             back.setY(back.getY() + 100);
         }
     }
@@ -92,9 +87,11 @@ public class Menu {
             game.getDisplay().getCanvas().createBufferStrategy(3);
         } else {
             g = bs.getDrawGraphics();
+            //If info is off the normal background is showed
             if(!isInfo()){
                 g.drawImage(Assets.background, 0, 0, width, height, null);
-            } else{
+            } else{ 
+                //When info is on the info screen is showed
                 g.drawImage(Assets.info, 0, 0, width, height, null);
             }
             start.render(g);
