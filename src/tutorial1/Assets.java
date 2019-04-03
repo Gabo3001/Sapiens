@@ -13,6 +13,9 @@ import java.awt.image.BufferedImage;
  */
 public class Assets {
     public static BufferedImage background;
+    public static BufferedImage backgroundLevel1;
+    public static BufferedImage playerLevel1;
+    public static BufferedImage fruit;
     public static BufferedImage start;
     public static BufferedImage help;
     public static BufferedImage info;
@@ -20,6 +23,9 @@ public class Assets {
     
     public static void init(){
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
+        backgroundLevel1 = ImageLoader.loadImage("/tutorial1/images/BkLvl1.jpeg");
+        playerLevel1 = ImageLoader.loadImage("/tutorial1/images/monito.png");
+        fruit = ImageLoader.loadImage("/tutorial1/images/manzana.png");
         start = ImageLoader.loadImage("/tutorial1/images/Inicio.png");
         help = ImageLoader.loadImage("/tutorial1/images/Ayuda.png");
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
