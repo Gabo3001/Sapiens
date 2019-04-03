@@ -35,11 +35,15 @@ public class Nivel1 {
     }
     public void init() {
         //Start, help and back are initialized
-   //     back = new Boton(310, 500, 150, 75, game, 3);
         player = new Player(300,getHeight()-80,3,80,60,game);
+        int iX;
+        int range;
+        int iY;
         for(int i = 0;i<10;i++){
-            int iNum = (int) (Math.random() * 1000);
-            fruit.add(new Fruit(iNum,iNum-getHeight(),40,40,game));
+            range=(game.getHeight())+1;//max-min
+            iY = (int) (Math.random() * range);
+            iX = (int) (Math.random() * 760);
+            fruit.add(new Fruit(iX,0-iY ,40,40,game));
         }
         
     }
@@ -57,11 +61,25 @@ public class Nivel1 {
         for(int i=0;i<fruit.size();i++){
             Fruit food = fruit.get(i);
             food.tick();
+            //Si el player intersecta al perseguidor
+            if (player.intersecta(food)){
+                //Se mueve el objeto a un lugar random en x dentro de los limites de la pantalla
+                food.setX((int)(Math.random() * 760));
+                //Se reposiciona el objeto en un lugar random a media pantlla arriba de la pantalla 
+                int iPosY = (int) (Math.random() * getHeight() * 1/2)-getHeight();
+                food.setY(iPosY);
+            }
+            //Si la posicion en y del objeto supera el limite inferior de la pantaya
+            if(food.getY() >= getHeight()){
+                //Se mueve el objeto a un lugar random en x dentro de los limites de la pantalla                
+                food.setX((int)(Math.random() * 760));
+                //Se reposiciona el objeto en un lugar random a media pantlla arriba de la pantalla 
+                int iPosY = (int) (Math.random() * getHeight() * 1/2)-getHeight();
+                food.setY(iPosY);
+            }
         }
         
-//        if (back.intersecta(game.getMouseManager())) {
-//            game.setNivel(0);
-//        }
+
     }
 
     public void render() {
