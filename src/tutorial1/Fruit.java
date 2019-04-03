@@ -23,6 +23,7 @@ public class Fruit extends Item{
     private Game game;
     private int width;
     private int height;
+    private int speed;
     
     public Fruit(int x, int y, int width, int height, Game game) {
         super(x,y);
@@ -30,7 +31,17 @@ public class Fruit extends Item{
         this.game = game;
         this.width = width;
         this.height = height;
+        speed = 4;
     }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    
     public int getWidth(){
         return width;
     }
@@ -56,13 +67,7 @@ public class Fruit extends Item{
 
     @Override
     public void tick() {
-        setY(getY()+getDirection());
-        if(getY()>game.getHeight()-getHeight()){
-            int range=(game.getHeight())+1;//max-min
-            int iNum = (int) (Math.random() * range);
-            setY(0-iNum);
-            setX(0+iNum);
-        }
+        setY(getY()+getSpeed());
     }
     
     public Rectangle getPerimetro() {
