@@ -7,6 +7,7 @@ package tutorial1;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.LinkedList;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Nivel1 {
     private Graphics g;
     String title;
     private Player player;
-    private Fruit fruit;
+    private LinkedList<Fruit> fruit;
 //    private Boton back;
     
     public Nivel1(String title, int width, int height, Game game) {
@@ -29,13 +30,18 @@ public class Nivel1 {
         this.width = width;
         this.height = height;
         this.game = game;
+        fruit = new LinkedList<Fruit>();
     //    g=graphics;
     }
     public void init() {
         //Start, help and back are initialized
    //     back = new Boton(310, 500, 150, 75, game, 3);
         player = new Player(300,getHeight()-80,3,80,60,game);
-        fruit = new Fruit(getWidth()/2,0,40,40,game);
+        for(int i = 0;i<10;i++){
+            int iNum = (int) (Math.random() * 1000);
+            fruit.add(new Fruit(iNum,iNum-getHeight(),40,40,game));
+        }
+        
     }
     
     public int getWidth() {
@@ -48,7 +54,11 @@ public class Nivel1 {
     
     public void tick() {
         player.tick();
-        fruit.tick();
+        for(int i=0;i<fruit.size();i++){
+            Fruit food = fruit.get(i);
+            food.tick();
+        }
+        
 //        if (back.intersecta(game.getMouseManager())) {
 //            game.setNivel(0);
 //        }
@@ -63,7 +73,10 @@ public class Nivel1 {
             g = bs.getDrawGraphics();
             g.drawImage(Assets.backgroundLevel1, 0, 0, width, height, null);
             player.render(g);
-            fruit.render(g);
+            for (int i = 0; i < fruit.size(); i++) {
+            Fruit feed =  fruit.get(i);
+            feed.render(g);
+        }
             bs.show();
             g.dispose();
         }
