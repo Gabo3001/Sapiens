@@ -6,6 +6,7 @@
 package tutorial1;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -79,6 +80,14 @@ public class Player extends Item {
         }
 
         
+    }
+    
+    public Rectangle getPerimetro() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    }
+    
+    public boolean intersecta(Object obj) {
+        return obj instanceof Fruit && getPerimetro().intersects(((Fruit) obj).getPerimetro());
     }
 
     @Override

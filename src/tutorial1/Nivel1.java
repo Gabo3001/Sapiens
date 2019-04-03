@@ -38,8 +38,9 @@ public class Nivel1 {
    //     back = new Boton(310, 500, 150, 75, game, 3);
         player = new Player(300,getHeight()-80,3,80,60,game);
         for(int i = 0;i<10;i++){
-            int iNum = (int) (Math.random() * 1000);
-            fruit.add(new Fruit(iNum,iNum-getHeight(),40,40,game));
+            int range=(getWidth())+1;//max-min
+            int iNum = (int) (Math.random() * range);
+            fruit.add(new Fruit(iNum,0-iNum,40,40,game));
         }
         
     }
@@ -57,11 +58,12 @@ public class Nivel1 {
         for(int i=0;i<fruit.size();i++){
             Fruit food = fruit.get(i);
             food.tick();
+            if (player.intersecta(food)) {
+                fruit.remove(i);
+            }
         }
         
-//        if (back.intersecta(game.getMouseManager())) {
-//            game.setNivel(0);
-//        }
+
     }
 
     public void render() {

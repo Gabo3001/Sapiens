@@ -12,6 +12,7 @@ package tutorial1;
  */
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -25,7 +26,7 @@ public class Fruit extends Item{
     
     public Fruit(int x, int y, int width, int height, Game game) {
         super(x,y);
-        this.direction = direction;
+        this.direction = 2;
         this.game = game;
         this.width = width;
         this.height = height;
@@ -55,8 +56,20 @@ public class Fruit extends Item{
 
     @Override
     public void tick() {
-        setY(getY()+1);
+        setY(getY()+getDirection());
+        if(getY()>game.getHeight()-getHeight()){
+            int range=(game.getHeight())+1;//max-min
+            int iNum = (int) (Math.random() * range);
+            setY(0-iNum);
+            setX(0+iNum);
+        }
     }
+    
+    public Rectangle getPerimetro() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    }
+    
+
 
     @Override
     public void render(Graphics g) {
