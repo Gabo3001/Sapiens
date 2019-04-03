@@ -20,6 +20,7 @@ public class Assets {
     public static BufferedImage help;
     public static BufferedImage info;
     public static BufferedImage back;
+    public static SoundClip eat;
     
     public static void init(){
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
@@ -30,6 +31,7 @@ public class Assets {
         help = ImageLoader.loadImage("/tutorial1/images/Ayuda.png");
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
         back = ImageLoader.loadImage("/tutorial1/images/Back.png");
+        eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);    
     }
     
     

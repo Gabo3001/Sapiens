@@ -60,6 +60,7 @@ public class Nivel1 {
             food.tick();
             if (player.intersecta(food)) {
                 fruit.remove(i);
+                Assets.eat.play();
             }
         }
         
