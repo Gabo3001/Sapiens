@@ -26,7 +26,6 @@ public class Game implements Runnable{
     private Nivel1 nivel1;
     private KeyManager keyManager;
     private MouseManager mouseManager;
-    private Graphics g;
     
     public Game(String title, int width, int height){
         this.title = title;

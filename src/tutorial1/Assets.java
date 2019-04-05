@@ -20,6 +20,10 @@ public class Assets {
     public static BufferedImage help;
     public static BufferedImage info;
     public static BufferedImage back;
+    public static BufferedImage spritesR;
+    public static BufferedImage spritesL;
+    public static BufferedImage playerRight[];
+    public static BufferedImage playerLeft[];
     
     public static void init(){
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
@@ -30,6 +34,17 @@ public class Assets {
         help = ImageLoader.loadImage("/tutorial1/images/Ayuda.png");
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
         back = ImageLoader.loadImage("/tutorial1/images/Back.png");
+        spritesR = ImageLoader.loadImage("/tutorial1/images/Player1R.png");
+        spritesL = ImageLoader.loadImage("/tutorial1/images/Player1L.png");
+        SpriteSheet spritesheet = new SpriteSheet(spritesR);
+        SpriteSheet spritesheetL = new SpriteSheet(spritesL);
+        playerRight = new BufferedImage[3];
+        playerLeft = new BufferedImage[3];
+        //croping the pictures from the sheet int the array
+        for (int i = 0; i < 3; i++){
+            playerRight[i] = spritesheet.crop(i * 198, 0, 187, 299);
+            playerLeft[i] = spritesheetL.crop(i * 198, 0, 187, 299);
+        }
     }
     
     

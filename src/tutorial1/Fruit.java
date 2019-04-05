@@ -69,13 +69,14 @@ public class Fruit extends Item{
     public void tick() {
         setY(getY()+getSpeed());
     }
-    
+    /**
+     * Funtion that get the perimeter of the fruit
+     * @return a rectangle with the perimeter of the fruit
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
     
-
-
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
