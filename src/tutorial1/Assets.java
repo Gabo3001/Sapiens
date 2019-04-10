@@ -24,6 +24,7 @@ public class Assets {
     public static BufferedImage spritesL;
     public static BufferedImage playerRight[];
     public static BufferedImage playerLeft[];
+    public static SoundClip eat;
     
     public static void init(){
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
@@ -45,8 +46,6 @@ public class Assets {
             playerRight[i] = spritesheet.crop(i * 198, 0, 187, 299);
             playerLeft[i] = spritesheetL.crop(i * 198, 0, 187, 299);
         }
+        eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);    
     }
-    
-    
-    
 }

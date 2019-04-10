@@ -23,6 +23,7 @@ public class Nivel1 {
     String title;
     private Player player;
     private LinkedList<Fruit> fruit;
+//    private Boton back;
     
     public Nivel1(String title, int width, int height, Game game) {
         this.title = title;
@@ -30,9 +31,10 @@ public class Nivel1 {
         this.height = height;
         this.game = game;
         fruit = new LinkedList<Fruit>();
+    //    g=graphics;
     }
     public void init() {
-        //player and the apples are initialized
+        //Start, help and back are initialized
         player = new Player(300,350,3,80,60,game);
         int iX;
         int range;
@@ -59,21 +61,24 @@ public class Nivel1 {
         for(int i=0;i<fruit.size();i++){
             Fruit food = fruit.get(i);
             food.tick();
-            //if the player intersects the apple
+
+            //Si el player intersecta al perseguidor
             if (player.intersecta(food)){
-                //The object is moved to a random place in x that is inside the screen
+                //Se mueve el objeto a un lugar random en x dentro de los limites de la pantalla
                 food.setX((int)(Math.random() * 760));
-                //The object is moved to a random place in y that is inside the screen
+                //Se reposiciona el objeto en un lugar random a media pantlla arriba de la pantalla 
                 int iPosY = (int) (Math.random() * getHeight() * 1/2)-getHeight();
                 food.setY(iPosY);
+                Assets.eat.play();
             }
-            //if the y position of the apple go out the infirior limit of the sceen
-            if(food.getY() >= getHeight()){
-                //The object is moved to a random place in x that is inside the screen               
+            //Si la posicion en y del objeto supera el limite inferior de la pantaya
+            if(food.getY() >= 385){
+                //Se mueve el objeto a un lugar random en x dentro de los limites de la pantalla                
                 food.setX((int)(Math.random() * 760));
-                //The object is moved to a random place in y that is inside the screen 
+                //Se reposiciona el objeto en un lugar random a media pantlla arriba de la pantalla 
                 int iPosY = (int) (Math.random() * getHeight() * 1/2)-getHeight();
                 food.setY(iPosY);
+
             }
         }
         
