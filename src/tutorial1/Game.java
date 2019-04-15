@@ -26,6 +26,8 @@ public class Game implements Runnable{
     private Nivel1 nivel1;
     private KeyManager keyManager;
     private MouseManager mouseManager;
+    private int score;
+    private boolean pause;
     
     public Game(String title, int width, int height){
         this.title = title;
@@ -35,6 +37,24 @@ public class Game implements Runnable{
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
+        pause = false;
+        score = 0;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+    
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
     public Display getDisplay() {
@@ -127,7 +147,20 @@ public class Game implements Runnable{
                 nivel1.tick();
                 break;
         }
-        
+        //if p is pressed
+        if (getKeyManager().pause) {
+            //if pause is true
+            if (isPause() && getNivel() != 0) {
+                //set pause to false
+                setPause(false);
+            } //if pause is false
+            else if (!isPause() && getNivel() != 0){
+                //set pause to true
+                setPause(true);
+            }
+            //pStop is called set the key press back to false
+                getKeyManager().kStop();
+        }
     }
     
     private void render(){

@@ -67,7 +67,9 @@ public class Fruit extends Item{
 
     @Override
     public void tick() {
-        setY(getY()+getSpeed());
+        if(!game.isPause()){
+            setY(getY()+getSpeed());
+        }
     }
     /**
      * Funtion that get the perimeter of the fruit
