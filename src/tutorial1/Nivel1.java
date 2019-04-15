@@ -36,6 +36,7 @@ public class Nivel1 {
     public void init() {
         //Start, help and back are initialized
         player = new Player(300,getHeight()-80,3,80,60,game);
+        
         int iX;
         int range;
         int iY;
@@ -58,6 +59,7 @@ public class Nivel1 {
     
     public void tick() {
         player.tick();
+       // Assets.natural.play();
         for(int i=0;i<fruit.size();i++){
             Fruit food = fruit.get(i);
             food.tick();

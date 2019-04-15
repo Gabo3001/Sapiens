@@ -24,6 +24,7 @@ public class Game implements Runnable{
     private boolean running;
     private Menu menu;
     private Nivel1 nivel1;
+    private Nivel4 nivel4;
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private Graphics g;
@@ -62,7 +63,8 @@ public class Game implements Runnable{
                 nivel1 = new Nivel1(title,getWidth(),getHeight(),this);
                 nivel1.init();
 
-        
+                nivel4 = new Nivel4(title,getWidth(),getHeight(),this);
+                nivel4.init();
 
         
         display.getJframe().addKeyListener(keyManager);
@@ -102,6 +104,8 @@ public class Game implements Runnable{
         }
         stop();    
     }
+    
+    
     public int getNivel(){
         return nivel;
     }
@@ -127,6 +131,9 @@ public class Game implements Runnable{
             case 1:
                 nivel1.tick();
                 break;
+            case 4:
+                nivel4.tick();
+                break;
         }
         
     }
@@ -138,7 +145,9 @@ public class Game implements Runnable{
                 break;
             case 1:
                 nivel1.render();
-       
+                break;
+            case 4:
+                nivel4.render();
                 break;
                 
         }

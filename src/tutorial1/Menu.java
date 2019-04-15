@@ -79,7 +79,7 @@ public class Menu {
             back.setY(back.getY() + 100);
         }
         if (start.intersecta(game.getMouseManager())) {
-          game.setNivel(1);
+          game.setNivel(4);
         }
     }
 

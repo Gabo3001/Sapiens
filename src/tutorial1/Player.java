@@ -19,6 +19,9 @@ public class Player extends Item {
     private int height;
     private Game game;
     private int speed;
+    private boolean jumping;
+    private boolean gravity;
+    private int initialY;
     
     
     public Player (int x, int y, int direction, int width, int height, Game game){
@@ -28,6 +31,9 @@ public class Player extends Item {
         this.height = height;
         this.game = game;
         this.speed = direction;
+        this.jumping = false;
+        this.gravity = false;
+        this.initialY = y;
     }
 
     public int getDirection() {
@@ -62,22 +68,54 @@ public class Player extends Item {
         this.speed = speed;
     }
     
+    public void isJumping(boolean bJ){
+        this.jumping = bJ;
+    }
+    public void isGravity(boolean bG){
+        this.gravity = bG;
+    }  
+    
+    
     @Override
     public void tick() {
+        if(game.getNivel()==1){
+            if (game.getKeyManager().left){
+                setX(getX() - getSpeed());
+            }
+            if (game.getKeyManager().right){
+                setX(getX() + getSpeed());
+            }
+            // reset x position and y position if colision
+            if (getX() + 60 >= game.getWidth()){
+                setX(game.getWidth() - 60);
+            }
+            else if (getX() <= 0){
+                setX(0);
+            }
+        }
+        if(game.getNivel() == 4){
+            if(game.getKeyManager().space && !gravity){
+                isJumping(true);  
+            }
+            if(jumping){
+                setY(getY()-4); 
+            }
+            
+            if (getY()<=game.getHeight()/2-getHeight() ){
+                isJumping(false);
+                isGravity(true);
+            }
+            if(gravity){
+               setY(getY()+4);             
+            }
 
-        if (game.getKeyManager().left){
-            setX(getX() - getSpeed());
+
+            if (getY() >= game.getHeight()-game.getHeight()/4){
+                setY(game.getHeight()-game.getHeight()/4);
+                isGravity(false);
+            }
         }
-        if (game.getKeyManager().right){
-            setX(getX() + getSpeed());
-        }
-//        // reset x position and y position if colision
-        if (getX() + 60 >= game.getWidth()){
-            setX(game.getWidth() - 60);
-        }
-        else if (getX() <= 0){
-            setX(0);
-        }
+
 
         
     }
