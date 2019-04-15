@@ -66,14 +66,25 @@ public class Boton extends Item {
 
     @Override
     public void render(Graphics g) {
+        //1 for the start button
         if (getType() == 1){
             g.drawImage(Assets.start, getX(), getY(), getWidth(), getHeight(), null);
         }
+        //2 for the help button
         if (getType() == 2){
             g.drawImage(Assets.help, getX(), getY(), getWidth(), getHeight(), null);
         }
+        //3 for the back button
         if (getType() == 3){
             g.drawImage(Assets.back, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //4 for the save button
+        if (getType() == 4){
+            g.drawImage(Assets.save, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //5 for the back to menu button
+        if (getType() == 5){
+            g.drawImage(Assets.menu, getX(), getY(), getWidth(), getHeight(), null);
         }
     }
     

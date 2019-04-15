@@ -13,7 +13,7 @@ import java.awt.Rectangle;
  * @author HOME
  */
 public class Player extends Item {
-    
+
     private int direction;
     private int width;
     private int height;
@@ -21,10 +21,13 @@ public class Player extends Item {
     private int speed;
     private boolean jumping;
     private boolean gravity;
-    private int initialY;
+    private Animation animationRight;
+    private Animation animationLeft;
     
     
-    public Player (int x, int y, int direction, int width, int height, Game game){
+
+
+    public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y);
         this.direction = direction;
         this.width = width;
@@ -33,7 +36,8 @@ public class Player extends Item {
         this.speed = direction;
         this.jumping = false;
         this.gravity = false;
-        this.initialY = y;
+        this.animationRight = new Animation(Assets.playerRight, 100);
+        this.animationLeft = new Animation(Assets.playerLeft, 100);
     }
 
     public int getDirection() {
@@ -118,19 +122,37 @@ public class Player extends Item {
 
 
         
+
     }
-    
+
+    /**
+     * Funtion that get the perimeter of the player
+     *
+     * @return a rectangle with the perimeter of the player
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
-    
+
+    /**
+     * Function that check if the player intersects with an especifc object
+     *
+     * @param obj An object from the class Fruit
+     * @return true when player intersects with a fruit
+     */
     public boolean intersecta(Object obj) {
         return obj instanceof Fruit && getPerimetro().intersects(((Fruit) obj).getPerimetro());
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.playerLevel1,getX(),getY(),getHeight(), getWidth(), null);
+        if (game.getKeyManager().right && !game.isPause()) {
+            g.drawImage(animationRight.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);
+        } else if (game.getKeyManager().left && !game.isPause()) {
+            g.drawImage(animationLeft.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);
+        } else {
+            g.drawImage(Assets.playerLevel1, getX(), getY(), getHeight(), getWidth(), null);
+        }
     }
-    
+
 }

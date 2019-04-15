@@ -78,8 +78,12 @@ public class Menu {
             //Back dissapear from the screen
             back.setY(back.getY() + 100);
         }
+        //if start is clicked
         if (start.intersecta(game.getMouseManager())) {
-          game.setNivel(4);
+
+            //The game move to the first minigame
+            game.setNivel(1);
+
         }
     }
 
