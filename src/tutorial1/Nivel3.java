@@ -76,7 +76,7 @@ public class Nivel3 {
         
         
         for(int i = 0; i < 5; i++){
-            plants.add(new PlantLevel3(1*(i*60) + 10, 50, 50, 50, game, 1, 3));
+            plants.add(new PlantLevel3(1*(i*60) + 10, 30, 70, 70, game, 1, 3));
         }
         
         
@@ -115,11 +115,11 @@ public class Nivel3 {
         //Set the plants to their initial positions
             for (int i = 0; i < plants.size(); i++) {
                 PlantLevel3 plant =  plants.get(i);
-                plant.setLives(1);
+                
                 plant.setX(1*(i*70)+ 60);
                 plant.tick();
                 
-                if(ball.intersecta(plant)){
+                if(ball.intersecta(plant) && plant.getLives() > 1){
                 //brick lose one life
                 plant.setLives(plant.getLives() - 1);
                 
