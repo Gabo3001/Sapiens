@@ -45,8 +45,8 @@ public class Nivel3 {
 
     public void init() {
         player = new PlayerLevel3(330, getHeight() - 100, 1, 160, 80, game);
-        for(int i = 0; i < 13; i++){
-            plants.add(new PlantLevel3(1*(i*60)+ 10, 50, 50, 50, game, 1, 1));
+        for(int i = 0; i < 5; i++){
+            plants.add(new PlantLevel3(1*(i*60)+ 100, 50, 50, 50, game, 1, 1));
         }
     }
 
