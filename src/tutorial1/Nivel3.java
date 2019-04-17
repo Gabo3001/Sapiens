@@ -23,7 +23,9 @@ public class Nivel3 {
     private Graphics g;
     String title;
     private PlayerLevel3 player;
-    private LinkedList<PlantLevel3> plants;     //linked list for the small bricks
+    private LinkedList<PlantLevel3> corn;     //linked list for corn
+    private LinkedList<PlantLevel3> pepper;
+    private LinkedList<PlantLevel3> tomato;
     private BallLevel3 ball;
     private KeyManager keyManager;
     private boolean start;          //Boolean that control the start
@@ -37,7 +39,9 @@ public class Nivel3 {
         this.height = height;
         this.game = game;
         keyManager = new KeyManager();
-        plants = new LinkedList<PlantLevel3>();
+        corn = new LinkedList<PlantLevel3>();
+        pepper = new LinkedList<PlantLevel3>();
+        tomato = new LinkedList<PlantLevel3>();
         start = false;                  //Se inicializa start en false
         pause = true;                   //Pause is initialize in true
     }
@@ -75,10 +79,17 @@ public class Nivel3 {
         ball = new BallLevel3(385, getHeight() - 145, 1, 50, 50, game);
         
         
-        for(int i = 0; i < 5; i++){
-            plants.add(new PlantLevel3(1*(i*60) + 10, 30, 70, 70, game, 1, 3));
+        for(int i = 0; i < 8; i++){
+            corn.add(new PlantLevel3(1*(i*100) + 40, 30, 70, 70, game, 1, 3));
         }
         
+        for(int i = 0; i < 4; i++){
+            pepper.add(new PlantLevel3(1*(i*100) + 40, 100, 70, 70, game, 2, 3));
+        }
+        
+          for(int i = 0; i < 4; i++){
+            tomato.add(new PlantLevel3(1*(i*100) + 420, 100, 70, 70, game, 3, 3));
+        }
         
     }
 
@@ -113,10 +124,58 @@ public class Nivel3 {
             }
         }
         //Set the plants to their initial positions
-            for (int i = 0; i < plants.size(); i++) {
-                PlantLevel3 plant =  plants.get(i);
+            for (int i = 0; i < corn.size(); i++) {
+                PlantLevel3 plant =  corn.get(i);
                 
-                plant.setX(1*(i*70)+ 60);
+                plant.tick();
+                
+                if(ball.intersecta(plant) && plant.getLives() > 1){
+                //brick lose one life
+                plant.setLives(plant.getLives() - 1);
+                
+                //Make the ball bounce away from brick
+                if(ball.getDirection() == 1)
+                    ball.setDirection(3);
+                
+                else if(ball.getDirection() == 2)
+                    ball.setDirection(4);
+                
+                else if(ball.getDirection() == 3)
+                    ball.setDirection(1);
+                
+                else if(ball.getDirection() == 4)
+                    ball.setDirection(2);
+                }
+            }
+            
+                    //Set the plants to their initial positions
+            for (int i = 0; i < pepper.size(); i++) {
+                PlantLevel3 plant =  pepper.get(i);
+                
+                plant.tick();
+                
+                if(ball.intersecta(plant) && plant.getLives() > 1){
+                //brick lose one life
+                plant.setLives(plant.getLives() - 1);
+                
+                //Make the ball bounce away from brick
+                if(ball.getDirection() == 1)
+                    ball.setDirection(3);
+                
+                else if(ball.getDirection() == 2)
+                    ball.setDirection(4);
+                
+                else if(ball.getDirection() == 3)
+                    ball.setDirection(1);
+                
+                else if(ball.getDirection() == 4)
+                    ball.setDirection(2);
+                }
+            }
+            
+             for (int i = 0; i < tomato.size(); i++) {
+                PlantLevel3 plant =  tomato.get(i);
+                
                 plant.tick();
                 
                 if(ball.intersecta(plant) && plant.getLives() > 1){
@@ -164,8 +223,18 @@ public class Nivel3 {
              ball.render(g);
 
                //render plants
-            for (int i = 0; i < plants.size(); i++) {
-                PlantLevel3 plant =  plants.get(i);
+            for (int i = 0; i < corn.size(); i++) {
+                PlantLevel3 plant =  corn.get(i);
+                plant.render(g);
+            }
+            
+            for (int i = 0; i < pepper.size(); i++) {
+                PlantLevel3 plant =  pepper.get(i);
+                plant.render(g);
+            }
+            
+            for (int i = 0; i < tomato.size(); i++) {
+                PlantLevel3 plant =  tomato.get(i);
                 plant.render(g);
             }
             bs.show();
