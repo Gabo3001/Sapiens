@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author HOME
+ * @author Natalia Gonzalez
  */
 public class Nivel3 {
 
@@ -33,6 +33,7 @@ public class Nivel3 {
     private Boton save;
     private int scene;
     private Animation next;
+    int cont; //variable to delay collisions
 
 
 
@@ -50,7 +51,8 @@ public class Nivel3 {
         start = false;
         this.next = new Animation(Assets.nextA, 500);
         scene = 0;
-
+        cont = 0;
+      
     }
     
     public int getWidth() {
@@ -84,18 +86,17 @@ public class Nivel3 {
     public void init() {
         player = new PlayerLevel3(330, getHeight() - 100, 1, 160, 80, game);
         ball = new BallLevel3(385, getHeight() - 145, 1, 40, 50, game);
-        
-        
+   
         for(int i = 0; i < 8; i++){
-            corn.add(new PlantLevel3(1*(i*100) + 40, 30, 70, 70, game, 1, 3));
+            corn.add(new PlantLevel3(1*(i*90) + 60, 30, 70, 70, game, 1, 3));
         }
         
         for(int i = 0; i < 4; i++){
-            pepper.add(new PlantLevel3(1*(i*100) + 50, 100, 70, 70, game, 2, 3));
+            pepper.add(new PlantLevel3(1*(i*90) + 50, 100, 70, 70, game, 2, 3));
         }
         
           for(int i = 0; i < 4; i++){
-            tomato.add(new PlantLevel3(1*(i*100) + 420, 100, 70, 70, game, 3, 3));
+            tomato.add(new PlantLevel3(1*(i*90) + 420, 100, 70, 70, game, 3, 3));
         }
           
         menu = new Boton(413, 360, 100, 50, game, 5);
@@ -106,16 +107,18 @@ public class Nivel3 {
     public void tick() {
         
         if (isStart() && !game.isPause()) {
-        keyManager.tick();
+       
         player.tick();
         ball.tick();
+ 
         
         //Make all corn plants tick
             for (int i = 0; i < corn.size(); i++) {
                 PlantLevel3 plant =  corn.get(i);
                 plant.tick();
-                
-                if(ball.intersecta(plant) && plant.getLives() > 1){
+                cont = cont + 1;
+                if(ball.intersecta(plant) && cont > 200 && plant.getLives() > 1){
+                cont = 0;
                 //corn loses one life
                 plant.setLives(plant.getLives() - 1);
                 
@@ -138,8 +141,9 @@ public class Nivel3 {
             for (int i = 0; i < pepper.size(); i++) {
                 PlantLevel3 plant =  pepper.get(i);
                 plant.tick();
-                
-                if(ball.intersecta(plant) && plant.getLives() > 1){
+                cont = cont + 1;
+                if(ball.intersecta(plant) && cont > 200 && plant.getLives() > 1){
+                    cont = 0;
                 //pepper plant lose one life
                 plant.setLives(plant.getLives() - 1);
                 
@@ -162,8 +166,9 @@ public class Nivel3 {
              for (int i = 0; i < tomato.size(); i++) {
                 PlantLevel3 plant =  tomato.get(i);
                 plant.tick();
-                
-                if(ball.intersecta(plant) && plant.getLives() > 1){
+                cont = cont + 1;
+                if(ball.intersecta(plant) && cont > 200 &&plant.getLives() > 1){
+                    cont = 0;
                 //tomato plant lose one life
                 plant.setLives(plant.getLives() - 1);
                 
@@ -193,10 +198,24 @@ public class Nivel3 {
             //The direction of the ball is changed to 1
             ball.setDirection(1);
         }
+        
+                //Si la pelota sale de la pantalla por abajo
+        if(ball.getY() >= getHeight()){
+            //Se pone start en falso
+            setStart(false);
+            //Se coloca ball en la posicion inicial
+            ball.setX(385);
+            ball.setY(getHeight()-145);
+            
+            //Se coloca al player en la posicion inicial
+            player.setX(330);
+            player.setY(getHeight()-100);
+            
+        }
        
-        }else {
+        }else {          
             //When the n key is pressed
-            if (game.getKeyManager().next) {
+            if (game.getKeyManager().next) {  
                 //If scene is minor to 3
                 if (getScene() < 3) {
                     //the scene increase in 1
