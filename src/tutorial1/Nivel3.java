@@ -76,7 +76,7 @@ public class Nivel3 {
 
     public void init() {
         player = new PlayerLevel3(330, getHeight() - 100, 1, 160, 80, game);
-        ball = new BallLevel3(385, getHeight() - 145, 1, 50, 50, game);
+        ball = new BallLevel3(385, getHeight() - 145, 1, 40, 50, game);
         
         
         for(int i = 0; i < 8; i++){
@@ -84,7 +84,7 @@ public class Nivel3 {
         }
         
         for(int i = 0; i < 4; i++){
-            pepper.add(new PlantLevel3(1*(i*100) + 40, 100, 70, 70, game, 2, 3));
+            pepper.add(new PlantLevel3(1*(i*100) + 50, 100, 70, 70, game, 2, 3));
         }
         
           for(int i = 0; i < 4; i++){
