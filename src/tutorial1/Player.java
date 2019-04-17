@@ -82,11 +82,13 @@ public class Player extends Item {
     
     @Override
     public void tick() {
-        if(game.getNivel()==1){
+        if(!game.isPause()){
             if (game.getKeyManager().left){
+                this.animationLeft.tick();
                 setX(getX() - getSpeed());
             }
             if (game.getKeyManager().right){
+                this.animationRight.tick();
                 setX(getX() + getSpeed());
             }
             // reset x position and y position if colision
@@ -97,28 +99,7 @@ public class Player extends Item {
                 setX(0);
             }
         }
-        if(game.getNivel() == 4){
-            if(game.getKeyManager().space && !gravity){
-                isJumping(true);  
-            }
-            if(jumping){
-                setY(getY()-4); 
-            }
-            
-            if (getY()<=game.getHeight()/2-getHeight() ){
-                isJumping(false);
-                isGravity(true);
-            }
-            if(gravity){
-               setY(getY()+4);             
-            }
 
-
-            if (getY() >= game.getHeight()-game.getHeight()/4){
-                setY(game.getHeight()-game.getHeight()/4);
-                isGravity(false);
-            }
-        }
 
 
         
@@ -146,7 +127,7 @@ public class Player extends Item {
 
     @Override
     public void render(Graphics g) {
-        if (game.getKeyManager().right && !game.isPause()) {
+        if (game.getKeyManager().right && !game.isPause()||(game.getNivel()==4)) {
             g.drawImage(animationRight.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);
         } else if (game.getKeyManager().left && !game.isPause()) {
             g.drawImage(animationLeft.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);

@@ -36,11 +36,14 @@ public class Assets {
     public static BufferedImage playerLeft[];
     public static SoundClip eat;
     public static SoundClip natural;
+    
     //Level 4 assets
     public static BufferedImage arrow;
-
-    
-    
+    public static BufferedImage coin;
+    public static BufferedImage bkmirror;
+    public static BufferedImage knight;
+    public static SoundClip target;
+    public static SoundClip cash;
     
     public static void init(){
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
@@ -51,10 +54,12 @@ public class Assets {
         help = ImageLoader.loadImage("/tutorial1/images/Ayuda.png");
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
         back = ImageLoader.loadImage("/tutorial1/images/Back.png");
-
+        bkmirror=ImageLoader.loadImage("/tutorial1/images/BkLvl1_mirror.jpg");
         eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false); 
+        cash = new SoundClip("/tutorial1/sounds/coin.wav",-3f,false); 
+        target = new SoundClip("/tutorial1/sounds/arrow.wav",-3f,false); 
 //        natural = new SoundClip("/tutorial1/sounds/natural.wav",-3f,true);
-
+        coin = ImageLoader.loadImage("/tutorial1/images/coin.png");
         arrow = ImageLoader.loadImage("/tutorial1/images/arrow.png");
         menu = ImageLoader.loadImage("/tutorial1/images/Menu.png");
         save = ImageLoader.loadImage("/tutorial1/images/Save.png");
@@ -63,6 +68,7 @@ public class Assets {
         info1 = ImageLoader.loadImage("/tutorial1/images/Info_N1.png");
         control1 = ImageLoader.loadImage("/tutorial1/images/Controles_N1.png");
         next = ImageLoader.loadImage("/tutorial1/images/Next.png");
+        knight = ImageLoader.loadImage("/tutorial1/images/knight.png");
         spritesR = ImageLoader.loadImage("/tutorial1/images/Player1R.png");
         spritesL = ImageLoader.loadImage("/tutorial1/images/Player1L.png");
         SpriteSheet spritesheet = new SpriteSheet(spritesR);

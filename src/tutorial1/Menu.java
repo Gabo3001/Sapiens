@@ -82,7 +82,7 @@ public class Menu {
         if (start.intersecta(game.getMouseManager())) {
 
             //The game move to the first minigame
-            game.setNivel(1);
+            game.setNivel(4);
 
         }
     }
