@@ -26,7 +26,7 @@ public class PlantLevel3 extends Item{
         this.width = width;
         this.height = height;
         this.game = game;
-        //types:  small bricks(1), big bricks (2), power(3)
+        //types:  corn(1), big bricks (2), power(3)
         this.type = type;
         this.lives = lives;
     }
@@ -81,23 +81,43 @@ public class PlantLevel3 extends Item{
 
     @Override
     public void render(Graphics g) {
-        if(getType() == 1)
-        g.drawImage(Assets.cornFirst, getX(), getY(), getWidth(), getHeight(), null);    
+        if(getType() == 1){
+            if(getLives() == 3)
+            g.drawImage(Assets.cornFirst, getX(), getY(), getWidth(), getHeight(), null);
+            //bigBrick after one hit
+            if(getLives() == 2)
+            g.drawImage(Assets.cornSecond, getX(), getY(), getWidth(), getHeight(), null);
+            
+            if(getLives() == 1)
+            g.drawImage(Assets.cornThird, getX(), getY(), getWidth(), getHeight(), null);
+        }
+          
         
         if(getType() == 2){
             //bigBrick with no damage
             if(getLives() == 3)
-            g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(Assets.pepperFirst, getX(), getY(), getWidth(), getHeight(), null);
             //bigBrick after one hit
             if(getLives() == 2)
-            g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(Assets.pepperSecond, getX(), getY(), getWidth(), getHeight(), null);
             
             if(getLives() == 1)
-            g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
+            g.drawImage(Assets.pepperThird, getX(), getY(), getWidth(), getHeight(), null);
         }
         
-        if(getType() == 3)
-            g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
+        
+         if(getType() == 3){
+            //bigBrick with no damage
+            if(getLives() == 3)
+            g.drawImage(Assets.tomatoFirst, getX(), getY(), getWidth(), getHeight(), null);
+            //bigBrick after one hit
+            if(getLives() == 2)
+            g.drawImage(Assets.tomatoSecond, getX(), getY(), getWidth(), getHeight(), null);
+            
+            if(getLives() == 1)
+            g.drawImage(Assets.tomatoThird, getX(), getY(), getWidth(), getHeight(), null);
+        }
+       
         
     }
     

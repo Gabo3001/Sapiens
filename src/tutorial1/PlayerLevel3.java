@@ -123,7 +123,7 @@ public class PlayerLevel3 extends Item {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.playerLevel1, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(Assets.playerLevel3, getX(), getY(), getWidth(), getHeight(), null);
     }
 
 }

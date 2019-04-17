@@ -32,9 +32,22 @@ public class Assets {
     public static BufferedImage spritesL;
     public static BufferedImage playerRight[];
     public static BufferedImage playerLeft[];
+    public static SoundClip eat;
+    
+    //Level 3
     public static BufferedImage backgroundLevel3;
     public static BufferedImage cornFirst; //sprite for corn's first stage
-    public static SoundClip eat;
+    public static BufferedImage cornSecond; //sprite for corn's second stage
+    public static BufferedImage cornThird; //sprite for corn's third stage
+    public static BufferedImage pepperFirst; //sprite for pepper's first stage
+    public static BufferedImage pepperSecond; //sprite for pepper's second stage
+    public static BufferedImage pepperThird; //sprite for pepper's third stage
+    public static BufferedImage tomatoFirst; //sprite for tomato's first stage
+    public static BufferedImage tomatoSecond; //sprite for tomato's second stage
+    public static BufferedImage tomatoThird; //sprite for tomato's third stage
+    public static BufferedImage water;
+    public static BufferedImage playerLevel3; 
+    
     
     public static void init(){
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
@@ -72,7 +85,21 @@ public class Assets {
         }
         eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);   
         
-        //crops for third level
-        cornFirst = ImageLoader.loadImage("/tutorial1/images/cornFirst.png");
+        //sprites for third level
+        cornFirst = ImageLoader.loadImage("/tutorial1/images/corn3L.png");
+        cornSecond = ImageLoader.loadImage("/tutorial1/images/corn2L.png");
+        cornThird = ImageLoader.loadImage("/tutorial1/images/corn1L.png");
+        
+        pepperFirst = ImageLoader.loadImage("/tutorial1/images/pepper3L.png");
+        pepperSecond = ImageLoader.loadImage("/tutorial1/images/pepper2L.png");
+        pepperThird = ImageLoader.loadImage("/tutorial1/images/pepper1L.png");
+        
+        tomatoFirst = ImageLoader.loadImage("/tutorial1/images/tomato3L.png");
+        tomatoSecond = ImageLoader.loadImage("/tutorial1/images/tomato2L.png");
+        tomatoThird = ImageLoader.loadImage("/tutorial1/images/tomato1L.png");
+
+        water = ImageLoader.loadImage("/tutorial1/images/water.png");
+        playerLevel3 = ImageLoader.loadImage("/tutorial1/images/can.png");
+        
     }
 }

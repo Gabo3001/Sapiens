@@ -28,8 +28,7 @@ public class Nivel3 {
     private LinkedList<PlantLevel3> tomato;
     private BallLevel3 ball;
     private KeyManager keyManager;
-    private boolean start;          //Boolean that control the start
-    private boolean pause;          //Boolean that control the pause
+
 
 
 
@@ -42,26 +41,9 @@ public class Nivel3 {
         corn = new LinkedList<PlantLevel3>();
         pepper = new LinkedList<PlantLevel3>();
         tomato = new LinkedList<PlantLevel3>();
-        start = false;                  //Se inicializa start en false
-        pause = true;                   //Pause is initialize in true
+
     }
     
-    
-    public boolean isPause() {
-        return pause;
-    }
-
-    public void setPause(boolean pause) {
-        this.pause = pause;
-    }
-
-    public boolean isStart() {
-        return start;
-    }
-
-    public void setStart(boolean start) {
-        this.start = start;
-    }
     public int getWidth() {
         return width;
     }
@@ -99,30 +81,6 @@ public class Nivel3 {
         
          ball.tick();
         
-        //Si se preciona space
-        if (getKeyManager().space){
-            setStart(true);
-            //Start when space bar is pressed
-            ball.setSpeed(2);
-        }
-
-                //When p is press
-        if (getKeyManager().pause){
-            //if pause is true
-            if (isPause()){
-                //set pause to false
-                setPause(false);
-                //pStop is called set the key press back to false
-                getKeyManager().kStop();
-            }
-            //if pause is false
-            else{
-                //set pause to true
-                setPause(true);
-                //pStop is called set the key press back to false
-                getKeyManager().kStop();
-            }
-        }
         //Set the plants to their initial positions
             for (int i = 0; i < corn.size(); i++) {
                 PlantLevel3 plant =  corn.get(i);
@@ -237,6 +195,8 @@ public class Nivel3 {
                 PlantLevel3 plant =  tomato.get(i);
                 plant.render(g);
             }
+            
+            
             bs.show();
             g.dispose();
         }

@@ -132,7 +132,7 @@ public class BallLevel3 extends Item {
 
     @Override
     public void render(Graphics g) {
-         g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
+         g.drawImage(Assets.water, getX(), getY(), getWidth(), getHeight(), null);
     }
     /**
      * This function tells us when the ball intersects another object
