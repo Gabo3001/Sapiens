@@ -28,6 +28,12 @@ public class Nivel3 {
     private LinkedList<PlantLevel3> tomato;
     private BallLevel3 ball;
     private KeyManager keyManager;
+    private boolean start;
+    private Boton menu;
+    private Boton save;
+    private int scene;
+    private Animation next;
+
 
 
 
@@ -41,6 +47,9 @@ public class Nivel3 {
         corn = new LinkedList<PlantLevel3>();
         pepper = new LinkedList<PlantLevel3>();
         tomato = new LinkedList<PlantLevel3>();
+        start = false;
+        this.next = new Animation(Assets.nextA, 500);
+        scene = 0;
 
     }
     
@@ -52,8 +61,24 @@ public class Nivel3 {
         return height;
     }
 
-       public KeyManager getKeyManager() {
+    public KeyManager getKeyManager() {
         return keyManager;
+    }
+    
+    public void setStart(boolean start) {
+        this.start = start;
+    }
+
+    public boolean isStart() {
+        return start;
+    }
+    
+    public void setScene(int scene) {
+        this.scene = scene;
+    }
+
+    public int getScene() {
+        return scene;
     }
 
     public void init() {
@@ -72,26 +97,29 @@ public class Nivel3 {
           for(int i = 0; i < 4; i++){
             tomato.add(new PlantLevel3(1*(i*100) + 420, 100, 70, 70, game, 3, 3));
         }
+          
+        menu = new Boton(413, 360, 100, 50, game, 5);
+        save = new Boton(283, 360, 100, 50, game, 4);
         
     }
 
     public void tick() {
-         keyManager.tick();
+        
+        if (isStart() && !game.isPause()) {
+        keyManager.tick();
         player.tick();
+        ball.tick();
         
-         ball.tick();
-        
-        //Set the plants to their initial positions
+        //Make all corn plants tick
             for (int i = 0; i < corn.size(); i++) {
                 PlantLevel3 plant =  corn.get(i);
-                
                 plant.tick();
                 
                 if(ball.intersecta(plant) && plant.getLives() > 1){
-                //brick lose one life
+                //corn loses one life
                 plant.setLives(plant.getLives() - 1);
                 
-                //Make the ball bounce away from brick
+                //Make the ball bounce away from plant
                 if(ball.getDirection() == 1)
                     ball.setDirection(3);
                 
@@ -106,17 +134,16 @@ public class Nivel3 {
                 }
             }
             
-                    //Set the plants to their initial positions
+            //make all peppers tick
             for (int i = 0; i < pepper.size(); i++) {
                 PlantLevel3 plant =  pepper.get(i);
-                
                 plant.tick();
                 
                 if(ball.intersecta(plant) && plant.getLives() > 1){
-                //brick lose one life
+                //pepper plant lose one life
                 plant.setLives(plant.getLives() - 1);
                 
-                //Make the ball bounce away from brick
+                //Make the ball bounce away from plant
                 if(ball.getDirection() == 1)
                     ball.setDirection(3);
                 
@@ -131,16 +158,16 @@ public class Nivel3 {
                 }
             }
             
+            //Make tomato plants tick
              for (int i = 0; i < tomato.size(); i++) {
                 PlantLevel3 plant =  tomato.get(i);
-                
                 plant.tick();
                 
                 if(ball.intersecta(plant) && plant.getLives() > 1){
-                //brick lose one life
+                //tomato plant lose one life
                 plant.setLives(plant.getLives() - 1);
                 
-                //Make the ball bounce away from brick
+                //Make the ball bounce away from plant
                 if(ball.getDirection() == 1)
                     ball.setDirection(3);
                 
@@ -160,10 +187,34 @@ public class Nivel3 {
             //The direction of the ball is changed to 2
             ball.setDirection(2);
         }
+        
         //Si la pelota intersecta con el player en la mitad derecha
         else if (player.intersecta2(ball)) {
             //The direction of the ball is changed to 1
             ball.setDirection(1);
+        }
+       
+        }else {
+            //When the n key is pressed
+            if (game.getKeyManager().next) {
+                //If scene is minor to 3
+                if (getScene() < 3) {
+                    //the scene increase in 1
+                    setScene(getScene() + 1);
+                }
+                game.getKeyManager().kStop();
+            }
+            //Next animation tick is on
+            this.next.tick();
+            //Whene scee reach 3
+            if (getScene() == 3) {
+                //start is set on true
+                setStart(true);
+            }
+        }
+       //if menu is clicked
+       if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
+                game.setNivel(0);
         }
         
     }
@@ -175,7 +226,7 @@ public class Nivel3 {
             game.getDisplay().getCanvas().createBufferStrategy(3);
         } else {
             g = bs.getDrawGraphics();
-            
+            if (isStart()) {
              g.drawImage(Assets.backgroundLevel3, 0, 0, width, height, null);
              player.render(g);
              ball.render(g);
@@ -196,6 +247,25 @@ public class Nivel3 {
                 plant.render(g);
             }
             
+            if (game.isPause()) {
+                    g.drawImage(Assets.pauseN1, 250, 50, 300, 400, null);
+                    save.render(g);
+                    menu.render(g);
+                }
+            }else{
+                if(getScene() == 0){
+                    g.drawImage(Assets.rev1, 0, 0, width, height, null);
+                    g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
+                }
+                if(getScene() == 1){
+                    g.drawImage(Assets.info1, 0, 0, width, height, null);
+                    g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
+                }
+                if(getScene() == 2){
+                    g.drawImage(Assets.control1, 0, 0, width, height, null);
+                    g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
+                }
+            }
             
             bs.show();
             g.dispose();
