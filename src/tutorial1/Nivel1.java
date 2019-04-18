@@ -94,7 +94,7 @@ public class Nivel1 {
     }
 
     public void tick() {
-        //If start ios true
+        //If start is true
         if (isStart()) {
             player.tick();
             for (int i = 0; i < fruit.size(); i++) {

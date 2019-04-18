@@ -11,7 +11,7 @@ import java.awt.image.BufferStrategy;
 
 /**
  *
- * @author HOME
+ * @author CacToon
  */
 public class Game implements Runnable{
     
