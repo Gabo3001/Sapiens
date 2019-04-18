@@ -18,6 +18,9 @@ public class KeyManager implements KeyListener{
     public boolean down;
     public boolean left;
     public boolean right;
+    public boolean space;
+    public boolean pause;
+    public boolean next;
     
     private boolean keys[];
     
@@ -31,14 +34,34 @@ public class KeyManager implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // set true to every key pressed
-        keys[e.getKeyCode()] = true;
+        //if the key press is different of space, p or r
+        if (e.getKeyCode() != KeyEvent.VK_P && e.getKeyCode() != KeyEvent.VK_N){
+            // set true to every key pressed
+            keys[e.getKeyCode()] = true;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // set false to every key released
-        keys[e.getKeyCode()] = false;
+        if(e.getKeyCode() == KeyEvent.VK_P){
+            //set true p key
+            keys[e.getKeyCode()] = true;
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_N){
+            //set true n key
+            keys[e.getKeyCode()] = true;
+        }
+        else{
+            keys[e.getKeyCode()] = false;
+        }
+    }
+    /**
+     * this function set false to the space, r and p key
+     */
+    public void kStop(){
+        //Function that set on false p and n key
+        keys [KeyEvent.VK_P] = false;
+        keys [KeyEvent.VK_N] = false;
     }
     
     /**
@@ -49,5 +72,8 @@ public class KeyManager implements KeyListener{
         down = keys[KeyEvent.VK_DOWN];
         left = keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_RIGHT];
+        space = keys[KeyEvent.VK_SPACE];
+        pause = keys[KeyEvent.VK_P];
+        next = keys[KeyEvent.VK_N];
     }
 }
