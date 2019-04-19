@@ -6,6 +6,7 @@
 package tutorial1;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
@@ -34,6 +35,8 @@ public class Nivel3 {
     private int scene;
     private Animation next;
     int cont; //variable to delay collisions
+    int score;
+    int maturePlants;
 
 
 
@@ -52,6 +55,8 @@ public class Nivel3 {
         this.next = new Animation(Assets.nextA, 500);
         scene = 0;
         cont = 0;
+        score = 0;
+        maturePlants = 0;
       
     }
     
@@ -122,6 +127,12 @@ public class Nivel3 {
                 //corn loses one life
                 plant.setLives(plant.getLives() - 1);
                 
+                //get 50 points fore every mature plant
+                if (plant.getLives() < 2){
+                 score = score + 50;   
+                 maturePlants += 1;
+                }
+                
                 //Make the ball bounce away from plant
                 if(ball.getDirection() == 1)
                     ball.setDirection(3);
@@ -147,6 +158,11 @@ public class Nivel3 {
                 //pepper plant lose one life
                 plant.setLives(plant.getLives() - 1);
                 
+                //get 50 points fore every mature plant
+                if (plant.getLives() < 2){
+                 score = score + 50;   
+                 maturePlants += 1;
+                }
                 //Make the ball bounce away from plant
                 if(ball.getDirection() == 1)
                     ball.setDirection(3);
@@ -171,6 +187,12 @@ public class Nivel3 {
                     cont = 0;
                 //tomato plant lose one life
                 plant.setLives(plant.getLives() - 1);
+                
+                //get 50 points fore every mature plant
+                if (plant.getLives() < 2){
+                 score = score + 50;   
+                 maturePlants += 1;
+                };
                 
                 //Make the ball bounce away from plant
                 if(ball.getDirection() == 1)
@@ -207,9 +229,10 @@ public class Nivel3 {
             ball.setX(385);
             ball.setY(getHeight()-145);
             
-            //Se coloca al player en la posicion inicial
+            //Set player on initial position
             player.setX(330);
             player.setY(getHeight()-100);
+            score = score - 200;
             
         }
        
@@ -225,7 +248,7 @@ public class Nivel3 {
             }
             //Next animation tick is on
             this.next.tick();
-            //Whene scee reach 3
+            //When scene reaches 3
             if (getScene() == 3) {
                 //start is set on true
                 setStart(true);
@@ -271,6 +294,12 @@ public class Nivel3 {
                     save.render(g);
                     menu.render(g);
                 }
+            
+            //display score
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.setColor(Color.BLACK);
+                g.drawString("PUNTAJE: " + score, getWidth() - 150, 480);
+ 
             }else{
                 if(getScene() == 0){
                     g.drawImage(Assets.rev1, 0, 0, width, height, null);
