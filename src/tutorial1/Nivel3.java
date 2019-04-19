@@ -267,7 +267,7 @@ public class Nivel3 {
             }
             
             if (game.isPause()) {
-                    g.drawImage(Assets.pauseN1, 250, 50, 300, 400, null);
+                    g.drawImage(Assets.pauseN3, 250, 50, 300, 400, null);
                     save.render(g);
                     menu.render(g);
                 }
@@ -277,11 +277,11 @@ public class Nivel3 {
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
                 if(getScene() == 1){
-                    g.drawImage(Assets.info1, 0, 0, width, height, null);
+                    g.drawImage(Assets.info3, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
                 if(getScene() == 2){
-                    g.drawImage(Assets.control1, 0, 0, width, height, null);
+                    g.drawImage(Assets.control3, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
             }
