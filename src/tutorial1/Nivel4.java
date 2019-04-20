@@ -142,7 +142,7 @@ public class Nivel4 {
      */
     public void tick(){
         if(getTimer()/60==0){
-            game.setNivel(1);
+            game.setNivel(5);
         }
         player.tick();
          for(int i=0;i<arrow.size();i++){
