@@ -83,7 +83,7 @@ public class Menu {
 
 
             //The game move to the first minigame
-            game.setNivel(1);
+            game.setNivel(4);
 
 
         }

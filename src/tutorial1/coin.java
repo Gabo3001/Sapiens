@@ -10,23 +10,22 @@ import java.awt.Rectangle;
 
 /**
  *
- * @author Garzafox
+ * @author Electel
  */
-public class Arrow4 extends Item{
-    private int direction;
+public class coin extends Item{
+     private int direction;
     private Game game;
     private int width;
     private int height;
     private int speed;
     private boolean attack;
     
-    public Arrow4(int x, int y, int width, int height, Game game) {
+    public coin(int x, int y, int width, int height, Game game) {
         super(x,y);
-        this.direction = 2;
         this.game = game;
         this.width = width;
         this.height = height;
-        speed = 4;
+        speed = 3;
         this.attack = true;
     }
 
@@ -74,7 +73,6 @@ public class Arrow4 extends Item{
                 //setX(game.getWidth());
             }
         }
-
     }
     
     public Rectangle getPerimetro() {
@@ -85,6 +83,6 @@ public class Arrow4 extends Item{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.arrow, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(Assets.coin, getX(), getY(), getWidth(), getHeight(), null);
     }
 }
