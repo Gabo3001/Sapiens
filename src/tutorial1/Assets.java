@@ -36,6 +36,11 @@ public class Assets {
     
     //Level 3
     public static BufferedImage backgroundLevel3;
+    public static BufferedImage water;
+    public static BufferedImage playerLevel3; 
+    public static BufferedImage pauseN3;
+    public static BufferedImage control3;
+    public static BufferedImage info3;
     public static BufferedImage cornFirst; //sprite for corn's first stage
     public static BufferedImage cornSecond; //sprite for corn's second stage
     public static BufferedImage cornThird; //sprite for corn's third stage
@@ -45,8 +50,7 @@ public class Assets {
     public static BufferedImage tomatoFirst; //sprite for tomato's first stage
     public static BufferedImage tomatoSecond; //sprite for tomato's second stage
     public static BufferedImage tomatoThird; //sprite for tomato's third stage
-    public static BufferedImage water;
-    public static BufferedImage playerLevel3; 
+    
     
     
     public static void init(){
@@ -89,6 +93,10 @@ public class Assets {
         cornFirst = ImageLoader.loadImage("/tutorial1/images/corn3L.png");
         cornSecond = ImageLoader.loadImage("/tutorial1/images/corn2L.png");
         cornThird = ImageLoader.loadImage("/tutorial1/images/corn1L.png");
+        
+        control3 = ImageLoader.loadImage("/tutorial1/images/Controles_N3.png");
+        info3 = ImageLoader.loadImage("/tutorial1/images/Info_N3.png");
+        pauseN3 = ImageLoader.loadImage("/tutorial1/images/Pausa_N3.png");
         
         pepperFirst = ImageLoader.loadImage("/tutorial1/images/pepper3L.png");
         pepperSecond = ImageLoader.loadImage("/tutorial1/images/pepper2L.png");
