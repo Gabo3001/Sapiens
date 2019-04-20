@@ -115,4 +115,5 @@ public class Player extends Item {
             g.drawImage(Assets.playerLevel1, getX(), getY(), getHeight(), getWidth(), null);
         }
     }
+
 }

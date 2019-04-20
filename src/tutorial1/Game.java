@@ -11,7 +11,7 @@ import java.awt.image.BufferStrategy;
 
 /**
  *
- * @author HOME
+ * @author CacToon
  */
 public class Game implements Runnable {
 
@@ -24,14 +24,19 @@ public class Game implements Runnable {
     private boolean running;
     private Menu menu;
     private Nivel1 nivel1;
+
+    private Nivel3 nivel3;
+
     private Nivel4 nivel4;
     private Nivel5 nivel5;
+
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private int score;
     private boolean pause;
 
     public Game(String title, int width, int height) {
+
         this.title = title;
         this.width = width;
         this.height = height;
@@ -84,8 +89,14 @@ public class Game implements Runnable {
         nivel4 = new Nivel4(title, getWidth(), getHeight(), this);
         nivel4.init();
 
+
+                nivel3 = new Nivel3(title,getWidth(),getHeight(),this);
+                nivel3.init();
+        
+
         nivel5 = new Nivel5(title, getWidth(), getHeight(), this);
         nivel5.init();
+
 
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -150,11 +161,16 @@ public class Game implements Runnable {
             case 1:
                 nivel1.tick();
                 break;
+
+            case 3:
+                nivel3.tick();
+
             case 4:
                 nivel4.tick();
                 break;
             case 5:
                 nivel5.tick();
+
                 break;
         }
         //if p is pressed
@@ -164,12 +180,16 @@ public class Game implements Runnable {
                 //set pause to false
                 setPause(false);
             } //if pause is false
+
             else if (!isPause() && getNivel() != 0) {
+
                 //set pause to true
                 setPause(true);
             }
             //pStop is called set the key press back to false
+
             getKeyManager().kStop();
+
         }
     }
 
@@ -180,6 +200,11 @@ public class Game implements Runnable {
                 break;
             case 1:
                 nivel1.render();
+
+                break;
+            case 3:
+                nivel3.render();
+
                 break;
             case 4:
                 nivel4.render();
