@@ -1,0 +1,125 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tutorial1;
+
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
+/**
+ *
+ * @author Natalia Gonzalez, Gabriel Ortega
+ */
+public class PlantLevel3 extends Item{
+
+    private int width;
+    private int height;
+    private Game game;
+    private int lives;
+    private int type;
+    
+
+    public PlantLevel3(int x, int y, int width, int height, Game game, int type, int lives) {
+        super(x, y);
+        this.width = width;
+        this.height = height;
+        this.game = game;
+        //types:  corn(1), big bricks (2), power(3)
+        this.type = type;
+        this.lives = lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public int getType() {
+        return type;
+    }
+    
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    
+    @Override
+    public void tick() {
+        
+        if(getLives() ==  0)
+            setX(game.getWidth() + 50);
+            
+        
+    }
+    /**
+     * Creates a rectangle around the brick
+     * 
+     * @return a rectangle with the dimensions of the plant
+     */
+    public Rectangle getPerimetro() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    }
+
+    @Override
+    public void render(Graphics g) {
+        if(getType() == 1){
+            if(getLives() == 3)
+            g.drawImage(Assets.cornFirst, getX(), getY(), getWidth(), getHeight(), null);
+            //bigBrick after one hit
+            if(getLives() == 2)
+            g.drawImage(Assets.cornSecond, getX(), getY(), getWidth(), getHeight(), null);
+            
+            if(getLives() == 1)
+            g.drawImage(Assets.cornThird, getX(), getY(), getWidth(), getHeight(), null);
+        }
+          
+        
+        if(getType() == 2){
+            //bigBrick with no damage
+            if(getLives() == 3)
+            g.drawImage(Assets.pepperFirst, getX(), getY(), getWidth(), getHeight(), null);
+            //bigBrick after one hit
+            if(getLives() == 2)
+            g.drawImage(Assets.pepperSecond, getX(), getY(), getWidth(), getHeight(), null);
+            
+            if(getLives() == 1)
+            g.drawImage(Assets.pepperThird, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        
+        
+         if(getType() == 3){
+            //bigBrick with no damage
+            if(getLives() == 3)
+            g.drawImage(Assets.tomatoFirst, getX(), getY(), getWidth(), getHeight(), null);
+            //bigBrick after one hit
+            if(getLives() == 2)
+            g.drawImage(Assets.tomatoSecond, getX(), getY(), getWidth(), getHeight(), null);
+            
+            if(getLives() == 1)
+            g.drawImage(Assets.tomatoThird, getX(), getY(), getWidth(), getHeight(), null);
+        }
+       
+        
+    }
+    
+   
+}

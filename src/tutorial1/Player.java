@@ -19,13 +19,8 @@ public class Player extends Item {
     private int height;
     private Game game;
     private int speed;
-    private boolean jumping;
-    private boolean gravity;
     private Animation animationRight;
     private Animation animationLeft;
-    
-    
-
 
     public Player(int x, int y, int direction, int width, int height, Game game) {
         super(x, y);
@@ -34,8 +29,6 @@ public class Player extends Item {
         this.height = height;
         this.game = game;
         this.speed = direction;
-        this.jumping = false;
-        this.gravity = false;
         this.animationRight = new Animation(Assets.playerRight, 100);
         this.animationLeft = new Animation(Assets.playerLeft, 100);
     }
@@ -71,38 +64,28 @@ public class Player extends Item {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    
-    public void isJumping(boolean bJ){
-        this.jumping = bJ;
-    }
-    public void isGravity(boolean bG){
-        this.gravity = bG;
-    }  
-    
-    
+
     @Override
     public void tick() {
+
         if(!game.isPause()){
             if (game.getKeyManager().left){
                 this.animationLeft.tick();
                 setX(getX() - getSpeed());
             }
             if (game.getKeyManager().right){
+
                 this.animationRight.tick();
                 setX(getX() + getSpeed());
             }
             // reset x position and y position if colision
-            if (getX() + 60 >= game.getWidth()){
+            if (getX() + 60 >= game.getWidth()) {
                 setX(game.getWidth() - 60);
-            }
-            else if (getX() <= 0){
+            } else if (getX() <= 0) {
                 setX(0);
             }
         }
 
-
-
-        
 
     }
 

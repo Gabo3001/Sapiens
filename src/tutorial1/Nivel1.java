@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -96,11 +97,11 @@ public class Nivel1 {
     }
 
     public void tick() {
-        if(getCont()==100){
-            game.setNivel(4);
+        if (getCont() == 100) {
+            game.setNivel(5);
         }
 
-        //If start ios true
+        //If start is true
         if (isStart()) {
             player.tick();
             for (int i = 0; i < fruit.size(); i++) {
@@ -185,17 +186,16 @@ public class Nivel1 {
                 g.setColor(Color.WHITE);
                 g.drawString("PUNTAJE: " + game.getScore(), 2, 480);
                 g.drawString("MANZANAS: " + getCont(), 650, 480);
-            }
-            else{
-                if(getScene() == 0){
-                    g.drawImage(Assets.rev1, 0, 0, width, height, null);
+            } else {
+                if (getScene() == 0) {
+                    g.drawImage(Assets.rev2, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
-                if(getScene() == 1){
+                if (getScene() == 1) {
                     g.drawImage(Assets.info1, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
-                if(getScene() == 2){
+                if (getScene() == 2) {
                     g.drawImage(Assets.control1, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
@@ -206,3 +206,4 @@ public class Nivel1 {
     }
 
 }
+
