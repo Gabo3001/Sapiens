@@ -80,8 +80,12 @@ public class Menu {
         }
         //if start is clicked
         if (start.intersecta(game.getMouseManager())) {
+
+
             //The game move to the first minigame
-            game.setNivel(3);
+            game.setNivel(1);
+
+
         }
     }
 

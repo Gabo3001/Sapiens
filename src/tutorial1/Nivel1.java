@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -46,7 +47,9 @@ public class Nivel1 {
 
     public void init() {
         //Start, help and back are initialized
+
         player = new Player(300, 350, 3, 80, 60, game);
+
         int iX;
         int range;
         int iY;
@@ -94,6 +97,10 @@ public class Nivel1 {
     }
 
     public void tick() {
+        if (getCont() == 100) {
+            game.setNivel(5);
+        }
+
         //If start is true
         if (isStart()) {
             player.tick();
@@ -128,6 +135,7 @@ public class Nivel1 {
                         game.setScore(game.getScore() - 5);
                     }
                 }
+
             }
 
             //if menu is clicked
@@ -178,17 +186,16 @@ public class Nivel1 {
                 g.setColor(Color.WHITE);
                 g.drawString("PUNTAJE: " + game.getScore(), 2, 480);
                 g.drawString("MANZANAS: " + getCont(), 650, 480);
-            }
-            else{
-                if(getScene() == 0){
-                    g.drawImage(Assets.rev1, 0, 0, width, height, null);
+            } else {
+                if (getScene() == 0) {
+                    g.drawImage(Assets.rev2, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
-                if(getScene() == 1){
+                if (getScene() == 1) {
                     g.drawImage(Assets.info1, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
-                if(getScene() == 2){
+                if (getScene() == 2) {
                     g.drawImage(Assets.control1, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
@@ -199,3 +206,4 @@ public class Nivel1 {
     }
 
 }
+
