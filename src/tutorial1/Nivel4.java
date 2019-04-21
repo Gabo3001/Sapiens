@@ -86,13 +86,11 @@ public class Nivel4 {
     public int getWidth() {
         return width;
     }
-
     public int getScore() {
         return score;
     }
-
-    public void setScore(int s) {
-        this.score = s;
+    public void setScore(int s){
+        this.score=s;
     }
 
     public int getHeight() {
@@ -238,6 +236,7 @@ public class Nivel4 {
                 setStart(true);
             }
         }
+
     }
 
     public void render() {
@@ -245,7 +244,7 @@ public class Nivel4 {
 
         if (bs == null) {
             game.getDisplay().getCanvas().createBufferStrategy(3);
-        } else {
+        } else if(!game.isPause()){
             g = bs.getDrawGraphics();
             if (isStart() && !game.isPause()) {
                 g.drawImage(Assets.backgroundLevel1, getWidth() - getMvBk(), 0, width, height, null);

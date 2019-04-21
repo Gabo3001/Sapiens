@@ -40,7 +40,7 @@ public class Game implements Runnable {
         this.title = title;
         this.width = width;
         this.height = height;
-        this.nivel = 5;
+        this.nivel = 0;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
@@ -177,6 +177,7 @@ public class Game implements Runnable {
                 break;
             case 5:
                 nivel5.tick();
+
                 break;
         }
         //if p is pressed
@@ -206,6 +207,7 @@ public class Game implements Runnable {
                 break;
             case 1:
                 nivel1.render();
+
                 break;
             case 3:
                 nivel3.render();

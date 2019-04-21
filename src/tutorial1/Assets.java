@@ -24,11 +24,14 @@ public class Assets {
     public static BufferedImage backgroundLevel1;
     public static BufferedImage playerLevel1;
     public static BufferedImage fruit;
+
     public static BufferedImage menu;
     public static BufferedImage save;
     public static BufferedImage pauseN1;
     public static BufferedImage rev1;
+
     public static BufferedImage rev2;
+
     public static BufferedImage info1;
     public static BufferedImage control1;
     public static BufferedImage next;
@@ -118,11 +121,15 @@ public class Assets {
         pauseN4 = ImageLoader.loadImage("/tutorial1/images/Pausa_N4.png");
         
         //Assets level 1
+
+
         menu = ImageLoader.loadImage("/tutorial1/images/Menu.png");
         save = ImageLoader.loadImage("/tutorial1/images/Save.png");
         pauseN1 = ImageLoader.loadImage("/tutorial1/images/Pausa_N1.png");
         rev1 = ImageLoader.loadImage("/tutorial1/images/Rev_ag.png");
+
         rev2 = ImageLoader.loadImage("/tutorial1/images/Rev_cog.png");
+
         info1 = ImageLoader.loadImage("/tutorial1/images/Info_N1.png");
         control1 = ImageLoader.loadImage("/tutorial1/images/Controles_N1.png");
         next = ImageLoader.loadImage("/tutorial1/images/Next.png");
@@ -142,6 +149,32 @@ public class Assets {
             playerLeft[i] = spritesheetL.crop(i * 198, 0, 187, 299);
         }
         //croping the pictures from the sheet int the array
+
+        for (int i = 0; i < 2; i++){
+            nextA[i] = spritesheetN.crop(i * 331, 0, 331, 34);
+        }
+        eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);   
+        
+        //sprites for third level
+        cornFirst = ImageLoader.loadImage("/tutorial1/images/corn3L.png");
+        cornSecond = ImageLoader.loadImage("/tutorial1/images/corn2L.png");
+        cornThird = ImageLoader.loadImage("/tutorial1/images/corn1L.png");
+        
+        control3 = ImageLoader.loadImage("/tutorial1/images/Controles_N3.png");
+        info3 = ImageLoader.loadImage("/tutorial1/images/Info_N3.png");
+        pauseN3 = ImageLoader.loadImage("/tutorial1/images/Pausa_N3.png");
+        
+        pepperFirst = ImageLoader.loadImage("/tutorial1/images/pepper3L.png");
+        pepperSecond = ImageLoader.loadImage("/tutorial1/images/pepper2L.png");
+        pepperThird = ImageLoader.loadImage("/tutorial1/images/pepper1L.png");
+        
+        tomatoFirst = ImageLoader.loadImage("/tutorial1/images/tomato3L.png");
+        tomatoSecond = ImageLoader.loadImage("/tutorial1/images/tomato2L.png");
+        tomatoThird = ImageLoader.loadImage("/tutorial1/images/tomato1L.png");
+
+        water = ImageLoader.loadImage("/tutorial1/images/water.png");
+        playerLevel3 = ImageLoader.loadImage("/tutorial1/images/can.png");
+
         for (int i = 0; i < 2; i++) {
             nextA[i] = spritesheetN.crop(i * 331, 0, 331, 34);
         }
