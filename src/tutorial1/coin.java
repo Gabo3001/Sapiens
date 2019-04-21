@@ -1,16 +1,9 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package tutorial1;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -19,20 +12,21 @@ import java.awt.Rectangle;
  *
  * @author Electel
  */
-public class Fruit extends Item{
-    private int direction;
+public class coin extends Item{
+     private int direction;
     private Game game;
     private int width;
     private int height;
     private int speed;
+    private boolean attack;
     
-    public Fruit(int x, int y, int width, int height, Game game) {
+    public coin(int x, int y, int width, int height, Game game) {
         super(x,y);
-        this.direction = 2;
         this.game = game;
         this.width = width;
         this.height = height;
-        speed = 4;
+        speed = 3;
+        this.attack = true;
     }
 
     public int getSpeed() {
@@ -49,7 +43,7 @@ public class Fruit extends Item{
     public void setWidth(int w){
         this.width=w;
     }
-        public int getHeight(){
+    public int getHeight(){
         return height;
     }
     public void setHeight(int h){
@@ -64,25 +58,31 @@ public class Fruit extends Item{
     public void setDirection(int direction) {
         this.direction = direction;
     }
+    
+    public void isAttack(boolean bA){
+        this.attack=bA;
+    }
 
 
     @Override
     public void tick() {
         if(!game.isPause()){
-            setY(getY()+getSpeed());
+            if(attack)
+            setX(getX()-getSpeed());
+            if(getX()<0-getWidth()){
+                //setX(game.getWidth());
+            }
         }
     }
-    /**
-     * Funtion that get the perimeter of the fruit
-     * @return a rectangle with the perimeter of the fruit
-     */
+    
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
     
+
+
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
+        g.drawImage(Assets.coin, getX(), getY(), getWidth(), getHeight(), null);
     }
 }
-

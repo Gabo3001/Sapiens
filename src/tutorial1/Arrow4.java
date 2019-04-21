@@ -18,6 +18,7 @@ public class Arrow4 extends Item{
     private int width;
     private int height;
     private int speed;
+    private boolean attack;
     
     public Arrow4(int x, int y, int width, int height, Game game) {
         super(x,y);
@@ -25,7 +26,8 @@ public class Arrow4 extends Item{
         this.game = game;
         this.width = width;
         this.height = height;
-        speed = 3;
+        speed = 4;
+        this.attack = true;
     }
 
     public int getSpeed() {
@@ -57,11 +59,22 @@ public class Arrow4 extends Item{
     public void setDirection(int direction) {
         this.direction = direction;
     }
+    
+    public void isAttack(boolean bA){
+        this.attack=bA;
+    }
 
 
     @Override
     public void tick() {
-        setX(getX()-getSpeed());
+        if(!game.isPause()){
+            if(attack)
+            setX(getX()-getSpeed());
+            if(getX()<0-getWidth()){
+                //setX(game.getWidth());
+            }
+        }
+
     }
     
     public Rectangle getPerimetro() {

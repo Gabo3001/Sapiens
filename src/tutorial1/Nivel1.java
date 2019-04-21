@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -97,7 +98,7 @@ public class Nivel1 {
 
     public void tick() {
         if (getCont() == 100) {
-            game.setNivel(5);
+            game.setNivel(3);
         }
 
         //If start is true
@@ -139,6 +140,7 @@ public class Nivel1 {
 
             //if menu is clicked
             if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
+                game.setWhatLevel(1);
                 game.setNivel(0);
             }
         } else {
@@ -205,3 +207,4 @@ public class Nivel1 {
     }
 
 }
+

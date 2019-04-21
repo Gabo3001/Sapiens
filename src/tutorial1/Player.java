@@ -67,12 +67,14 @@ public class Player extends Item {
 
     @Override
     public void tick() {
-        if (!game.isPause()) {
-            if (game.getKeyManager().left) {
+
+        if(!game.isPause()){
+            if (game.getKeyManager().left){
                 this.animationLeft.tick();
                 setX(getX() - getSpeed());
             }
-            if (game.getKeyManager().right) {
+            if (game.getKeyManager().right){
+
                 this.animationRight.tick();
                 setX(getX() + getSpeed());
             }
@@ -83,6 +85,7 @@ public class Player extends Item {
                 setX(0);
             }
         }
+
 
     }
 
@@ -107,7 +110,7 @@ public class Player extends Item {
 
     @Override
     public void render(Graphics g) {
-        if (game.getKeyManager().right && !game.isPause()) {
+        if (game.getKeyManager().right && !game.isPause()||(game.getNivel()==4)) {
             g.drawImage(animationRight.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);
         } else if (game.getKeyManager().left && !game.isPause()) {
             g.drawImage(animationLeft.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);
@@ -115,4 +118,5 @@ public class Player extends Item {
             g.drawImage(Assets.playerLevel1, getX(), getY(), getHeight(), getWidth(), null);
         }
     }
+
 }

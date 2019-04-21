@@ -19,6 +19,7 @@ public class Assets {
     public static BufferedImage help;
     public static BufferedImage info;
     public static BufferedImage back;
+
     //level one assets
     public static BufferedImage backgroundLevel1;
     public static BufferedImage playerLevel1;
@@ -37,8 +38,36 @@ public class Assets {
     public static BufferedImage playerRight[];
     public static BufferedImage playerLeft[];
     public static SoundClip eat;
+    public static SoundClip natural;
+
+    //Level 3
+    public static BufferedImage backgroundLevel3;
+    public static BufferedImage water;
+    public static BufferedImage playerLevel3;
+    public static BufferedImage pauseN3;
+    public static BufferedImage control3;
+    public static BufferedImage info3;
+    public static BufferedImage cornFirst; //sprite for corn's first stage
+    public static BufferedImage cornSecond; //sprite for corn's second stage
+    public static BufferedImage cornThird; //sprite for corn's third stage
+    public static BufferedImage pepperFirst; //sprite for pepper's first stage
+    public static BufferedImage pepperSecond; //sprite for pepper's second stage
+    public static BufferedImage pepperThird; //sprite for pepper's third stage
+    public static BufferedImage tomatoFirst; //sprite for tomato's first stage
+    public static BufferedImage tomatoSecond; //sprite for tomato's second stage
+    public static BufferedImage tomatoThird; //sprite for tomato's third stage
+
     //Level 4 assets
     public static BufferedImage arrow;
+    public static BufferedImage coin;
+    public static BufferedImage bkmirror;
+    public static BufferedImage knight;
+    public static SoundClip target;
+    public static SoundClip cash;
+    public static BufferedImage info4;
+    public static BufferedImage control4;
+    public static BufferedImage pauseN4;
+    
     //Level 5 assets
     public static BufferedImage backgroundLevel5;
     public static BufferedImage Gary;
@@ -66,14 +95,28 @@ public class Assets {
 
     public static void init() {
         //Assets Menu
+
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
         backgroundLevel1 = ImageLoader.loadImage("/tutorial1/images/BkLvl1.jpeg");
+        backgroundLevel3 = ImageLoader.loadImage("/tutorial1/images/field.png");
         playerLevel1 = ImageLoader.loadImage("/tutorial1/images/monito.png");
         fruit = ImageLoader.loadImage("/tutorial1/images/manzana.png");
         start = ImageLoader.loadImage("/tutorial1/images/Inicio.png");
         help = ImageLoader.loadImage("/tutorial1/images/Ayuda.png");
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
         back = ImageLoader.loadImage("/tutorial1/images/Back.png");
+        
+        //level 4 assets
+        bkmirror = ImageLoader.loadImage("/tutorial1/images/BkLvl1_mirror.jpg");
+        eat = new SoundClip("/tutorial1/sounds/eat.wav", -3f, false);
+        cash = new SoundClip("/tutorial1/sounds/coin.wav", -3f, false);
+        target = new SoundClip("/tutorial1/sounds/arrow.wav", -3f, false);
+        coin = ImageLoader.loadImage("/tutorial1/images/coin.png");
+        arrow = ImageLoader.loadImage("/tutorial1/images/arrow.png");
+        control4 = ImageLoader.loadImage("/tutorial1/images/Controles_N4.png");
+        info4 = ImageLoader.loadImage("/tutorial1/images/Info_N4.png");
+        pauseN4 = ImageLoader.loadImage("/tutorial1/images/Pausa_N4.png");
+        
         //Assets level 1
         menu = ImageLoader.loadImage("/tutorial1/images/Menu.png");
         save = ImageLoader.loadImage("/tutorial1/images/Save.png");
@@ -83,6 +126,7 @@ public class Assets {
         info1 = ImageLoader.loadImage("/tutorial1/images/Info_N1.png");
         control1 = ImageLoader.loadImage("/tutorial1/images/Controles_N1.png");
         next = ImageLoader.loadImage("/tutorial1/images/Next.png");
+        knight = ImageLoader.loadImage("/tutorial1/images/knight.png");
         spritesR = ImageLoader.loadImage("/tutorial1/images/Player1R.png");
         spritesL = ImageLoader.loadImage("/tutorial1/images/Player1L.png");
         SpriteSheet spritesheet = new SpriteSheet(spritesR);
@@ -93,6 +137,7 @@ public class Assets {
         nextA = new BufferedImage[2];
         //croping the pictures from the sheet int the array
         for (int i = 0; i < 3; i++) {
+
             playerRight[i] = spritesheet.crop(i * 198, 0, 187, 299);
             playerLeft[i] = spritesheetL.crop(i * 198, 0, 187, 299);
         }
@@ -102,8 +147,22 @@ public class Assets {
         }
         eat = new SoundClip("/tutorial1/sounds/eat.wav", -3f, false);
 
-        //Assets level 4
-        arrow = ImageLoader.loadImage("/tutorial1/images/arrow.png");
+        //level 3 assets
+        cornFirst = ImageLoader.loadImage("/tutorial1/images/corn3L.png");
+        cornSecond = ImageLoader.loadImage("/tutorial1/images/corn2L.png");
+        cornThird = ImageLoader.loadImage("/tutorial1/images/corn1L.png");
+        control3 = ImageLoader.loadImage("/tutorial1/images/Controles_N3.png");
+        info3 = ImageLoader.loadImage("/tutorial1/images/Info_N3.png");
+        pauseN3 = ImageLoader.loadImage("/tutorial1/images/Pausa_N3.png");
+        pepperFirst = ImageLoader.loadImage("/tutorial1/images/pepper3L.png");
+        pepperSecond = ImageLoader.loadImage("/tutorial1/images/pepper2L.png");
+        pepperThird = ImageLoader.loadImage("/tutorial1/images/pepper1L.png");
+        tomatoFirst = ImageLoader.loadImage("/tutorial1/images/tomato3L.png");
+        tomatoSecond = ImageLoader.loadImage("/tutorial1/images/tomato2L.png");
+        tomatoThird = ImageLoader.loadImage("/tutorial1/images/tomato1L.png");
+        water = ImageLoader.loadImage("/tutorial1/images/water.png");
+        playerLevel3 = ImageLoader.loadImage("/tutorial1/images/can.png");
+
         //Assets level 5
         backgroundLevel5 = ImageLoader.loadImage("/tutorial1/images/Background_N5.jpeg");
         Gary = ImageLoader.loadImage("/tutorial1/images/Gary.png");
@@ -128,5 +187,6 @@ public class Assets {
         info5 = ImageLoader.loadImage("/tutorial1/images/Info_N5.png");
         control5 = ImageLoader.loadImage("/tutorial1/images/Controles_N5.png");
         blink = new SoundClip("/tutorial1/sounds/blink.wav", -3f, false);
-}
+    }
+
 }

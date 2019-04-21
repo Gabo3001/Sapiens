@@ -80,10 +80,11 @@ public class Menu {
         }
         //if start is clicked
         if (start.intersecta(game.getMouseManager())) {
-
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
             //The game move to the first minigame
-            game.setNivel(1);
-
+            game.setNivel(game.getWhatLevel());
         }
     }
 
