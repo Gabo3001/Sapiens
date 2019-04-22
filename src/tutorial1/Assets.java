@@ -42,6 +42,20 @@ public class Assets {
     public static BufferedImage playerLeft[];
     public static SoundClip eat;
     public static SoundClip natural;
+    
+    
+    
+    //Level 2
+
+    public static BufferedImage laser;
+    public static BufferedImage mamut;
+    public static BufferedImage AlienImages[];
+    public static BufferedImage alienSprites;
+    public static BufferedImage backgroundN2;
+    public static BufferedImage fire;
+    public static BufferedImage MamutImages[];
+    public static BufferedImage mamutSprites;
+    
 
     //Level 3
     public static BufferedImage backgroundLevel3;
@@ -101,6 +115,7 @@ public class Assets {
 
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
         backgroundLevel1 = ImageLoader.loadImage("/tutorial1/images/BkLvl1.jpeg");
+        backgroundN2 = ImageLoader.loadImage("/tutorial1/images/BackgroundN2.png");
         backgroundLevel3 = ImageLoader.loadImage("/tutorial1/images/field.png");
         playerLevel1 = ImageLoader.loadImage("/tutorial1/images/monito.png");
         fruit = ImageLoader.loadImage("/tutorial1/images/manzana.png");
@@ -120,8 +135,8 @@ public class Assets {
         info4 = ImageLoader.loadImage("/tutorial1/images/Info_N4.png");
         pauseN4 = ImageLoader.loadImage("/tutorial1/images/Pausa_N4.png");
         
+ 
         //Assets level 1
-
 
         menu = ImageLoader.loadImage("/tutorial1/images/Menu.png");
         save = ImageLoader.loadImage("/tutorial1/images/Save.png");
@@ -153,7 +168,27 @@ public class Assets {
         for (int i = 0; i < 2; i++){
             nextA[i] = spritesheetN.crop(i * 331, 0, 331, 34);
         }
-        eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);   
+        eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);  
+        
+        //Assets level 2
+        laser = ImageLoader.loadImage("/tutorial1/images/arrowN2.png");
+        mamut = ImageLoader.loadImage("/tutorial1/images/mamut1.png");
+        alienSprites = ImageLoader.loadImage("/tutorial1/images/SpaceInvaders.png");
+        SpriteSheet alienSpriteSheet = new SpriteSheet(alienSprites);
+        AlienImages = new BufferedImage[14];
+        for(int k = 0; k < 14; k++){
+           AlienImages[k] = alienSpriteSheet.crop(0+16*k,17,15,15);}
+        
+        mamutSprites = ImageLoader.loadImage("/tutorial1/images/Mamut.png");
+        SpriteSheet mamutSpriteSheet = new SpriteSheet(mamutSprites);
+        MamutImages = new BufferedImage[14];
+        for(int k = 0; k < 14; k++){
+           MamutImages[k] = alienSpriteSheet.crop(0+16*k,17,15,15);}
+        
+        //BombImages = new BufferedImage[2];
+       // BombImages[0] = alienSpriteSheet.crop(48,0,8,16);
+       // BombImages[1] = alienSpriteSheet.crop(56,0,8,16);
+        fire = ImageLoader.loadImage("/tutorial1/images/fire.png");
         
         //sprites for third level
         cornFirst = ImageLoader.loadImage("/tutorial1/images/corn3L.png");
