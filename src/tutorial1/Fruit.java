@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -67,17 +68,21 @@ public class Fruit extends Item{
 
     @Override
     public void tick() {
-        setY(getY()+getSpeed());
+        if(!game.isPause()){
+            setY(getY()+getSpeed());
+        }
     }
-    
+    /**
+     * Funtion that get the perimeter of the fruit
+     * @return a rectangle with the perimeter of the fruit
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
     
-
-
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.fruit, getX(), getY(), getWidth(), getHeight(), null);
     }
 }
+
