@@ -54,7 +54,9 @@ public class Assets {
     public static BufferedImage backgroundN2;
     public static BufferedImage fire;
     public static BufferedImage MamutImages[];
-    public static BufferedImage mamutSprites;
+    public static BufferedImage hogRight[];
+    public static BufferedImage hogLeft[];
+    public static BufferedImage hogSprites;
     
 
     //Level 3
@@ -173,17 +175,20 @@ public class Assets {
         //Assets level 2
         laser = ImageLoader.loadImage("/tutorial1/images/arrowN2.png");
         mamut = ImageLoader.loadImage("/tutorial1/images/mamut1.png");
-        alienSprites = ImageLoader.loadImage("/tutorial1/images/SpaceInvaders.png");
-        SpriteSheet alienSpriteSheet = new SpriteSheet(alienSprites);
-        AlienImages = new BufferedImage[14];
-        for(int k = 0; k < 14; k++){
-           AlienImages[k] = alienSpriteSheet.crop(0+16*k,17,15,15);}
+//        alienSprites = ImageLoader.loadImage("/tutorial1/images/SpaceInvaders.png");
+ //       SpriteSheet alienSpriteSheet = new SpriteSheet(alienSprites);
+ //       AlienImages = new BufferedImage[14];
+ //       for(int k = 0; k < 14; k++){
+//           AlienImages[k] = alienSpriteSheet.crop(0+16*k,17,15,15);}
         
-        mamutSprites = ImageLoader.loadImage("/tutorial1/images/Mamut.png");
-        SpriteSheet mamutSpriteSheet = new SpriteSheet(mamutSprites);
-        MamutImages = new BufferedImage[14];
-        for(int k = 0; k < 14; k++){
-           MamutImages[k] = alienSpriteSheet.crop(0+16*k,17,15,15);}
+        hogSprites = ImageLoader.loadImage("/tutorial1/images/jabali.png");
+        SpriteSheet hogSpriteSheet = new SpriteSheet(hogSprites);
+        hogLeft = new BufferedImage[3];
+        hogRight = new BufferedImage[3];
+        for(int k = 0; k < 3; k++){
+           hogLeft[k] = hogSpriteSheet.crop(0+46*k,0,48,32);}
+        for(int k = 0; k < 3; k++){
+           hogRight[k] = hogSpriteSheet.crop(0+46*k,48,48,32);}
         
         //BombImages = new BufferedImage[2];
        // BombImages[0] = alienSpriteSheet.crop(48,0,8,16);

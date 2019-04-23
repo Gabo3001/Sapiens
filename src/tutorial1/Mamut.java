@@ -25,8 +25,8 @@ public class Mamut extends Item{
     private Game game;
     private boolean alive;
     private boolean showpoints;
-    private Animation Alien;
-    private Animation Mamut;
+    private Animation leftAnimation;
+    private Animation rightAnimation;
     private int direction;
     private int time;
     
@@ -36,8 +36,9 @@ public Mamut(int x, int y, int width, int height, Game game) {
         this.width = width;
         this.height = height;
         this.game = game;
-        this.Alien = new Animation(Assets.AlienImages, 100);
-        this.Mamut = new Animation(Assets.MamutImages, 100);
+ //       this.Alien = new Animation(Assets.AlienImages, 100);
+        this.leftAnimation = new Animation(Assets.hogLeft, 100);
+        this.rightAnimation = new Animation(Assets.hogRight, 100);
         this.alive = true;
         this.direction = 1;
         this.initialX = x;
@@ -145,7 +146,8 @@ public Mamut(int x, int y, int width, int height, Game game) {
     @Override
     public void tick() {
 
-        this.Alien.tick();
+        this.rightAnimation.tick();
+        this.leftAnimation.tick();
         if(isAlive()){
           setX(getX()+getDirection());  
         }
@@ -183,9 +185,13 @@ public Mamut(int x, int y, int width, int height, Game game) {
     @Override
     public void render(Graphics g) { 
         
-
-           g.drawImage(Assets.mamut, getX(), getY(), getWidth(), getHeight(), null);  
-        
+            if(getDirection()>0){
+                g.drawImage(rightAnimation.getCurretFrame(), getX(), getY(), getWidth(), getHeight(), null); 
+            }else{
+                g.drawImage(leftAnimation.getCurretFrame(), getX(), getY(), getWidth(), getHeight(), null);  
+            }
+            
+           
         
     }
 
