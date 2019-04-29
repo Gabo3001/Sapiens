@@ -29,18 +29,17 @@ public class Game implements Runnable {
     private Nivel3 nivel3;
     private Nivel4 nivel4;
     private Nivel5 nivel5;
-
+    private Nivel6 nivel6;
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private int score;
     private boolean pause;
 
     public Game(String title, int width, int height) {
-
         this.title = title;
         this.width = width;
         this.height = height;
-        this.nivel = 0;
+        this.nivel = 4;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
@@ -103,7 +102,9 @@ public class Game implements Runnable {
 
         nivel5 = new Nivel5(title, getWidth(), getHeight(), this);
         nivel5.init();
-
+        
+        nivel6 = new Nivel6(title, getWidth(), getHeight(), this);
+        nivel6.init();
 
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -177,7 +178,9 @@ public class Game implements Runnable {
                 break;
             case 5:
                 nivel5.tick();
-
+                break;
+            case 6:
+                nivel6.tick();
                 break;
         }
         //if p is pressed
@@ -217,6 +220,9 @@ public class Game implements Runnable {
                 break;
             case 5:
                 nivel5.render();
+                break;
+            case 6:
+                nivel6.render();
                 break;
         }
 
