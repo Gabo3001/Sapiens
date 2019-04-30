@@ -86,6 +86,10 @@ public class Boton extends Item {
         if (getType() == 5){
             g.drawImage(Assets.menu, getX(), getY(), getWidth(), getHeight(), null);
         }
+        //5 for the login to an existing account
+        if (getType() == 6){
+            g.drawImage(Assets.login, getX(), getY(), getWidth(), getHeight(), null);
+        }
     }
     
 }

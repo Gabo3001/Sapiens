@@ -19,6 +19,7 @@ public class Assets {
     public static BufferedImage help;
     public static BufferedImage info;
     public static BufferedImage back;
+    public static BufferedImage login;
 
     //level one assets
     public static BufferedImage backgroundLevel1;
@@ -108,6 +109,7 @@ public class Assets {
         help = ImageLoader.loadImage("/tutorial1/images/Ayuda.png");
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
         back = ImageLoader.loadImage("/tutorial1/images/Back.png");
+        login = ImageLoader.loadImage("/tutorial1/images/login.png");
         
         //level 4 assets
         bkmirror = ImageLoader.loadImage("/tutorial1/images/BkLvl1_mirror.jpg");
