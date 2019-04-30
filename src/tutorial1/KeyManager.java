@@ -18,7 +18,9 @@ public class KeyManager implements KeyListener{
     public boolean down;
     public boolean left;
     public boolean right;
-
+    public boolean a;
+    public boolean s;
+    public boolean d;
     public boolean pause;
     public boolean next;
     public boolean space;
@@ -58,12 +60,15 @@ public class KeyManager implements KeyListener{
         }
     }
     /**
-     * this function set false to the space, r and p key
+     * this function set false to the space, r, p, a, s and d key
      */
     public void kStop(){
-        //Function that set on false p and n key
+        //Function that set on false  to the space, r, p, a, s and d keya
         keys [KeyEvent.VK_P] = false;
         keys [KeyEvent.VK_N] = false;
+        keys [KeyEvent.VK_A] = false;
+        keys [KeyEvent.VK_S] = false;
+        keys [KeyEvent.VK_D] = false;
     }
     
     /**
@@ -74,6 +79,9 @@ public class KeyManager implements KeyListener{
         down = keys[KeyEvent.VK_DOWN];
         left = keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_RIGHT];
+        a = keys[KeyEvent.VK_A];
+        s = keys[KeyEvent.VK_S];
+        d = keys[KeyEvent.VK_D];
         pause = keys[KeyEvent.VK_P];
         next = keys[KeyEvent.VK_N];
         space = keys[KeyEvent.VK_SPACE];

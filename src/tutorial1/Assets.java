@@ -71,7 +71,7 @@ public class Assets {
     public static BufferedImage info4;
     public static BufferedImage control4;
     public static BufferedImage pauseN4;
-    
+
     //Level 5 assets
     public static BufferedImage backgroundLevel5;
     public static BufferedImage Gary;
@@ -97,6 +97,24 @@ public class Assets {
     public static BufferedImage control5;
     public static SoundClip blink;
 
+    //Level 6 Assets
+    public static BufferedImage city1;
+    public static BufferedImage city2;
+    public static BufferedImage city3;
+    public static BufferedImage city4;
+    public static BufferedImage city5;
+    public static BufferedImage city6;
+    public static BufferedImage city7;
+    public static BufferedImage city8;
+    public static BufferedImage yellowB;
+    public static BufferedImage purpleB;
+    public static BufferedImage blueB;
+    public static BufferedImage a;
+    public static BufferedImage s;
+    public static BufferedImage d;
+    public static SoundClip cristal;
+
+
     public static void init() {
         //Assets Menu
 
@@ -110,7 +128,7 @@ public class Assets {
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
         back = ImageLoader.loadImage("/tutorial1/images/Back.png");
         login = ImageLoader.loadImage("/tutorial1/images/login.png");
-        
+
         //level 4 assets
         bkmirror = ImageLoader.loadImage("/tutorial1/images/BkLvl1_mirror.jpg");
         eat = new SoundClip("/tutorial1/sounds/eat.wav", -3f, false);
@@ -121,10 +139,8 @@ public class Assets {
         control4 = ImageLoader.loadImage("/tutorial1/images/Controles_N4.png");
         info4 = ImageLoader.loadImage("/tutorial1/images/Info_N4.png");
         pauseN4 = ImageLoader.loadImage("/tutorial1/images/Pausa_N4.png");
-        
+
         //Assets level 1
-
-
         menu = ImageLoader.loadImage("/tutorial1/images/Menu.png");
         save = ImageLoader.loadImage("/tutorial1/images/Save.png");
         pauseN1 = ImageLoader.loadImage("/tutorial1/images/Pausa_N1.png");
@@ -152,24 +168,24 @@ public class Assets {
         }
         //croping the pictures from the sheet int the array
 
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             nextA[i] = spritesheetN.crop(i * 331, 0, 331, 34);
         }
-        eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);   
-        
+        eat = new SoundClip("/tutorial1/sounds/eat.wav", -3f, false);
+
         //sprites for third level
         cornFirst = ImageLoader.loadImage("/tutorial1/images/corn3L.png");
         cornSecond = ImageLoader.loadImage("/tutorial1/images/corn2L.png");
         cornThird = ImageLoader.loadImage("/tutorial1/images/corn1L.png");
-        
+
         control3 = ImageLoader.loadImage("/tutorial1/images/Controles_N3.png");
         info3 = ImageLoader.loadImage("/tutorial1/images/Info_N3.png");
         pauseN3 = ImageLoader.loadImage("/tutorial1/images/Pausa_N3.png");
-        
+
         pepperFirst = ImageLoader.loadImage("/tutorial1/images/pepper3L.png");
         pepperSecond = ImageLoader.loadImage("/tutorial1/images/pepper2L.png");
         pepperThird = ImageLoader.loadImage("/tutorial1/images/pepper1L.png");
-        
+
         tomatoFirst = ImageLoader.loadImage("/tutorial1/images/tomato3L.png");
         tomatoSecond = ImageLoader.loadImage("/tutorial1/images/tomato2L.png");
         tomatoThird = ImageLoader.loadImage("/tutorial1/images/tomato1L.png");
@@ -222,6 +238,22 @@ public class Assets {
         info5 = ImageLoader.loadImage("/tutorial1/images/Info_N5.png");
         control5 = ImageLoader.loadImage("/tutorial1/images/Controles_N5.png");
         blink = new SoundClip("/tutorial1/sounds/blink.wav", -3f, false);
+        //Level 6 Assets
+        city1 = ImageLoader.loadImage("/tutorial1/images/pixelCity0.png");
+        city2 = ImageLoader.loadImage("/tutorial1/images/pixelCity1.png");
+        city3 = ImageLoader.loadImage("/tutorial1/images/pixelCity2.png");
+        city4 = ImageLoader.loadImage("/tutorial1/images/pixelCity3.png");
+        city5 = ImageLoader.loadImage("/tutorial1/images/pixelCity4.png");
+        city6 = ImageLoader.loadImage("/tutorial1/images/pixelCity5.png");
+        city7 = ImageLoader.loadImage("/tutorial1/images/pixelCity6.png");
+        city8 = ImageLoader.loadImage("/tutorial1/images/pixelCity7.png");
+        yellowB = ImageLoader.loadImage("/tutorial1/images/YellowB.png");
+        purpleB = ImageLoader.loadImage("/tutorial1/images/PurpleB.png");
+        blueB = ImageLoader.loadImage("/tutorial1/images/BlueB.png");
+        a = ImageLoader.loadImage("/tutorial1/images/A.png");
+        s = ImageLoader.loadImage("/tutorial1/images/S.png");
+        d = ImageLoader.loadImage("/tutorial1/images/D.png");
+        cristal = new SoundClip("/tutorial1/sounds/Crystal-02.wav", -3f, false);
     }
 
 }

@@ -55,13 +55,31 @@ public class Boton extends Item {
     public void tick() {
         
     }
-    
+    /**
+     * Funtion that get the perimeter of the button
+     * @return a rectangle with the perimeter of the button
+     */
     public Rectangle getPerimetro() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
-    
+    /**
+     * Function that check if the mouse intersects with a button
+     *
+     * @param obj An object from the class MouseManager
+     * @return true when button intersects with a click
+     */
     public boolean intersecta(Object obj) {
         return obj instanceof MouseManager && getPerimetro().intersects(((MouseManager) obj).getPerimetro());
+    }
+    
+    /**
+     * Function that check if the button intersects with a bulb
+     *
+     * @param obj An object from the class Bulbo
+     * @return true when button intersects with a bulb
+     */
+    public boolean intersectaB(Object obj) {
+        return obj instanceof Bulbo && getPerimetro().intersects(((Bulbo) obj).getPerimetro());
     }
 
     @Override
@@ -86,9 +104,23 @@ public class Boton extends Item {
         if (getType() == 5){
             g.drawImage(Assets.menu, getX(), getY(), getWidth(), getHeight(), null);
         }
+
         //5 for the login to an existing account
-        if (getType() == 6){
+        if (getType() == 9){
             g.drawImage(Assets.login, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //6 for the A key button
+        if (getType() == 6){
+            g.drawImage(Assets.a, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //7 for the S key button
+        if (getType() == 7){
+            g.drawImage(Assets.s, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //8 for the D key button
+        if (getType() == 8){
+            g.drawImage(Assets.d, getX(), getY(), getWidth(), getHeight(), null);
+
         }
     }
     

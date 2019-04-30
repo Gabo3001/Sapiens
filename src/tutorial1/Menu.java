@@ -56,7 +56,7 @@ public class Menu {
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
-        login = new Boton(20, 320, 150, 75, game, 6);
+        login = new Boton(20, 320, 150, 75, game, 9);
     }
 
     public void tick() {
