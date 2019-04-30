@@ -174,9 +174,9 @@ public class Nivel5 {
 
     public void tick() {
         //If the counter get to 8
-        if (getCont() == 8) {
-            game.setNivel(6);
-        }
+//        if (getCont() == 8) {
+//            game.setNivel(0);
+//        }
         
         //If start is true and not in pause
         if (isStart() && !game.isPause()) {

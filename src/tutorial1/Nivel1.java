@@ -98,7 +98,7 @@ public class Nivel1 {
 
     public void tick() {
         if (getCont() == 100) {
-            game.setNivel(3);
+            game.setNivel(2);
         }
 
         //If start is true
