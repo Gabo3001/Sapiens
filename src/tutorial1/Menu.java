@@ -18,7 +18,6 @@ public class Menu {
     private int width;
     private int height;
     private Boton start;
-    private Boton login;
     private Boton help;
     private Boton back;
     private Game game;
@@ -56,7 +55,6 @@ public class Menu {
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
-        login = new Boton(20, 320, 150, 75, game, 9);
     }
 
     public void tick() {
@@ -67,7 +65,6 @@ public class Menu {
             //The buttons start and help dissapear from the screen
             start.setX(start.getX() - 200);
             help.setX(help.getX() - 200);
-            login.setX(login.getX()-200);
             //Back appear on the screen
             back.setY(back.getY() - 100);
         }
@@ -78,7 +75,6 @@ public class Menu {
             //The buttons start and help apear on the screen
             start.setX(start.getX() + 200);
             help.setX(help.getX() + 200);
-            login.setX(login.getX()+200);
             //Back dissapear from the screen
             back.setY(back.getY() + 100);
         }
@@ -89,9 +85,6 @@ public class Menu {
             game.getMouseManager().setY(0);
             //The game move to the first minigame
             game.setNivel(game.getWhatLevel());
-        }
-        if(login.intersecta(game.getMouseManager())){
-            //System.out.println("hello");
         }
     }
 
@@ -111,7 +104,6 @@ public class Menu {
             }
             start.render(g);
             help.render(g);
-            login.render(g);
             back.render(g);
             bs.show();
             g.dispose();

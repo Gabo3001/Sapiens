@@ -18,7 +18,7 @@ public class Arrow4 extends Item{
     private int width;
     private int height;
     private int speed;
-    private boolean visible;
+    private boolean attack;
     
     public Arrow4(int x, int y, int width, int height, Game game) {
         super(x,y);
@@ -27,7 +27,7 @@ public class Arrow4 extends Item{
         this.width = width;
         this.height = height;
         speed = 4;
-        this.visible = false;
+        this.attack = true;
     }
 
     public int getSpeed() {
@@ -59,33 +59,19 @@ public class Arrow4 extends Item{
     public void setDirection(int direction) {
         this.direction = direction;
     }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
     
-    
+    public void isAttack(boolean bA){
+        this.attack=bA;
+    }
 
 
     @Override
     public void tick() {
         if(!game.isPause()){
-            //If is visible
-            if(isVisible()){
-                //The arrow start moving to the left
-                setX(getX()-getSpeed());
-            } else {
-                //If is not visible is set on x = 800
-                setX(game.getWidth());
-            }
-            //If the arrow leave the screen
-            if (getX() < -54) {
-                //The variable Visible is set on false
-                setVisible(false);
+            if(attack)
+            setX(getX()-getSpeed());
+            if(getX()<0-getWidth()){
+                //setX(game.getWidth());
             }
         }
 

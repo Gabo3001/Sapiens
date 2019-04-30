@@ -25,21 +25,22 @@ public class Game implements Runnable {
     private boolean running;
     private Menu menu;
     private Nivel1 nivel1;
-
+    private Nivel2 nivel2;
     private Nivel3 nivel3;
     private Nivel4 nivel4;
     private Nivel5 nivel5;
-    private Nivel6 nivel6;
+
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private int score;
     private boolean pause;
 
     public Game(String title, int width, int height) {
+
         this.title = title;
         this.width = width;
         this.height = height;
-        this.nivel = 4;
+        this.nivel = 2;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
@@ -93,6 +94,9 @@ public class Game implements Runnable {
 
         nivel1 = new Nivel1(title, getWidth(), getHeight(), this);
         nivel1.init();
+        
+        nivel2 = new Nivel2(title, getWidth(), getHeight(), this);
+        nivel2.init();
 
         nivel4 = new Nivel4(title, getWidth(), getHeight(), this);
         nivel4.init();
@@ -102,9 +106,7 @@ public class Game implements Runnable {
 
         nivel5 = new Nivel5(title, getWidth(), getHeight(), this);
         nivel5.init();
-        
-        nivel6 = new Nivel6(title, getWidth(), getHeight(), this);
-        nivel6.init();
+
 
         display.getJframe().addKeyListener(keyManager);
         display.getJframe().addMouseListener(mouseManager);
@@ -169,7 +171,9 @@ public class Game implements Runnable {
             case 1:
                 nivel1.tick();
                 break;
-
+            case 2:
+                nivel2.tick();
+                break;            
             case 3:
                 nivel3.tick();
                 break;
@@ -178,9 +182,7 @@ public class Game implements Runnable {
                 break;
             case 5:
                 nivel5.tick();
-                break;
-            case 6:
-                nivel6.tick();
+
                 break;
         }
         //if p is pressed
@@ -212,6 +214,10 @@ public class Game implements Runnable {
                 nivel1.render();
 
                 break;
+            case 2:
+                nivel2.render();
+                break;
+                
             case 3:
                 nivel3.render();
                 break;
@@ -220,9 +226,6 @@ public class Game implements Runnable {
                 break;
             case 5:
                 nivel5.render();
-                break;
-            case 6:
-                nivel6.render();
                 break;
         }
 
