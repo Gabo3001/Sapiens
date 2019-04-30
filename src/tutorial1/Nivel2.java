@@ -56,7 +56,7 @@ private int lives;
         this.TotalAlien = 0; //se inicializa como 0 y ya despues se asignan los bricks con un for
         this.lasershoot=true;
         this.Win = 0; // se inicializa como 0 cuando inicia el juego porque todavia no destruye ningun brick
-        start = true;
+        start = false;
         this.lives= 3;
         scene = 0;
         this.next = new Animation(Assets.nextA, 500);
@@ -404,6 +404,24 @@ private int lives;
 
 
     }
+            else {
+            //When the n key is pressed
+            if (game.getKeyManager().next) {
+                //If scene is minor to 3
+                if (getScene() < 2) {
+                    //the scene increase in 1
+                    setScene(getScene() + 1);
+                }
+                game.getKeyManager().kStop();
+            }
+            //Next animation tick is on
+            this.next.tick();
+            //When scene reaches 3
+            if (getScene() == 2) {
+                //start is set on true
+                setStart(true);
+            }
+            }
      }
         public void render() {
              bs = game.getDisplay().getCanvas().getBufferStrategy();
@@ -458,20 +476,17 @@ private int lives;
                    g.drawString("PUNTAJE: " + num, 2, 480);
 
         
-        } /*else {
+        } else {
+
                 if (getScene() == 0) {
-                    g.drawImage(Assets.rev2, 0, 0, width, height, null);
+                    g.drawImage(Assets.control2, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
                 if (getScene() == 1) {
-                    g.drawImage(Assets.info1, 0, 0, width, height, null);
+                    g.drawImage(Assets.info2, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
-                if (getScene() == 2) {
-                    g.drawImage(Assets.control1, 0, 0, width, height, null);
-                    g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
-                }
-            }*/
+            }
        
         bs.show();
         g.dispose();

@@ -46,7 +46,8 @@ public class Assets {
     
     
     //Level 2
-
+    public static BufferedImage info2;
+    public static BufferedImage control2;
     public static BufferedImage laser;
     public static BufferedImage mamut;
     public static BufferedImage AlienImages[];
@@ -179,6 +180,8 @@ public class Assets {
         eat = new SoundClip("/tutorial1/sounds/eat.wav",-3f,false);  
         
         //Assets level 2
+        info2 = ImageLoader.loadImage("/tutorial1/images/info2.png");
+        control2 = ImageLoader.loadImage("/tutorial1/images/controles_N2.png");
         laser = ImageLoader.loadImage("/tutorial1/images/arrowN2.png");     
         hogSprites = ImageLoader.loadImage("/tutorial1/images/jabali.png");
         hogSpritesB = ImageLoader.loadImage("/tutorial1/images/MamutB.PNG");
