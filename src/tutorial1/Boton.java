@@ -104,6 +104,18 @@ public class Boton extends Item {
         if (getType() == 5){
             g.drawImage(Assets.menu, getX(), getY(), getWidth(), getHeight(), null);
         }
+        //6 for the A key button
+        if (getType() == 6){
+            g.drawImage(Assets.a, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //7 for the S key button
+        if (getType() == 7){
+            g.drawImage(Assets.s, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //8 for the D key button
+        if (getType() == 8){
+            g.drawImage(Assets.d, getX(), getY(), getWidth(), getHeight(), null);
+        }
     }
     
 }

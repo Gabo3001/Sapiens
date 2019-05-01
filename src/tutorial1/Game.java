@@ -40,7 +40,7 @@ public class Game implements Runnable {
         this.title = title;
         this.width = width;
         this.height = height;
-        this.nivel = 2;
+        this.nivel = 6;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
