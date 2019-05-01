@@ -41,6 +41,7 @@ public class Nivel4 {
     private Animation next;
     private boolean start;
     private int scene;
+    private SoundClip songN4;
 //    private Boton back;
 
     /**
@@ -68,6 +69,7 @@ public class Nivel4 {
         start = false;
         this.next = new Animation(Assets.nextA, 500);
         aRight = true;
+        songN4 = new SoundClip("/tutorial1/sounds/N4.wav", -3f, true);
     }
 
     public void setStart(boolean start) {
@@ -190,16 +192,14 @@ public class Nivel4 {
      *
      */
     public void tick() {
-        //When the time finished
-        if (getTimer() / 60 == 0) {
-            //The x and y of the keymanadager are set on 0
-            game.getMouseManager().setX(0);
-            game.getMouseManager().setY(0);
-            //The game is set on the level 5
-            game.setNivel(5);
-        }
+        
         //If the game start and is not in pause
         if (isStart() && !game.isPause()) {
+            //If theres no song playing
+            if (songN4.isStop()) {
+                //Reproduce el clip
+                songN4.play();
+            }
             player.tick();
             for (int i = 0; i < arrow.size(); i++) {
                 Arrow4 quiver = arrow.get(i);
@@ -269,10 +269,17 @@ public class Nivel4 {
                 setMvBk2(getMvBk2() + 2);
             }
         } else if (game.isPause() && isStart()) {
+            //If theres no song playing
+            if (songN4.isStop()) {
+                //Reproduce el clip
+                songN4.play();
+            }
             //if menu is clicked
             if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
                 game.setWhatLevel(4);
                 game.setNivel(0);
+                //The song is pause
+                songN4.pause();
             }
         } else {
             //When thw n key is press
@@ -292,6 +299,21 @@ public class Nivel4 {
                 //start is set on true
                 setStart(true);
             }
+            //If theres no song playing
+            if (songN4.isStop()) {
+                //Reproduce el clip
+                songN4.play();
+            }
+        }
+        //When the time finished
+        if (getTimer() / 60 == 0) {
+            //The x and y of the keymanadager are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
+            //The song is stop
+            songN4.stop();
+            //The game is set on the level 5
+            game.setNivel(5);
         }
 
     }

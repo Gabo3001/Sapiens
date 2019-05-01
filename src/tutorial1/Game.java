@@ -39,7 +39,7 @@ public class Game implements Runnable {
         this.title = title;
         this.width = width;
         this.height = height;
-        this.nivel = 4;
+        this.nivel = 5;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
@@ -82,6 +82,10 @@ public class Game implements Runnable {
 
     public int getHeight() {
         return height;
+    }
+
+    public Nivel6 getNivel6() {
+        return nivel6;
     }
 
     private void init() {

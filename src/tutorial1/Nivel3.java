@@ -36,6 +36,7 @@ public class Nivel3 {
     private Animation next;
     int cont; //variable to delay collisions
     int maturePlants;
+    private SoundClip songN3;
 
     public Nivel3(String title, int width, int height, Game game) {
         this.title = title;
@@ -51,6 +52,7 @@ public class Nivel3 {
         scene = 0;
         cont = 0;
         maturePlants = 0;
+        songN3 = new SoundClip("/tutorial1/sounds/N3.wav", -3f, true);
 
     }
 
@@ -112,12 +114,13 @@ public class Nivel3 {
     }
 
     public void tick() {
-        
-        if(getMaturePlants() == 16){
-            game.setNivel(4);
-        }
-        
+
         if (isStart() && !game.isPause()) {
+            //If theres no song playing
+            if (songN3.isStop()) {
+                //Reproduce el clip
+                songN3.play();
+            }
 
             player.tick();
             ball.tick();
@@ -233,6 +236,19 @@ public class Nivel3 {
 
             }
 
+        } else if (game.isPause() && isStart()) {
+            //If theres no song playing
+            if (songN3.isStop()) {
+                //Reproduce el clip
+                songN3.play();
+            }
+            //if menu is clicked
+            if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
+                game.setWhatLevel(3);
+                game.setNivel(0);
+                //The song is pause
+                songN3.pause();
+            }
         } else {
             //When the n key is pressed
             if (game.getKeyManager().next) {
@@ -249,12 +265,20 @@ public class Nivel3 {
             if (getScene() == 3) {
                 //start is set on true
                 setStart(true);
+
+            }
+            //If theres no song playing
+            if (songN3.isStop()) {
+                //Reproduce el clip
+                songN3.play();
             }
         }
-        //if menu is clicked
-        if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
-            game.setWhatLevel(3);
-            game.setNivel(0);
+        //When the player reach 14 mature plants
+        if (getMaturePlants() == 16) {
+            //The music stops
+            songN3.stop();
+            //The game is moved to level 4
+            game.setNivel(4);
         }
 
     }

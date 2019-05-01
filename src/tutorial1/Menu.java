@@ -25,13 +25,24 @@ public class Menu {
     private Graphics g;
     String title;
     private boolean info;   //Boolean that determain if the information is show or not
-
+    private SoundClip songM;
+    
     public Menu(String title, int width, int height, Game game) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.game = game;
         info = false;
+        songM = new SoundClip("/tutorial1/sounds/Inicio.wav",  -3f, true); 
+        
+    }
+
+    public void setSongM(SoundClip songM) {
+        this.songM = songM;
+    }
+
+    public SoundClip getSongM() {
+        return songM;
     }
 
     public void setInfo(boolean info) {
@@ -58,6 +69,11 @@ public class Menu {
     }
 
     public void tick() {
+        //If theres no song playing
+        if (songM.isStop()){
+            //Reproduce el clip
+            songM.play();
+        }
         //if help is clicked
         if (help.intersecta(game.getMouseManager())) {
             //info is set in true
@@ -85,7 +101,10 @@ public class Menu {
             game.getMouseManager().setY(0);
             //The game move to the first minigame
             game.setNivel(game.getWhatLevel());
+            //The music stops
+            songM.pause();
         }
+        
     }
 
     public void render() {

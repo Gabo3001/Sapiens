@@ -20,6 +20,7 @@ public class SoundClip {
     private AudioInputStream sound;	// AudioInputStream object
     private Clip clip;			// Audio clip
     private boolean loop;		// Boolean to allow looping
+    private int fPosition;              // Integer that save the frame position of the clip
 
     /**
      * Default constructor
@@ -31,6 +32,14 @@ public class SoundClip {
 	}
     }
 
+    public int getfPosition() {
+        return fPosition;
+    }
+
+    public void setfPosition(int fPosition) {
+        this.fPosition = fPosition;
+    }
+
     /**
      * Constructor with <b>path</b> parameter
      *
@@ -39,7 +48,7 @@ public class SoundClip {
      */
     public SoundClip(String path, float offset, boolean loop) {
 	this();	    // Calls default constructor
-
+        fPosition = 0; //Fposition is set on 0
 	// Attempt to get resource and save as URL
 	URL url = null;
 	try {
@@ -71,13 +80,30 @@ public class SoundClip {
 	if (sound == null) {	// If no sound is loaded, stop here
 	    return;
 	}
-	clip.setFramePosition(0);
+	clip.setFramePosition(getfPosition());
 
 	// Loop when specified
 	clip.loop((loop) ? Clip.LOOP_CONTINUOUSLY : 0);
     }
     public void stop(){
         clip.stop();
+    }
+    /**
+     * Method to pause playback
+     */
+    public void pause(){
+        setfPosition(clip.getFramePosition());
+        clip.stop();
+    }
+    /**
+     * Method that return true if the clip is stop and true if is running
+     */
+    public boolean isStop(){
+        if(!clip.isRunning()){
+            return true;
+        } else { 
+            return false;
+        }
     }
 }
 

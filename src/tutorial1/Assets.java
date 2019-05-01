@@ -112,7 +112,11 @@ public class Assets {
     public static BufferedImage s;
     public static BufferedImage d;
     public static SoundClip cristal;
-
+    public static SoundClip crash;
+    public static BufferedImage info6;
+    public static BufferedImage control6;
+    public static BufferedImage pauseN6;
+    
 
     public static void init() {
         //Assets Menu
@@ -251,7 +255,11 @@ public class Assets {
         a = ImageLoader.loadImage("/tutorial1/images/A.png");
         s = ImageLoader.loadImage("/tutorial1/images/S.png");
         d = ImageLoader.loadImage("/tutorial1/images/D.png");
+        control6 = ImageLoader.loadImage("/tutorial1/images/Controles_N6.png");
+        info6 = ImageLoader.loadImage("/tutorial1/images/Info_N6.png");
+        pauseN6 = ImageLoader.loadImage("/tutorial1/images/Pausa_N6.png");
         cristal = new SoundClip("/tutorial1/sounds/Crystal-02.wav", -3f, false);
+        crash = new SoundClip("/tutorial1/sounds/crash.wav", -3f, false);
     }
 
 }

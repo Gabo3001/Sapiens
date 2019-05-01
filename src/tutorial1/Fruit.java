@@ -68,7 +68,9 @@ public class Fruit extends Item{
 
     @Override
     public void tick() {
+        //If the game is not in pause
         if(!game.isPause()){
+            //The fruit will move downwards
             setY(getY()+getSpeed());
         }
     }
