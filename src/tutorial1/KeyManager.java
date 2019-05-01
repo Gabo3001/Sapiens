@@ -60,10 +60,10 @@ public class KeyManager implements KeyListener{
         }
     }
     /**
-     * this function set false to the space, r, p, a, s and d key
+     * this function set false to the space, r and p key
      */
     public void kStop(){
-        //Function that set on false  to the space, r, p, a, s and d keya
+        //Function that set on false p and n key
         keys [KeyEvent.VK_P] = false;
         keys [KeyEvent.VK_N] = false;
         keys [KeyEvent.VK_A] = false;

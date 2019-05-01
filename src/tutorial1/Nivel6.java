@@ -14,8 +14,7 @@ import java.util.LinkedList;
  * @author Electel
  */
 public class Nivel6 {
-
-    private int width;
+        private int width;
     private int height;
     private Game game;
     String title;

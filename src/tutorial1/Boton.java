@@ -71,7 +71,7 @@ public class Boton extends Item {
     public boolean intersecta(Object obj) {
         return obj instanceof MouseManager && getPerimetro().intersects(((MouseManager) obj).getPerimetro());
     }
-    
+
     /**
      * Function that check if the button intersects with a bulb
      *
@@ -103,18 +103,6 @@ public class Boton extends Item {
         //5 for the back to menu button
         if (getType() == 5){
             g.drawImage(Assets.menu, getX(), getY(), getWidth(), getHeight(), null);
-        }
-        //6 for the A key button
-        if (getType() == 6){
-            g.drawImage(Assets.a, getX(), getY(), getWidth(), getHeight(), null);
-        }
-        //7 for the S key button
-        if (getType() == 7){
-            g.drawImage(Assets.s, getX(), getY(), getWidth(), getHeight(), null);
-        }
-        //8 for the D key button
-        if (getType() == 8){
-            g.drawImage(Assets.d, getX(), getY(), getWidth(), getHeight(), null);
         }
     }
     

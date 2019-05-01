@@ -192,7 +192,7 @@ public class Nivel4 {
      *
      */
     public void tick() {
-        
+
         //If the game start and is not in pause
         if (isStart() && !game.isPause()) {
             //If theres no song playing
