@@ -213,6 +213,22 @@ public class DatabaseManager {
             
             ResultSet result = statement.executeQuery();
             ArrayList<String> array = new ArrayList<String>();
+                System.out.print("scoreID");
+                System.out.print("\t");
+                System.out.print("level1");
+                System.out.print("\t");
+                System.out.print("level2");
+                System.out.print("\t");
+                System.out.print("level3");
+                System.out.print("\t");
+                System.out.print("level4");
+                System.out.print("\t");
+                System.out.print("level5");
+                System.out.print("\t");
+                System.out.print("level6");
+                System.out.print("\t");
+                System.out.print("usrID");
+                System.out.println(" "); 
             while(result.next()){
                 System.out.print(result.getString("scoreID"));
                 System.out.print("\t");

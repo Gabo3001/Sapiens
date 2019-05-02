@@ -102,6 +102,10 @@ public class Bulbo extends Item{
             if (getY() > 500) {
                 //The variable Visible is set on false
                 setVisible(false);
+                //The number of lights up decrease by one
+                game.getNivel6().setLightsUp(game.getNivel6().getLightsUp()-1);
+                //crash sound is played
+                Assets.crash.play();
             }
         }
     }

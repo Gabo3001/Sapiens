@@ -21,7 +21,6 @@ public class Menu {
     private int width;
     private int height;
     private Boton start;
-    private Boton login;
     private Boton help;
     private Boton back;
     private Game game;
@@ -37,31 +36,26 @@ public class Menu {
     
     String title;
     private boolean info;   //Boolean that determain if the information is show or not
-
+    private SoundClip songM;
+    
     public Menu(String title, int width, int height, Game game) {
         this.title = title;
         this.width = width;
         this.height = height;
         this.game = game;
         info = false;
-        this.logVis = false;
-        this.open = false;
+
+        songM = new SoundClip("/tutorial1/sounds/Inicio.wav",  -3f, true); 
         
     }
-    
-    public void setLogVis(boolean b){
-        this.logVis=b;
+
+    public void setSongM(SoundClip songM) {
+        this.songM = songM;
     }
-    
-    public boolean isOpen(){
-        return open;
-    }
-        public void setOpen(boolean b){
-        this.open=b;
-    }
-    
-    public boolean isLogVis(){
-        return logVis;
+
+    public SoundClip getSongM() {
+        return songM;
+
     }
 
     public void setInfo(boolean info) {
@@ -86,10 +80,14 @@ public class Menu {
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
-        login = new Boton(20, 320, 150, 75, game, 9);
     }
 
     public void tick() {
+        //If theres no song playing
+        if (songM.isStop()){
+            //Reproduce el clip
+            songM.play();
+        }
         //if help is clicked
        
         if (help.intersecta(game.getMouseManager())) {
@@ -98,7 +96,6 @@ public class Menu {
             //The buttons start and help dissapear from the screen
             start.setX(start.getX() - 200);
             help.setX(help.getX() - 200);
-            login.setX(login.getX()-200);
             //Back appear on the screen
             back.setY(back.getY() - 100);
             
@@ -110,7 +107,6 @@ public class Menu {
             //The buttons start and help apear on the screen
             start.setX(start.getX() + 200);
             help.setX(help.getX() + 200);
-            login.setX(login.getX()+200);
             //Back dissapear from the screen
             back.setY(back.getY() + 100);
         }
@@ -121,11 +117,12 @@ public class Menu {
             game.getMouseManager().setY(0);
             //The game move to the first minigame
             game.setNivel(game.getWhatLevel());
+            //The music stops
+            songM.pause();
         }
-        if(login.intersecta(game.getMouseManager())){
-            //System.out.println("hello");           
-            log = new login(game);
-        }
+
+
+
         
     }
 
@@ -150,7 +147,6 @@ public class Menu {
             g.drawString("id: "+game.getUserID(), getWidth() - getWidth() / 4, 0 + getHeight() / 15+20);
             start.render(g);
             help.render(g);
-            login.render(g);
             back.render(g);
             bs.show();
             g.dispose();

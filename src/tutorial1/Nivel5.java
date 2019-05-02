@@ -42,6 +42,7 @@ public class Nivel5 {
     private Animation next;
     private boolean start;
     private int scene;
+    private SoundClip songN5;
     String title;
 
     public Nivel5(String title, int width, int height, Game game) {
@@ -61,6 +62,7 @@ public class Nivel5 {
         scene = 0;
         start = false;
         this.next = new Animation(Assets.nextA, 500);
+        songN5 = new SoundClip("/tutorial1/sounds/N5.wav", -3f, true);
     }
 
     public void setScene(int scene) {
@@ -173,13 +175,15 @@ public class Nivel5 {
     }
 
     public void tick() {
-        //If the counter get to 8
-        if (getCont() == 8) {
-            game.setNivel(6);
-        }
+        
         
         //If start is true and not in pause
         if (isStart() && !game.isPause()) {
+            //If theres no song playing
+            if (songN5.isStop()) {
+                //Reproduce el clip
+                songN5.play();
+            }
             //if axe is clicked
             if (hacha.intersecta(game.getMouseManager())) {
                 if (!isI1()) {
@@ -300,10 +304,17 @@ public class Nivel5 {
                 game.getMouseManager().setY(0);
             }
         } else if (game.isPause() && isStart()) {
+            //If theres no song playing
+            if (songN5.isStop()) {
+                //Reproduce el clip
+                songN5.play();
+            }
             //if menu is clicked
             if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
                 game.setWhatLevel(5);
                 game.setNivel(0);
+                //The song is pause
+                songN5.pause();
             }
         } else {
             //When thw n key is press
@@ -323,6 +334,17 @@ public class Nivel5 {
                 //start is set on true
                 setStart(true);
             }
+            //If theres no song playing
+            if (songN5.isStop()) {
+                //Reproduce el clip
+                songN5.play();
+            }
+        }
+        //If the counter get to 8
+        if (getCont() == 8) {
+            //The song is stop
+            songN5.stop();
+            game.setNivel(6);
         }
     }
 

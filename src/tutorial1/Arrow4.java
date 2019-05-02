@@ -59,7 +59,7 @@ public class Arrow4 extends Item{
     public void setDirection(int direction) {
         this.direction = direction;
     }
-
+    
     public boolean isVisible() {
         return visible;
     }
@@ -67,7 +67,7 @@ public class Arrow4 extends Item{
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-    
+
     
 
 
@@ -77,7 +77,7 @@ public class Arrow4 extends Item{
             //If is visible
             if(isVisible()){
                 //The arrow start moving to the left
-                setX(getX()-getSpeed());
+            setX(getX()-getSpeed());
             } else {
                 //If is not visible is set on x = 800
                 setX(game.getWidth());
@@ -86,7 +86,7 @@ public class Arrow4 extends Item{
             if (getX() < -54) {
                 //The variable Visible is set on false
                 setVisible(false);
-            }
+        }
         }
 
     }

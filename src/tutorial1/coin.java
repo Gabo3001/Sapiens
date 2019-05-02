@@ -66,11 +66,12 @@ public class coin extends Item{
 
     @Override
     public void tick() {
+        //If the game is not on pause
         if(!game.isPause()){
-            if(attack)
-            setX(getX()-getSpeed());
-            if(getX()<0-getWidth()){
-                //setX(game.getWidth());
+            //If the coin is attack
+            if(attack){
+                //It will move to the right
+                setX(getX()-getSpeed());
             }
         }
     }

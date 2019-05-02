@@ -32,6 +32,7 @@ public class Nivel1 {
     private Animation next;
     private boolean start;
     private int scene;
+    private SoundClip songN1;
 
     public Nivel1(String title, int width, int height, Game game) {
         this.title = title;
@@ -43,6 +44,7 @@ public class Nivel1 {
         scene = 0;
         start = false;
         this.next = new Animation(Assets.nextA, 500);
+        songN1 = new SoundClip("/tutorial1/sounds/N1.wav", -3f, true);
     }
 
     public void init() {
@@ -97,13 +99,16 @@ public class Nivel1 {
     }
 
     public void tick() {
-        if (getCont() == 100) {
-            game.setNivel(3);
-        }
+        
 
-        //If start is true
-        if (isStart()) {
+        //If start is true and the game is not on pause
+        if (isStart() && !game.isPause()) {
             player.tick();
+            //If theres no song playing
+            if (songN1.isStop()) {
+                //Reproduce el clip
+                songN1.play();
+            }
             for (int i = 0; i < fruit.size(); i++) {
                 Fruit food = fruit.get(i);
                 food.tick();
@@ -137,11 +142,18 @@ public class Nivel1 {
                 }
 
             }
-
+        } else if (game.isPause() && isStart()) {
+            //If theres no song playing
+            if (songN1.isStop()) {
+                //Reproduce el clip
+                songN1.play();
+            }
             //if menu is clicked
             if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
                 game.setWhatLevel(1);
                 game.setNivel(0);
+                //The song is pause
+                songN1.pause();
             }
         } else {
             //When thw n key is press
@@ -160,6 +172,17 @@ public class Nivel1 {
                 //start is set on true
                 setStart(true);
             }
+            //If theres no song playing
+            if (songN1.isStop()) {
+                //Reproduce el clip
+                songN1.play();
+            }
+        }
+        //WHen the player recolect 100 apples
+        if (getCont() == 100) {
+            //The music stops
+            songN1.stop();
+            game.setNivel(3);
         }
         
         //DATABSAE SCORE UPDATE
@@ -203,7 +226,7 @@ public class Nivel1 {
 
                 
                 g.drawString("PUNTAJE: " + game.getScore(), 2, 480);
-                g.drawString("MANZANAS: " + getCont(), 650, 480);
+                g.drawString("MANZANAS: " + getCont() + "/100", 620, 480);
             } else {
                 if (getScene() == 0) {
                     g.drawImage(Assets.rev2, 0, 0, width, height, null);
@@ -224,4 +247,3 @@ public class Nivel1 {
     }
 
 }
-
