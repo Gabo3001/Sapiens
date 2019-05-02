@@ -8,6 +8,7 @@ package tutorial1;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 public class Display {
     private JFrame jframe;
     private Canvas canvas;
+    private JTextField text = new JTextField();
     private String title;
     private int width;
     private int height;
@@ -43,6 +45,7 @@ public void createDisplay(){
     canvas.setFocusable(false);
     
     jframe.add(canvas);
+   // jframe.add(text);
     jframe.pack();
 }
 

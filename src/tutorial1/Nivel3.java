@@ -294,6 +294,9 @@ public class Nivel3 {
                 g.drawImage(Assets.backgroundLevel3, 0, 0, width, height, null);
                 player.render(g);
                 ball.render(g);
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.setColor(Color.BLACK);
+                g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
 
                 //render plants
                 for (int i = 0; i < corn.size(); i++) {
@@ -318,8 +321,7 @@ public class Nivel3 {
                 }
 
                 //display score
-                g.setFont(new Font("Serif", Font.PLAIN, 20));
-                g.setColor(Color.BLACK);
+
                 g.drawString("PUNTAJE: " + game.getScore(), getWidth() - 150, 480);
 
             } else {
