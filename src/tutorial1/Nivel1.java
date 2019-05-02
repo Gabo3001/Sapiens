@@ -161,8 +161,21 @@ public class Nivel1 {
                 setStart(true);
             }
         }
-    }
+        
+        //DATABSAE SCORE UPDATE
+//         try{
+//             update();
+//         }   catch(Exception e){
+//             System.out.println(e);
+//         } 
 
+        game.getDB().updateScore(game.getUserID(),"level1",game.getScore());
+    }
+    
+    public void update() throws Exception{
+        game.getDB().updateScore(game.getUserID(),"level1",game.getScore());
+    }
+    
     public void render() {
         bs = game.getDisplay().getCanvas().getBufferStrategy();
 
@@ -172,6 +185,10 @@ public class Nivel1 {
             g = bs.getDrawGraphics();
             if (isStart()) {
                 g.drawImage(Assets.backgroundLevel1, 0, 0, width, height, null);
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.setColor(Color.WHITE);
+                g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
+                
                 player.render(g);
                 for (int i = 0; i < fruit.size(); i++) {
                     Fruit feed = fruit.get(i);
@@ -183,8 +200,8 @@ public class Nivel1 {
                     save.render(g);
                     menu.render(g);
                 }
-                g.setFont(new Font("Serif", Font.PLAIN, 20));
-                g.setColor(Color.WHITE);
+
+                
                 g.drawString("PUNTAJE: " + game.getScore(), 2, 480);
                 g.drawString("MANZANAS: " + getCont(), 650, 480);
             } else {

@@ -6,8 +6,11 @@
 package tutorial1;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -24,6 +27,14 @@ public class Menu {
     private Game game;
     private BufferStrategy bs;
     private Graphics g;
+    private login log;
+    private boolean logVis;
+    private boolean open;
+    
+    private JFrame jf;
+    private JTextField jt = new JTextField();
+ 
+    
     String title;
     private boolean info;   //Boolean that determain if the information is show or not
 
@@ -33,6 +44,24 @@ public class Menu {
         this.height = height;
         this.game = game;
         info = false;
+        this.logVis = false;
+        this.open = false;
+        
+    }
+    
+    public void setLogVis(boolean b){
+        this.logVis=b;
+    }
+    
+    public boolean isOpen(){
+        return open;
+    }
+        public void setOpen(boolean b){
+        this.open=b;
+    }
+    
+    public boolean isLogVis(){
+        return logVis;
     }
 
     public void setInfo(boolean info) {
@@ -53,6 +82,7 @@ public class Menu {
 
     public void init() {
         //Start, help and back are initialized
+        log = new login(game);
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
@@ -61,6 +91,7 @@ public class Menu {
 
     public void tick() {
         //if help is clicked
+       
         if (help.intersecta(game.getMouseManager())) {
             //info is set in true
             setInfo(true);
@@ -70,6 +101,7 @@ public class Menu {
             login.setX(login.getX()-200);
             //Back appear on the screen
             back.setY(back.getY() - 100);
+            
         }
         //if help is clicked
         if (back.intersecta(game.getMouseManager())) {
@@ -91,8 +123,10 @@ public class Menu {
             game.setNivel(game.getWhatLevel());
         }
         if(login.intersecta(game.getMouseManager())){
-            //System.out.println("hello");
+            //System.out.println("hello");           
+            log = new login(game);
         }
+        
     }
 
     public void render() {
@@ -109,12 +143,17 @@ public class Menu {
                 //When info is on the info screen is showed
                 g.drawImage(Assets.info, 0, 0, width, height, null);
             }
+            
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
             start.render(g);
             help.render(g);
             login.render(g);
             back.render(g);
             bs.show();
             g.dispose();
+           
         }
     }
 

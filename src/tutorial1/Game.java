@@ -34,18 +34,45 @@ public class Game implements Runnable {
     private MouseManager mouseManager;
     private int score;
     private boolean pause;
+    
+    //DATABASE 
+    private int userID;
+    private String username;
+    private String password;
+    private DatabaseManager dbm;
+    
 
     public Game(String title, int width, int height) {
         this.title = title;
         this.width = width;
         this.height = height;
-        this.nivel = 4;
+        this.nivel = 0;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
         pause = false;
         score = 0;
         whatLevel = 1;
+        this.userID=0;
+        this.username="XXXXXXX";
+    }
+    
+    public void setUserID(int id){
+        this.userID=id;
+    }
+    
+    public int getUserID(){
+        return userID;
+    }
+    public DatabaseManager getDB(){
+        return dbm;
+    }
+    
+    public String getUsername(){
+        return username;
+    }
+    public void setUsername(String usr){
+        this.username=usr;
     }
 
     public void setWhatLevel(int whatLevel) {
