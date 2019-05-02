@@ -115,7 +115,7 @@ public class Menu {
             back.setY(back.getY() + 100);
         }
         //if start is clicked
-        if (start.intersecta(game.getMouseManager())) {
+        if (start.intersecta(game.getMouseManager())&&game.getUserID()!=0) {
             //The x and y of the mouse are set on 0
             game.getMouseManager().setX(0);
             game.getMouseManager().setY(0);
@@ -147,6 +147,7 @@ public class Menu {
             g.setColor(Color.BLACK);
             g.setFont(new Font("Serif", Font.PLAIN, 20));
             g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
+            g.drawString("id: "+game.getUserID(), getWidth() - getWidth() / 4, 0 + getHeight() / 15+20);
             start.render(g);
             help.render(g);
             login.render(g);

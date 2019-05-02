@@ -335,6 +335,7 @@ public class Nivel5 {
             g = bs.getDrawGraphics();
             if (isStart()) {
                 g.drawImage(Assets.backgroundLevel5, 0, 0, width, height, null);
+                //g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
                 if (!isI1()) {
                     g.drawImage(Assets.hachaBW, 80, 370, 70, 50, null);
                 } else {

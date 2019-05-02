@@ -75,12 +75,27 @@ class Esp implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
         System.out.println(uname.getText());
         System.out.println(pass.getText());
+        
+        //if the table for users is not created it creates one
         try {
-            game.getDB().postUsr(uname.getText(),pass.getText());
+            game.getDB().createUsrTable();
         } catch (Exception ex) {
             Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //if the table for scores isnt created yet it creates one
+        try {//trouble with foreign key syntax
+            game.getDB().createScoresTable();
+        } catch (Exception ex) {
+            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //ads a user from the DatabaseManager Class
+//        try {
+//            game.getDB().Usr();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
+        //Sets the username for the sesion
         game.setUsername(uname.getText());
         
         //this gets the id of the user into the game
@@ -89,9 +104,28 @@ class Esp implements ActionListener{
         } catch (Exception ex) {
             Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //creates a tuple in the score table for the user
+        
+       
+            //creates a row in the score table for the user if hes on the user database
+        if(game.getUserID()!=0){
+            try {
+                game.getDB().addScoreRow(game.getUserID());
+            } catch (Exception ex) {
+                Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
+        //Prints the database in console
         try {
-            game.getDB().addScoreRow(game.getUserID());
+        game.getDB().get();
+        } catch (Exception ex) {
+            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //shows the score table
+        try {
+            game.getDB().getScoreBoard();
         } catch (Exception ex) {
             Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
         }

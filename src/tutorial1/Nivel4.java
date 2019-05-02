@@ -309,6 +309,9 @@ public class Nivel4 {
                 g.drawImage(Assets.coin, getWidth() - getWidth() / 5, getHeight() - getHeight() / 12, 20, 30, null);
 
                 player.render(g);
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
                 for (int i = 0; i < arrow.size(); i++) {
                     Arrow4 quiver = arrow.get(i);
                     quiver.render(g);
@@ -318,8 +321,7 @@ public class Nivel4 {
                     bitcoin.render(g);
                 }
 
-                g.setColor(Color.WHITE);
-                g.setFont(new Font("Serif", Font.PLAIN, 20));
+
                 //draws the remaining time
                 g.drawString(cronos, 0 + getWidth() / 100, getHeight() - getHeight() / 25);
                 if (!game.isPause()) {

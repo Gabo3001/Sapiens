@@ -27,16 +27,7 @@ public class DatabaseManager {
      */
     public DatabaseManager() throws Exception {
         // TODO code application logic here
-        //Function works
-        //getConnection();
         
-        //problem with the mySQL sytax
-        //dropTable();
-        //createTable();
-        
-        //functions works as expected
-        
-      // post();
         get();
     }
     
@@ -44,6 +35,7 @@ public class DatabaseManager {
      *
      * @return
      * @throws Exception
+     * This is used for the other functions in the class to stablish a connection
      */
     public static Connection getConnection() throws Exception{
         try{
@@ -66,6 +58,7 @@ public class DatabaseManager {
     /**
      *
      * @throws Exception
+     * creates a table for users
      */
     public static void createUsrTable() throws Exception{
         try{
@@ -84,12 +77,13 @@ public class DatabaseManager {
     /**
      *
      * @throws Exception
+     * creates a table for scores
      */
-    public static void createLevelTable() throws Exception{
+    public static void createScoresTable() throws Exception{
         try{
             Connection con = getConnection();
             //Problem in the mySQL Syntax
-            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS scores(scoreID INT NOT NULL AUTO_INCREMENT, level1 int,level2 int,level3 int,level4 int,level5 int,level6 int,usrID int FOREIGN KEY REFERENCES users(id), PRIMARY KEY(id))");
+            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS scores(scoreID INT NOT NULL AUTO_INCREMENT, level1 int,level2 int,level3 int,level4 int,level5 int,level6 int,usrID INT NOT NULL, FOREIGN KEY(usrID) REFERENCES users(id), PRIMARY KEY(scoreID))");
             create.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -102,6 +96,7 @@ public class DatabaseManager {
     /**
      *
      * @throws Exception
+     * CAUTION used for deleting tables
      */
     public static void dropTable() throws Exception{
         try{
@@ -120,10 +115,11 @@ public class DatabaseManager {
     /**
      *
      * @throws Exception
+     * Used by admins to add users
      */
     public static void Usr() throws Exception{
-        final String var1 = "Gerardo";
-        final String var2 = "pa55w0rd";
+        final String var1 = "Gabriel";
+        final String var2 = "A01176807";
         try{
             Connection con = getConnection();
             PreparedStatement posted = con.prepareStatement("INSERT INTO users (username, password)VALUES('"+var1+"','"+var2+"')");
@@ -141,13 +137,14 @@ public class DatabaseManager {
      * @param u
      * @param p
      * @throws Exception
+     * used to add users from login
      */
     public static void postUsr(String u, String p) throws Exception{
         final String var1 = u;
         final String var2 = p;
         try{
             Connection con = getConnection();
-            PreparedStatement posted = con.prepareStatement("INSERT INTO usuarios (username, password)VALUES('"+var1+"','"+var2+"')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO users (username, password)VALUES('"+var1+"','"+var2+"')");
             posted.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -189,7 +186,7 @@ public class DatabaseManager {
     public static ArrayList<String> get() throws Exception{
         try{
             Connection con = getConnection();
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM usuarios ");
+            PreparedStatement statement = con.prepareStatement("SELECT * FROM users ");
             
             ResultSet result = statement.executeQuery();
             ArrayList<String> array = new ArrayList<String>();
@@ -199,10 +196,42 @@ public class DatabaseManager {
                 System.out.print(result.getString("username"));
                 System.out.print("\t");
                 System.out.print(result.getString("password"));   
-                System.out.println(" ");
+                System.out.println(" ");          
+                array.add(result.getString("username"));               
+            }
+            System.out.println("All records have been selected!");
+            return array;
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+        public static ArrayList<String> getScoreBoard() throws Exception{
+        try{
+            Connection con = getConnection();
+            PreparedStatement statement = con.prepareStatement("SELECT * FROM scores ");
+            
+            ResultSet result = statement.executeQuery();
+            ArrayList<String> array = new ArrayList<String>();
+            while(result.next()){
+                System.out.print(result.getString("scoreID"));
+                System.out.print("\t");
+                System.out.print(result.getString("level1"));
+                System.out.print("\t");
+                System.out.print(result.getString("level2"));
+                System.out.print("\t");
+                System.out.print(result.getString("level3"));
+                System.out.print("\t");
+                System.out.print(result.getString("level4"));
+                System.out.print("\t");
+                System.out.print(result.getString("level5"));
+                System.out.print("\t");
+                System.out.print(result.getString("level6"));
+                System.out.print("\t");
+                System.out.print(result.getString("usrID"));
+                System.out.println(" ");  
                 
-                array.add(result.getString("username"));
-                
+                array.add(result.getString("scoreID"));               
             }
             System.out.println("All records have been selected!");
             return array;
@@ -226,9 +255,10 @@ public class DatabaseManager {
             final String var1 = u;
             final String var2 = p;
             
-            PreparedStatement statement = con.prepareStatement("SELECT id FROM usuarios WHERE username = '"+var1+"' AND password = '"+var2+"'");
+            PreparedStatement statement = con.prepareStatement("SELECT id FROM users WHERE username = '"+var1+"' AND password = '"+var2+"'");
             
             ResultSet result = statement.executeQuery();
+            result.next();
             long countLong = result.getLong(1);
             int uid =(int)countLong;    
             System.out.println("User id found!");

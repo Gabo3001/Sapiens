@@ -169,7 +169,7 @@ public class Nivel1 {
 //             System.out.println(e);
 //         } 
 
-        game.getDB().updateScore(game.getUserID(),"level1",game.getScore());
+        //game.getDB().updateScore(game.getUserID(),"level1",game.getScore());
     }
     
     public void update() throws Exception{

@@ -5,6 +5,8 @@
  */
 package tutorial1;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
@@ -234,7 +236,9 @@ public class Nivel6 {
             } else {
                 g.drawImage(Assets.city1, 0, 0, width, height, null);
             }
-            
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Serif", Font.PLAIN, 20));
+            g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
             A.render(g);
             S.render(g);
             D.render(g);
