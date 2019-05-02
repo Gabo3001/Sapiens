@@ -32,8 +32,9 @@ public class login{
         this.visible=false;
         frame = new JFrame();
         frame.setLayout(null);
+        frame.setResizable(false);
         frame.setTitle("ingreso");
-        frame.setSize(400,400);
+        frame.setSize(400,200);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -48,11 +49,15 @@ public class login{
         frame.add(password);
         
         JLabel label1 = new JLabel();
-        JLabel label2 = new JLabel();
         label1.setText("Usuario: ");
-        label2.setText("Contraseña: ");
+        label1.setBounds(90,-15,100,100);
         frame.add(label1);
+        
+        JLabel label2 = new JLabel();
+        label2.setText("Contraseña: ");
+        label2.setBounds(70,15,100,100);
         frame.add(label2);
+        
         
         
         button = new JButton ("Enviar");
