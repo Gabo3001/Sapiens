@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
@@ -40,9 +41,19 @@ public class login{
         usr.setBounds(150,20,100,30);
         frame.add(usr);
         
+
+        
         password = new JTextField();
         password.setBounds(150,50,100,30);
         frame.add(password);
+        
+        JLabel label1 = new JLabel();
+        JLabel label2 = new JLabel();
+        label1.setText("Usuario: ");
+        label2.setText("Contraseña: ");
+        frame.add(label1);
+        frame.add(label2);
+        
         
         button = new JButton ("Enviar");
         button.setBounds(150,100,100,30);
