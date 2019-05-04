@@ -126,6 +126,8 @@ class Esp implements ActionListener{
         if(game.getUserID()!=0){
             try {
                 game.getDB().addScoreRow(game.getUserID());
+                game.setScoreTableID(game.getDB().getScoreID());
+                System.out.println(game.getScoreTableID());
             } catch (Exception ex) {
                 Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
             }

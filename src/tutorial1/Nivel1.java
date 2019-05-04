@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -181,22 +183,32 @@ public class Nivel1 {
         //WHen the player recolect 100 apples
         if (getCont() == 100) {
             //The music stops
+            try {    
+                new DatabaseManager().updateScore(game.getScoreTableID(),"level1",game.getScore());
+            }catch (Exception ex) {
+                Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                game.getDB().getScoreBoard();
+            } catch (Exception ex) {
+                Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+            }
             songN1.stop();
             game.setNivel(3);
         }
         
-        //DATABSAE SCORE UPDATE
-//         try{
-//             update();
-//         }   catch(Exception e){
-//             System.out.println(e);
-//         } 
 
-        //game.getDB().updateScore(game.getUserID(),"level1",game.getScore());
     }
     
+    //DATABSAE SCORE UPDATE
     public void update() throws Exception{
-        game.getDB().updateScore(game.getUserID(),"level1",game.getScore());
+        
+        try {    
+            new DatabaseManager().updateScore(game.getScoreTableID(),"level1",game.getScore());
+        }catch (Exception ex) {
+            Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public void render() {

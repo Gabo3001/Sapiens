@@ -161,13 +161,13 @@ public class DatabaseManager {
      * @param score
      * updates the level score in a row depending on the rows user id
      */
-    public void updateScore(int usrID, String level,int score) {
-        final int var1 = usrID;
-        final String var2 = level;
-        final int var3 = score;
+    public static void updateScore(int scoreID, String level,int score) throws Exception {
+         int var1 = scoreID;
+         String var2 = level;
+         int var3 = score;
         try{
             Connection con = getConnection();
-            PreparedStatement posted = con.prepareStatement("UPDATE scores SET " +var2+" = "+var3+"WHERE usrID = "+var1);
+            PreparedStatement posted = con.prepareStatement("UPDATE scores SET " +var2+" = "+var3+" WHERE scoreID = "+var1);
             posted.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -284,6 +284,22 @@ public class DatabaseManager {
         }
         return 0;
     }
+        public static int getScoreID() throws Exception{
+        try{
+            Connection con = getConnection();
+            
+            PreparedStatement statement = con.prepareStatement("SELECT scoreID FROM scores ORDER BY scoreID DESC LIMIT 1");
+            ResultSet result = statement.executeQuery();
+            result.next();
+            long countLong = result.getLong(1);
+            int uid =(int)countLong;    
+            System.out.println("score id found!");
+            return uid;
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return 0;
+    }
     
     //adds a row in the score table with the user id
         public static void addScoreRow(int u) throws Exception{
@@ -297,6 +313,7 @@ public class DatabaseManager {
         }
         finally{
             System.out.println("Inset completed");
+            
         }
     }
             

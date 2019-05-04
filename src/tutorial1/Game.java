@@ -40,6 +40,7 @@ public class Game implements Runnable {
     private String username;
     private String password;
     private DatabaseManager dbm;
+    private int ScoreTableID;
     
 
     public Game(String title, int width, int height) {
@@ -57,6 +58,14 @@ public class Game implements Runnable {
         this.userID=0;
         this.username="XXXXXXX";
     }
+    public void setScoreTableID(int id){
+        this.ScoreTableID=id;
+    }
+    
+    public int getScoreTableID(){
+        return ScoreTableID;
+    } 
+    
     
     public void setUserID(int id){
         this.userID=id;
