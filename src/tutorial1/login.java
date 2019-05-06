@@ -20,7 +20,6 @@ import javax.swing.JTextField;
  */
 public class login{
     private JFrame frame;
-   // private Boton button;
     private JButton button;
     private JTextField usr;
     private JTextField password;

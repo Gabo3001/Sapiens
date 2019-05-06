@@ -194,7 +194,7 @@ public class Nivel1 {
                 Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
             }
             songN1.stop();
-            game.setNivel(3);
+            game.setNivel(2);
         }
         
 

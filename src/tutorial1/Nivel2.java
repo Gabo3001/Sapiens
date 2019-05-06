@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * 
  *
@@ -29,6 +31,8 @@ private String num; //to display score
 private int TotalAlien;//to keep track of total bricks
 private int Win;//to keep score of destroyed bricks
 private int lives;
+private int timer;
+private String cronos;
 
     private int width;
     private int height;
@@ -60,6 +64,8 @@ private int lives;
         this.lives= 3;
         scene = 0;
         this.next = new Animation(Assets.nextA, 500);
+        this.timer = 60 * 50;//fps*time you want
+        this.cronos = "tiempo: " + timer;
     }
 
     public Animation getNext() {
@@ -69,6 +75,16 @@ private int lives;
     public void setNext(Animation next) {
         this.next = next;
     }
+    
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int t) {
+        if (t != 0) {
+            this.timer = t;
+        }
+    }
 
     public int getScene() {
         return scene;
@@ -76,6 +92,14 @@ private int lives;
 
     public void setScene(int scene) {
         this.scene = scene;
+    }
+    
+        public String getCronos() {
+        return cronos;
+    }
+
+    public void setCronos(String t) {
+        this.cronos = t;
     }
 
     public MamutN2 getAlien() {
@@ -236,9 +260,25 @@ private int lives;
         
         
     public void tick() {
-            if(score>=1000){
-                 game.setNivel(3);
-             }
+            if (getTimer() / 60 == 0) {
+                try {
+                    //The game is set on the level 5
+
+                    new DatabaseManager().updateScore(game.getScoreTableID(),"level2",getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+     
+           
+                try {
+                    game.getDB().getScoreBoard();
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+         
+            
+            game.setNivel(3);
+        }
             
             if (isStart() && !game.isPause()) {
              
@@ -432,10 +472,19 @@ private int lives;
              g = bs.getDrawGraphics();
            
             if (isStart()) {
-                
+
                 g.drawImage(Assets.backgroundN2, 0, 0, width, height, null);
                 player.render(g);
                 laser.render(g);
+                
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.setColor(Color.WHITE);
+                g.drawString(cronos, 670, 480);
+                if (!game.isPause()) {
+                    setTimer(getTimer() - 1);
+                }
+                //updates the time, it is divided by 60 because it moves at 60fps
+                setCronos("TIEMPO: " + getTimer() / 60);
         
                 //loopfor rendering all bricks
                 for (int i = 0; i < enemigo.size(); i++) {
@@ -494,4 +543,3 @@ private int lives;
 
 }
 }
-

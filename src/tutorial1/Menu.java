@@ -27,6 +27,7 @@ public class Menu {
     private BufferStrategy bs;
     private Graphics g;
     private login log;
+    private quiz question;
     private boolean logVis;
     private boolean open;
     
@@ -77,6 +78,7 @@ public class Menu {
     public void init() {
         //Start, help and back are initialized
         log = new login(game);
+        question = new quiz(game);
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);

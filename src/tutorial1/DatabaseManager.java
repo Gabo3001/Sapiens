@@ -92,6 +92,24 @@ public class DatabaseManager {
             System.out.println("Function complete");
         };
     }
+        /**
+     *
+     * @throws Exception
+     * creates a table for scores
+     */
+    public static void createQuizTable() throws Exception{
+        try{
+            Connection con = getConnection();
+            //Problem in the mySQL Syntax
+            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS quiz(quizID INT NOT NULL AUTO_INCREMENT,revolution varchar(50) NOT NULL,CONSTRAINT revolution_Ck(revolution IN ('Cognitiva','Agricola','Scientifica')), question varchar(255),options INT NOT NULL,CONSTRAINT options_Ck CHECK (options IN ( 2, 4)), answer varchar(50) NOT NULL,option2 varchar(50) NOT NULL,option3 varchar(50),option4 varchar(50), PRIMARY KEY(quizID))");
+            create.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        finally{
+            System.out.println("Function complete");
+        };
+    }
         
     /**
      *
@@ -315,6 +333,85 @@ public class DatabaseManager {
             System.out.println("Inset completed");
             
         }
+    }
+        
+            //adds a row in the score table with the user id
+        public static void addQuiz4Question(String rev,String question,String answer,String option2,String option3,String option4) throws Exception{
+        try{
+            Connection con = getConnection();
+            PreparedStatement posted = con.prepareStatement("INSERT INTO quiz (revolution,question,option,answer,option2,option3,option4)VALUES('"+rev+"','"+question+"',4,'"+answer+"','"+option2+"','"+option3+"','"+option4+"')");
+            posted.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        finally{
+            System.out.println("Question inserted succesfully ");
+            
+        }
+    }
+        
+                    //adds a row in the score table with the user id
+        public static void addQuiz2Question(String rev,String question,String answer,String option2) throws Exception{
+        try{
+            Connection con = getConnection();
+            PreparedStatement posted = con.prepareStatement("INSERT INTO quiz (revolution,question,option,answer,option2)VALUES('"+rev+"','"+question+"',2,'"+answer+"','"+option2+"')");
+            posted.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        finally{
+            System.out.println("Question inserted succesfully ");
+        }
+    }
+                public static ArrayList<String> getQuestions() throws Exception{
+        try{
+            Connection con = getConnection();
+            PreparedStatement statement = con.prepareStatement("SELECT * FROM quiz ");
+            
+            ResultSet result = statement.executeQuery();
+            ArrayList<String> array = new ArrayList<String>();
+                System.out.print("quizID");
+                System.out.print("\t");
+                System.out.print("revolution");
+                System.out.print("\t");
+                System.out.print("question");
+                System.out.print("\t");
+                System.out.print("options");
+                System.out.print("\t");
+                System.out.print("answer");
+                System.out.print("\t");
+                System.out.print("option2");
+                System.out.print("\t");
+                System.out.print("option3");
+                System.out.print("\t");
+                System.out.print("option4");
+                System.out.println(" "); 
+            while(result.next()){
+                System.out.print(result.getString("quizID"));
+                System.out.print("\t");
+                System.out.print(result.getString("revolution"));
+                System.out.print("\t");
+                System.out.print(result.getString("question"));
+                System.out.print("\t");
+                System.out.print(result.getString("options"));
+                System.out.print("\t");
+                System.out.print(result.getString("answer"));
+                System.out.print("\t");
+                System.out.print(result.getString("option2"));
+                System.out.print("\t");
+                System.out.print(result.getString("option3"));
+                System.out.print("\t");
+                System.out.print(result.getString("option4"));
+                System.out.println(" ");  
+                
+                array.add(result.getString("quizID"));               
+            }
+            System.out.println("All question records have been selected!");
+            return array;
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
     }
             
 }

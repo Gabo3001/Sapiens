@@ -65,6 +65,7 @@ public class Assets {
     public static BufferedImage hogSpritesB;
     public static BufferedImage hogSpritesN;
     public static SoundClip jabalia;
+    public static BufferedImage bkGndN2;
 
     //Level 3
     public static BufferedImage backgroundLevel3;
@@ -147,7 +148,7 @@ public class Assets {
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
         backgroundLevel1 = ImageLoader.loadImage("/tutorial1/images/BkLvl1.jpeg");
         backgroundN2 = ImageLoader.loadImage("/tutorial1/images/back1 2.png");
-        backgroundLevel3 = ImageLoader.loadImage("/tutorial1/images/field.png");
+        backgroundLevel3 = ImageLoader.loadImage("/tutorial1/images/bkLvl3.jpg");
         playerLevel1 = ImageLoader.loadImage("/tutorial1/images/monito.png");
         fruit = ImageLoader.loadImage("/tutorial1/images/manzana.png");
         start = ImageLoader.loadImage("/tutorial1/images/Inicio.png");
@@ -208,6 +209,7 @@ public class Assets {
         hogSprites = ImageLoader.loadImage("/tutorial1/images/jabali.png");
         hogSpritesB = ImageLoader.loadImage("/tutorial1/images/MamutB.PNG");
         hogSpritesN = ImageLoader.loadImage("/tutorial1/images/MamutN.png");
+        bkGndN2=ImageLoader.loadImage("/tutorial1/images/BkLvl2jpg.jpg");
         jabalia = new SoundClip("/tutorial1/sounds/jabalia.wav", -3f, false);
         
         SpriteSheet hogSpriteSheet = new SpriteSheet(hogSprites);

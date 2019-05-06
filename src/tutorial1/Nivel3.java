@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -278,6 +280,20 @@ public class Nivel3 {
             //The music stops
             songN3.stop();
             //The game is moved to level 4
+                            try {
+                    //The game is set on the level 5
+
+                    new DatabaseManager().updateScore(game.getScoreTableID(),"level3",game.getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel3.class.getName()).log(Level.SEVERE, null, ex);
+                }
+     
+           
+                try {
+                    game.getDB().getScoreBoard();
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel3.class.getName()).log(Level.SEVERE, null, ex);
+                }
             game.setNivel(4);
         }
 
