@@ -33,6 +33,7 @@ public class Menu {
     
     private JFrame jf;
     private JTextField jt = new JTextField();
+    private AddQuestion prof;
  
     
     String title;
@@ -79,6 +80,7 @@ public class Menu {
         //Start, help and back are initialized
         log = new login(game);
         question = new quiz(game,"donde se origino el ser humano","Africa","America del norte","Europa","Asia");
+        prof=new AddQuestion(game);
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);

@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -156,6 +159,10 @@ public class quiz {
             n=0;
         }
     }
+    public JFrame getFrame(){
+        
+        return frame;
+    }
 }
 
 class anwr implements ActionListener{
@@ -169,6 +176,9 @@ class anwr implements ActionListener{
     }
     public void actionPerformed(ActionEvent ae) {
         quiz.setButton1Color();
+        if(quiz.getScore()==100||quiz.getScore()==50){
+           quiz.getFrame().dispose(); 
+        }
         if(quiz.getScore()==0){
             if(ans==res){
                 quiz.setScore(100);
@@ -177,5 +187,7 @@ class anwr implements ActionListener{
             }
         }
         System.out.println(quiz.getScore());
+        quiz.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
     }
 }
