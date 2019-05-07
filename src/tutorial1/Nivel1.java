@@ -157,6 +157,11 @@ public class Nivel1 {
                 //The song is pause
                 songN1.pause();
             }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //Thr level is reset
+                reset();
+            }
         } else {
             //When thw n key is press
             if (game.getKeyManager().next) {
@@ -193,11 +198,46 @@ public class Nivel1 {
             } catch (Exception ex) {
                 Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //Last score is set on the last score you get through the level
+            game.setLastScore(game.getScore());
+            //music stops
             songN1.stop();
+            //The user is move to the next level
             game.setNivel(2);
         }
         
 
+    }
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset(){
+        //The counter of the apples is back to 0
+        setCont(0);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //The song start from the begining
+        songN1.stop();
+        songN1.setfPosition(0);
+        //The player is set on its original position
+        player.setX(300);
+        player.setY(350);
+        //The apples are set on a random position
+        for (int i = 0; i < fruit.size(); i++) {
+            Fruit food = fruit.get(i);
+            food.setX((int) (Math.random() * 760));
+            int iPosY = (int) (Math.random() * getHeight() * 1 / 2) - getHeight();
+            food.setY(iPosY);
+        }
+        //The game is no longer on pause
+        game.setPause(false);
+        //The score go back to 0
+        game.setScore(0);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
     }
     
     //DATABSAE SCORE UPDATE

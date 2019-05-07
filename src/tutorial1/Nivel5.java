@@ -316,6 +316,11 @@ public class Nivel5 {
                 //The song is pause
                 songN5.pause();
             }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //Thr level is reset
+                reset();
+            }
         } else {
             //When thw n key is press
             if (game.getKeyManager().next) {
@@ -346,6 +351,35 @@ public class Nivel5 {
             songN5.stop();
             game.setNivel(6);
         }
+    }
+    
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset(){
+        //The counter of the apples is back to 0
+        setCont(0);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //All the booleans for the tools are set on false
+        setI1(false);
+        setI2(false);
+        setI3(false);
+        setI4(false);
+        setI5(false);
+        setI6(false);
+        setI7(false);
+        setI8(false);
+        //The song start from the begining
+        songN5.stop();
+        songN5.setfPosition(0);
+        //The game is no longer on pause
+        game.setPause(false);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
     }
 
     public void render() {

@@ -154,8 +154,8 @@ public Mamut(int x, int y, int width, int height, Game game) {
 
 
         if(!isAlive()){
-            setWidth(0);
-            setHeight(0);
+            setX(-50);
+            setY(-50);
        }
          
    }
