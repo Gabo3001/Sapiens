@@ -101,8 +101,9 @@ public class DatabaseManager {
         try{
             Connection con = getConnection();
             //Problem in the mySQL Syntax
-            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS quiz(quizID INT NOT NULL AUTO_INCREMENT,revolution varchar(50) NOT NULL,CONSTRAINT revolution_Ck(revolution IN ('Cognitiva','Agricola','Scientifica')), question varchar(255),options INT NOT NULL,CONSTRAINT options_Ck CHECK (options IN ( 2, 4)), answer varchar(50) NOT NULL,option2 varchar(50) NOT NULL,option3 varchar(50),option4 varchar(50), PRIMARY KEY(quizID))");
+            PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS quiz(quizID INT NOT NULL AUTO_INCREMENT,revolution varchar(50) NOT NULL CHECK(revolution IN ('Cognitiva','Agricola','Scientifica')), question varchar(255), answer varchar(50) NOT NULL,option2 varchar(50) NOT NULL,option3 varchar(50),option4 varchar(50), PRIMARY KEY(quizID))");
             create.executeUpdate();
+            getQuestions();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -120,8 +121,8 @@ public class DatabaseManager {
         try{
             Connection con = getConnection();
             //Problem in the mySQL Syntax
-            PreparedStatement create = con.prepareStatement("DROP TABLE usuarios");
-            create.executeUpdate();
+            PreparedStatement dropScores = con.prepareStatement("DROP TABLE scores");
+            dropScores.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -302,6 +303,7 @@ public class DatabaseManager {
         }
         return 0;
     }
+        //gets the id of a score table
         public static int getScoreID() throws Exception{
         try{
             Connection con = getConnection();
@@ -339,7 +341,7 @@ public class DatabaseManager {
         public static void addQuiz4Question(String rev,String question,String answer,String option2,String option3,String option4) throws Exception{
         try{
             Connection con = getConnection();
-            PreparedStatement posted = con.prepareStatement("INSERT INTO quiz (revolution,question,option,answer,option2,option3,option4)VALUES('"+rev+"','"+question+"',4,'"+answer+"','"+option2+"','"+option3+"','"+option4+"')");
+            PreparedStatement posted = con.prepareStatement("INSERT INTO quiz (revolution,question,answer,option2,option3,option4)VALUES('"+rev+"','"+question+"','"+answer+"','"+option2+"','"+option3+"','"+option4+"')");
             posted.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -350,19 +352,7 @@ public class DatabaseManager {
         }
     }
         
-                    //adds a row in the score table with the user id
-        public static void addQuiz2Question(String rev,String question,String answer,String option2) throws Exception{
-        try{
-            Connection con = getConnection();
-            PreparedStatement posted = con.prepareStatement("INSERT INTO quiz (revolution,question,option,answer,option2)VALUES('"+rev+"','"+question+"',2,'"+answer+"','"+option2+"')");
-            posted.executeUpdate();
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        finally{
-            System.out.println("Question inserted succesfully ");
-        }
-    }
+        
                 public static ArrayList<String> getQuestions() throws Exception{
         try{
             Connection con = getConnection();
@@ -375,8 +365,6 @@ public class DatabaseManager {
                 System.out.print("revolution");
                 System.out.print("\t");
                 System.out.print("question");
-                System.out.print("\t");
-                System.out.print("options");
                 System.out.print("\t");
                 System.out.print("answer");
                 System.out.print("\t");
@@ -392,8 +380,6 @@ public class DatabaseManager {
                 System.out.print(result.getString("revolution"));
                 System.out.print("\t");
                 System.out.print(result.getString("question"));
-                System.out.print("\t");
-                System.out.print(result.getString("options"));
                 System.out.print("\t");
                 System.out.print(result.getString("answer"));
                 System.out.print("\t");

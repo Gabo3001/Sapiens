@@ -36,6 +36,7 @@ public class Game implements Runnable {
     private int lastScore;
     private boolean pause;
     
+    
     //DATABASE 
     private int userID;
     private String username;
@@ -55,10 +56,14 @@ public class Game implements Runnable {
         mouseManager = new MouseManager();
         pause = false;
         score = 0;
-        whatLevel = 2;
+
+        
+        whatLevel = 1;
         this.userID=0;
         this.username="XXXXXXX";
     }
+    
+
     public void setScoreTableID(int id){
         this.ScoreTableID=id;
     }
