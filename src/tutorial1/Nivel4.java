@@ -45,6 +45,7 @@ public class Nivel4 {
     private boolean start;
     private int scene;
     private SoundClip songN4;
+    private quiz agricultural;
 //    private Boton back;
 
     /**
@@ -315,20 +316,18 @@ public class Nivel4 {
             game.getMouseManager().setY(0);
             //The song is stop
             songN4.stop();
-                            try {
+                try {
+                    game.getDB().getQuizInfo("Agricola",agricultural,game);
+                } catch (Exception ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
                     //The game is set on the level 5
-
                     new DatabaseManager().updateScore(game.getScoreTableID(),"level4",getScore());
                 } catch (Exception ex) {
                     Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
                 }
      
-           
-                try {
-                    game.getDB().getScoreBoard();
-                } catch (Exception ex) {
-                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
-                }
             //The game is set on the level 5
             game.setNivel(5);
         }

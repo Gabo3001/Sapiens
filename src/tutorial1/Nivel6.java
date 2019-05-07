@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,6 +41,7 @@ public class Nivel6 {
     private boolean start;
     private int scene;
     private SoundClip songN6;
+    private quiz scientific;
 
     public Nivel6(String title, int width, int height, Game game) {
         this.title = title;
@@ -349,3 +352,8 @@ public class Nivel6 {
         }
     }
 }
+//                try {
+//                    game.getDB().getQuizInfo("Scientifica",scientific,game);
+//                } catch (Exception ex) {
+//                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+//                }

@@ -262,17 +262,14 @@ private String cronos;
         
     public void tick() {
             if (getTimer() / 60 == 0) {
+                //game.getDB().
+            try {
+                game.getDB().getQuizInfo("Cognitiva",cognitive,game);
+            } catch (Exception ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 try {
-                    //The game is set on the level 5
-
-                    new DatabaseManager().updateScore(game.getScoreTableID(),"level2",getScore());
-                } catch (Exception ex) {
-                    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
-                }
-     
-           
-                try {
-                    game.getDB().getScoreBoard();
+                    new DatabaseManager().updateScore(game.getScoreTableID(),"level2",game.getScore());
                 } catch (Exception ex) {
                     Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
                 }

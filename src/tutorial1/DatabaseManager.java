@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 /**
  *
  * @author Electel
@@ -353,7 +354,7 @@ public class DatabaseManager {
     }
         
         
-                public static ArrayList<String> getQuestions() throws Exception{
+    public static ArrayList<String> getQuestions() throws Exception{
         try{
             Connection con = getConnection();
             PreparedStatement statement = con.prepareStatement("SELECT * FROM quiz ");
@@ -398,6 +399,59 @@ public class DatabaseManager {
             System.out.println(e);
         }
         return null;
+    }
+    
+//    public LinkedList<String> selectRandomQuestion(){
+//        try{
+//            Connection con = getConnection();
+//            PreparedStatement statement = con.prepareStatement("SELECT * FROM quiz ORDER BY RAND() LIMIT 1");
+//            ResultSet result = statement.executeQuery();
+//            LinkedList<String> arr = new LinkedList<String>();
+//            arr.add("h");
+//            //arr = new ArrayList<String>();
+//            //arr.add(result.getString("quizID"));
+//            //arr.add(result.getString("question"));
+//            //arr.add(result.getString("answer"));
+//            //arr.add(result.getString("option2"));
+//            //arr.add(result.getString("option3"));
+//            //arr.add(result.getString("option4"));
+//            while(result.next()){
+//            System.out.print(result.getString("question"));
+//            System.out.print(result.getString("answer"));
+//            System.out.print(result.getString("option2"));
+//            System.out.print(result.getString("option3"));
+//            System.out.print(result.getString("option4"));
+//            }
+//            //System.out.println(arr);
+//           return arr;
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
+//        return null;
+//    }
+        public static void getQuizInfo(String rev,quiz q,Game g) throws Exception{
+        try{
+            Connection con = getConnection();
+            
+            PreparedStatement statement = con.prepareStatement("SELECT * FROM quiz WHERE revolution = '"+rev+"' ORDER BY RAND() LIMIT 1");
+            ResultSet result = statement.executeQuery();
+            
+            result.next();
+            q = new quiz(g,result.getString("question"),result.getString("answer"),result.getString("option2"),result.getString("option3"),result.getString("option4"),false);
+            System.out.println(result.getString("revolution"));
+            System.out.println(result.getString("question"));
+            System.out.println(result.getString("answer"));
+            System.out.println(result.getString("option2"));
+            System.out.println(result.getString("option3"));
+            System.out.println(result.getString("option4"));
+            
+                
+            System.out.println("score id found!");
+            
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        
     }
             
 }
