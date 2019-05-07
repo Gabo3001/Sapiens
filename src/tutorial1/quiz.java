@@ -8,6 +8,7 @@ package tutorial1;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,57 +27,155 @@ public class quiz {
     private Game game;
     private boolean visible;
     
-    public quiz(Game game){
+    private String question;
+    private String answer;
+    private String option2;
+    private String option3;
+    private String option4;
+    private LinkedList<String> response;
+    
+    private int range;
+    private int n;
+    private int quizScore;
+    
+    public quiz(Game game,String q,String a,String o2,String o3,String o4){
         this.game=game;
+        this.quizScore=0;
+        this.question = q;
+        this.answer = a;
+        this.option2 = o2;
+        this.option3 = o3;
+        this.option4 = o4;
+        response=new LinkedList<String>();
         
-        this.visible=false;
         frame = new JFrame();
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setTitle("QUIZ");
         
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        //LinkedList
+        response.add(answer);
+        response.add(option2);
+        if(option3!=null||option4!=null){
+        response.add(option3);
+        response.add(option4);
+        }
+        range = (4);//max-min
+        n = (int) (Math.random() * range);
+        System.out.println(n);
+        
+        //QUESTION TEXT 
         JLabel label1 = new JLabel();
-        label1.setText("¿Donde se origino el ser humano? ");
+        label1.setText(question);
         label1.setBounds(90,-15,200,200);
         frame.add(label1);
         
-        button1 = new JButton ("Enviar");
-        button1.setBounds(50,150,100,30);
-        
-        button1.addActionListener(new anwr(this));
+        //BUTTON1 UI and behaviour
+        button1 = new JButton (response.get(n));
+        button1.setBounds(25,150,150,30);
+        button1.setBackground(Color.decode("#00aaff"));
+        button1.addActionListener(new anwr(answer,response.get(n),this));
         frame.add(button1);
+        n++;
+        rollN();
         
-        button2 = new JButton ("Enviar");
-        button2.setBounds(250,150,100,30);
+        //BUTTON2 UI and behaviour
+        button2 = new JButton (response.get(n));
+        button2.setBounds(225,150,150,30);
+        button2.setBackground(Color.decode("#aaff00"));
+        button2.addActionListener(new anwr(answer,response.get(n),this));
         frame.add(button2);
+        n++;
+        rollN();
         
-        button3 = new JButton ("Enviar");
-        button3.setBounds(50,250,100,30);
+        //BUTTON3 UI and behaviour
+        button3 = new JButton (response.get(n));
+        button3.setBounds(25,250,150,30);
+        button3.setBackground(Color.decode("#ff00aa"));
+        button3.addActionListener(new anwr(answer,response.get(n),this));
         frame.add(button3);
+        n++;
+        rollN();
         
-        button4 = new JButton ("Enviar");
-        button4.setBounds(250,250,100,30);
+        //BUTTON4 UI and behaviour
+        button4 = new JButton (response.get(n));
+        button4.setBounds(225,250,150,30);
+        button4.setBackground(Color.decode("#ffaa00"));
+        button4.addActionListener(new anwr(answer,response.get(n),this));
         frame.add(button4);
+        n++;
+        rollN();
         
-        frame.setTitle("QUIZ");
         frame.setVisible(true);
+
     }
     public void setButton1Color(){
-        button1.setBackground(Color.yellow);
-        button2.setBackground(Color.yellow);
-        button3.setBackground(Color.yellow);
-        button4.setBackground(Color.yellow);
+        if(response.get(n)==answer){
+            button1.setBackground(Color.green);
+        }else{
+            button1.setBackground(Color.red);
+        }
+        n++;
+        rollN();
+        if(response.get(n)==answer){
+            button2.setBackground(Color.green);
+        }else{
+            button2.setBackground(Color.red);
+        }
+        n++;
+        rollN();
+        if(response.get(n)==answer){
+            button3.setBackground(Color.green);
+        }else{
+            button3.setBackground(Color.red);
+        }
+        n++;
+        rollN();
+        if(response.get(n)==answer){
+            button4.setBackground(Color.green);
+        }else{
+            button4.setBackground(Color.red);
+        }
+        n++;
+        rollN();
+    }
+    public void setScore(int score){
+        this.quizScore=score;
+    }
+    
+    public int getScore(){
+        return quizScore;
+    }
+    
+    private void rollN(){
+        if(n==4){
+            n=0;
+        }
     }
 }
 
 class anwr implements ActionListener{
+    String ans;
+    String res;
     quiz quiz;
-    public anwr(quiz q){
-        quiz = q;
+    public anwr(String a,String r,quiz b){
+        ans = a;
+        res = r;
+        quiz = b;
     }
     public void actionPerformed(ActionEvent ae) {
         quiz.setButton1Color();
+        if(quiz.getScore()==0){
+            if(ans==res){
+                quiz.setScore(100);
+            }else{
+                quiz.setScore(50);
+            }
+        }
+        System.out.println(quiz.getScore());
     }
 }

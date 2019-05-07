@@ -363,6 +363,7 @@ public class DatabaseManager {
             System.out.println("Question inserted succesfully ");
         }
     }
+        
                 public static ArrayList<String> getQuestions() throws Exception{
         try{
             Connection con = getConnection();

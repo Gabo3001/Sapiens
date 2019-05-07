@@ -35,7 +35,7 @@ public class login{
         frame.setTitle("ingreso");
         frame.setSize(400,200);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         usr = new JTextField();
         usr.setBounds(150,20,100,30);
@@ -61,7 +61,7 @@ public class login{
         
         button = new JButton ("Enviar");
         button.setBounds(150,100,100,30);
-        button.addActionListener(new Esp(usr,password,game));
+        button.addActionListener(new Esp(usr,password,game,frame));
         frame.add(button);
         frame.setVisible(true);
     }
@@ -80,14 +80,17 @@ class Esp implements ActionListener{
     private JTextField uname;
     private JTextField pass;
     private Game game;
+    private JFrame frame;
     
-    public Esp(JTextField u,JTextField p,Game g){
+    public Esp(JTextField u,JTextField p,Game g,JFrame f){
         uname = u;
         pass = p;
         game = g;
+        frame = f;
     }
     
     public void actionPerformed(ActionEvent ae) {
+        
         System.out.println(uname.getText());
         System.out.println(pass.getText());
         
@@ -146,6 +149,10 @@ class Esp implements ActionListener{
         } catch (Exception ex) {
             Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(game.getUserID()!=0){
+            frame.dispose();
+        }
+        
     }
     
 }

@@ -46,6 +46,7 @@ private String cronos;
     private Boton save;
     private Animation next;
     private int scene;
+    private quiz cognitive;
     
     public Nivel2(String title, int width, int height, Game game) { 
         this.title = title;
