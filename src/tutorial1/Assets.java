@@ -203,8 +203,8 @@ public class Assets {
         eat = new SoundClip("/tutorial1/sounds/eat.wav", -3f, false);
         
         //Assets level 2
-        info2 = ImageLoader.loadImage("/tutorial1/images/Info_N2.png");
-        control2 = ImageLoader.loadImage("/tutorial1/images/Controles_N2.png");
+        info2 = ImageLoader.loadImage("/tutorial1/images/info_N2.png");
+        control2 = ImageLoader.loadImage("/tutorial1/images/controles_N2.png");
         laser = ImageLoader.loadImage("/tutorial1/images/arrowN2.png");     
         hogSprites = ImageLoader.loadImage("/tutorial1/images/jabali.png");
         hogSpritesB = ImageLoader.loadImage("/tutorial1/images/MamutB.PNG");
