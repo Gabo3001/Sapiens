@@ -37,6 +37,7 @@ public class Nivel2 {
     String title;
     private PlayerN2 player;
     private boolean start;
+    private boolean end;
     private Boton menu;
     private Boton save;
     private Animation next;
@@ -63,20 +64,29 @@ public class Nivel2 {
         num = "" + game.getScore(); //string que despliega en la pantalla el puntaje
         this.lasershoot = true;
         start = false;
+        end = false;
         scene = 0;
         this.next = new Animation(Assets.nextA, 500);
         this.timer = 60 * 60;//fps*time you want
         this.cronos = "tiempo: " + timer;
         songN2 = new SoundClip("/tutorial1/sounds/N2.wav", -3f, true);
-        this.bQuiz=false;
+        this.bQuiz = false;
     }
-    
-    public boolean isBQuiz(){
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isBQuiz() {
         return bQuiz;
     }
-    
-    public void setBQuiz(boolean b){
-        this.bQuiz=b;
+
+    public void setBQuiz(boolean b) {
+        this.bQuiz = b;
     }
 
     /**
@@ -311,28 +321,7 @@ public class Nivel2 {
      */
     public void tick() {
 
-            if (getTimer() / 60 == 0) {
-                //game.getDB().
-            try {
-                game.getDB().getQuizInfo("Cognitiva",cognitive,game,"quiz1Score","quiz1ID");
-            } catch (Exception ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                try {
-                    new DatabaseManager().updateScore(game.getScoreTableID(),"level2",game.getScore());
-                } catch (Exception ex) {
-                    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
-                }
-         
-            
-            game.setNivel(3);
-        }
-            
-
-             
-            //advancing player with colition
-
-
+        //advancing player with colition
         if (isStart() && !game.isPause()) {
             setNum("" + game.getScore());
             //If theres no song playing
@@ -473,18 +462,36 @@ public class Nivel2 {
                 songN2.play();
             }
         }
+        //If the timer go to 0
         if (getTimer() / 60 == 0) {
-            try {
-                //The game is set on the level 5
-                new DatabaseManager().updateScore(game.getScoreTableID(), "level2", game.getScore());
-            } catch (Exception ex) {
-                Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+        }
+        //if the game end
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                //game.getDB().
+                try {
+                    game.getDB().getQuizInfo("Cognitiva", cognitive, game, "quiz1Score", "quiz1ID");
+                } catch (Exception ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level2", game.getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-            try {
-                game.getDB().getScoreBoard();
-            } catch (Exception ex) {
-                Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
+        //When the qiz is done
+        if (isBQuiz()) {
             //Last score is set on the last score you get through the level
             game.setLastScore(game.getScore());
             //music stops
@@ -492,6 +499,7 @@ public class Nivel2 {
             //The user is move to the next level
             game.setNivel(3);
         }
+
     }
 
     /**
@@ -630,6 +638,15 @@ public class Nivel2 {
                     g.drawImage(Assets.control2, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
+            }
+            if (isEnd()){
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
             }
 
             bs.show();

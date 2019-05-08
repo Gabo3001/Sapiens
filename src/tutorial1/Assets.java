@@ -24,7 +24,7 @@ public class Assets {
     public static BufferedImage backgroundLevel1;
     public static BufferedImage playerLevel1;
     public static BufferedImage fruit;
-
+    public static BufferedImage black;
     public static BufferedImage menu;
     public static BufferedImage save;
     public static BufferedImage pauseN1;
@@ -197,7 +197,7 @@ public class Assets {
         save = ImageLoader.loadImage("/tutorial1/images/Save.png");
         pauseN1 = ImageLoader.loadImage("/tutorial1/images/Pausa_N1.png");
         rev1 = ImageLoader.loadImage("/tutorial1/images/Rev_ag.png");
-
+        black = ImageLoader.loadImage("/tutorial1/images/black.png");
         rev2 = ImageLoader.loadImage("/tutorial1/images/Rev_cog.png");
 
         info1 = ImageLoader.loadImage("/tutorial1/images/Info_N1.png");

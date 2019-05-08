@@ -1,4 +1,3 @@
-
 //                try {
 //                    game.getDB().getQuizInfo("Scientifica",scientific,game,"quiz3Score","quiz3ID");
 //                } catch (Exception ex) {
@@ -23,13 +22,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Electel
  */
 public class Nivel6 {
-        private int width;
+
+    private int width;
     private int height;
     private Game game;
     String title;
@@ -50,6 +52,7 @@ public class Nivel6 {
     private Boton save;
     private Animation next;
     private boolean start;
+    private boolean end;
     private int scene;
     private SoundClip songN6;
     private quiz scientific;
@@ -66,19 +69,29 @@ public class Nivel6 {
         yellowRight = true;
         purpleRight = true;
         blueRight = true;
-        lightsUp = 0;
+        lightsUp = 140;
         scene = 0;
         start = false;
+        end = false;
         this.next = new Animation(Assets.nextA, 500);
         songN6 = new SoundClip("/tutorial1/sounds/N6.wav", -3f, true);
-        this.bQuiz=false;
+        this.bQuiz = false;
     }
-    public boolean isBQuiz(){
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isBQuiz() {
         return bQuiz;
     }
-    
-    public void setBQuiz(boolean b){
-        this.bQuiz=b;
+
+    public void setBQuiz(boolean b) {
+        this.bQuiz = b;
     }
 
     public void setStart(boolean start) {
@@ -171,7 +184,7 @@ public class Nivel6 {
                 songN6.play();
             }
             //if the lights up go below 0
-            if(getLightsUp() < 0){
+            if (getLightsUp() < 0) {
                 //set lights up in 0
                 setLightsUp(0);
             }
@@ -314,12 +327,46 @@ public class Nivel6 {
                 songN6.play();
             }
         }
+
+        if (getLightsUp() == 150) {
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+        }
+        //if the game ended
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                try {
+                    game.getDB().getQuizInfo("Scientifica", scientific, game, "quiz3Score", "quiz3ID");
+                } catch (Exception ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    //The game is set on the level 5
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level6", game.getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel6.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        //When the qiz is done
+        if (isBQuiz()) {
+            //the game end
+            game.setEnd(true);
+        }
+
     }
 
     /**
      * This function reset the level one to its original state
      */
-    public void reset(){
+    public void reset() {
         //set yellow, blue and purple right on true
         setYellowRight(true);
         setPurpleRight(true);
@@ -335,24 +382,24 @@ public class Nivel6 {
         songN6.setfPosition(0);
         //The bulbs are initialice again
         for (int i = 0; i < yellow.size(); i++) {
-                    Bulbo y = yellow.get(i);
-                    y.setY(-90);
-                }
-                for (int i = 0; i < blue.size(); i++) {
-                    Bulbo b = blue.get(i);
-                    b.setY(-90);
-                }
-                for (int i = 0; i < purple.size(); i++) {
-                    Bulbo p = purple.get(i);
-                    p.setY(-90);
-                }
+            Bulbo y = yellow.get(i);
+            y.setY(-90);
+        }
+        for (int i = 0; i < blue.size(); i++) {
+            Bulbo b = blue.get(i);
+            b.setY(-90);
+        }
+        for (int i = 0; i < purple.size(); i++) {
+            Bulbo p = purple.get(i);
+            p.setY(-90);
+        }
         //The game is no longer on pause
         game.setPause(false);
         //set the mause position on 0s
         game.getMouseManager().setX(0);
         game.getMouseManager().setY(0);
     }
-    
+
     public void render() {
         bs = game.getDisplay().getCanvas().getBufferStrategy();
 
@@ -409,9 +456,17 @@ public class Nivel6 {
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
             }
+            if (isEnd()) {
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + game.getScore()+ getLightsUp(), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
+            }
             bs.show();
             g.dispose();
         }
     }
 }
-

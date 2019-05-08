@@ -43,6 +43,7 @@ public class Nivel4 {
     private Boton save;
     private Animation next;
     private boolean start;
+    private boolean end;
     private int scene;
     private SoundClip songN4;
     private quiz agricultural;
@@ -73,17 +74,26 @@ public class Nivel4 {
         this.score = 0;
         scene = 0;
         start = false;
+        end = false;
         this.next = new Animation(Assets.nextA, 500);
-        this.bQuiz=false;
+        this.bQuiz = false;
         songN4 = new SoundClip("/tutorial1/sounds/N4.wav", -3f, true);
     }
-    
-    public boolean isBQuiz(){
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isBQuiz() {
         return bQuiz;
     }
-    
-    public void setBQuiz(boolean b){
-        this.bQuiz=b;
+
+    public void setBQuiz(boolean b) {
+        this.bQuiz = b;
     }
 
     public void setStart(boolean start) {
@@ -326,32 +336,47 @@ public class Nivel4 {
         }
         //When the time finished
         if (getTimer() / 60 == 0) {
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+        }
+        //if the game ended
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                try {
+                    //The game is set on the level 5
+
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level4", game.getScore() + getScore() * 10);
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    game.getDB().getQuizInfo("Agricola", agricultural, game, "quiz2Score", "quiz2ID");
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    game.getDB().getScoreBoard();
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        //When the qiz is done
+        if (isBQuiz()) {
             //The x and y of the keymanadager are set on 0
             game.getMouseManager().setX(0);
             game.getMouseManager().setY(0);
-            game.setLastScore(game.getScore()+getScore()*10);
+            //Last score is set on the last score you get through the level
+            game.setLastScore(game.getScore() + getScore() * 10);
             //The song is stop
             songN4.stop();
-            try {
-                //The game is set on the level 5
-
-                new DatabaseManager().updateScore(game.getScoreTableID(), "level4", game.getScore()+getScore()*10);
-            } catch (Exception ex) {
-                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                game.getDB().getQuizInfo("Agricola",agricultural,game,"quiz2Score","quiz2ID");
-            } catch (Exception ex) {
-                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                game.getDB().getScoreBoard();
-            } catch (Exception ex) {
-                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //Last score is set on the last score you get through the level
-            
             //The game is set on the level 5
             game.setNivel(5);
         }
@@ -441,19 +466,19 @@ public class Nivel4 {
                 g.setFont(new Font("Serif", Font.PLAIN, 35));
                 g.drawString(points, getWidth() - getWidth() / 6, getHeight() - getHeight() / 30);
                 setPoints(": " + getScore());
-                if(getTimer()/60 <= 1){
+                if (getTimer() / 60 <= 1) {
                     g.drawImage(Assets.prog7, 300, 20, 200, 60, null);
-                } else if (getTimer()/60 <= 15 ){
+                } else if (getTimer() / 60 <= 15) {
                     g.drawImage(Assets.prog6, 300, 20, 200, 60, null);
-                } else if (getTimer()/60 <= 30){
+                } else if (getTimer() / 60 <= 30) {
                     g.drawImage(Assets.prog5, 300, 20, 200, 60, null);
-                } else if (getTimer()/60 <= 45){
+                } else if (getTimer() / 60 <= 45) {
                     g.drawImage(Assets.prog4, 300, 20, 200, 60, null);
-                } else if (getTimer()/60 <= 60){
+                } else if (getTimer() / 60 <= 60) {
                     g.drawImage(Assets.prog3, 300, 20, 200, 60, null);
-                } else if (getTimer()/60 <= 75){
+                } else if (getTimer() / 60 <= 75) {
                     g.drawImage(Assets.prog2, 300, 20, 200, 60, null);
-                } else{
+                } else {
                     g.drawImage(Assets.prog1, 300, 20, 200, 60, null);
                 }
                 if (game.isPause()) {
@@ -472,6 +497,15 @@ public class Nivel4 {
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
             }
+            if (isEnd()) {
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
+            }
             bs.show();
             g.dispose();
         }
@@ -479,4 +513,3 @@ public class Nivel4 {
     }
 
 }
-

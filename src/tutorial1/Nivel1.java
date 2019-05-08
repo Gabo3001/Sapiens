@@ -33,6 +33,7 @@ public class Nivel1 {
     private int cont;
     private Animation next;
     private boolean start;
+    private boolean end;
     private int scene;
     private SoundClip songN1;
 
@@ -45,6 +46,7 @@ public class Nivel1 {
         cont = 0;
         scene = 0;
         start = false;
+        end = false;
         this.next = new Animation(Assets.nextA, 500);
         songN1 = new SoundClip("/tutorial1/sounds/N1.wav", -3f, true);
     }
@@ -80,6 +82,14 @@ public class Nivel1 {
         this.scene = scene;
     }
 
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
     public int getScene() {
         return scene;
     }
@@ -101,7 +111,6 @@ public class Nivel1 {
     }
 
     public void tick() {
-        
 
         //If start is true and the game is not on pause
         if (isStart() && !game.isPause()) {
@@ -187,31 +196,43 @@ public class Nivel1 {
         }
         //WHen the player recolect 100 apples
         if (getCont() == 100) {
-            //The music stops
-            try {    
-                new DatabaseManager().updateScore(game.getScoreTableID(),"level1",game.getScore());
-            }catch (Exception ex) {
-                Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+        }
+        //if the game end
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                try {
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level1", game.getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+                }
 //            try {
 //                game.getDB().getScoreBoard();
 //            } catch (Exception ex) {
 //                Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-            //Last score is set on the last score you get through the level
-            game.setLastScore(game.getScore());
-            //music stops
-            songN1.stop();
-            //The user is move to the next level
-            game.setNivel(2);
+                //Last score is set on the last score you get through the level
+                game.setLastScore(game.getScore());
+                //music stops
+                songN1.stop();
+                //The user is move to the next level
+                game.setNivel(2);
+            }
         }
-        
 
     }
+
     /**
      * This function reset the level one to its original state
      */
-    public void reset(){
+    public void reset() {
         //The counter of the apples is back to 0
         setCont(0);
         //The scene is set on 0
@@ -239,18 +260,18 @@ public class Nivel1 {
         game.getMouseManager().setX(0);
         game.getMouseManager().setY(0);
     }
-    
+
     //DATABSAE SCORE UPDATE
-    public void update() throws Exception{
-        
-        try {    
-            new DatabaseManager().updateScore(game.getScoreTableID(),"level1",game.getScore());
-        }catch (Exception ex) {
+    public void update() throws Exception {
+
+        try {
+            new DatabaseManager().updateScore(game.getScoreTableID(), "level1", game.getScore());
+        } catch (Exception ex) {
             Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public void render() {
         bs = game.getDisplay().getCanvas().getBufferStrategy();
 
@@ -262,8 +283,8 @@ public class Nivel1 {
                 g.drawImage(Assets.backgroundLevel1, 0, 0, width, height, null);
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
                 g.setColor(Color.WHITE);
-                g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
-                
+                g.drawString("Usuario: " + game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
+
                 player.render(g);
                 for (int i = 0; i < fruit.size(); i++) {
                     Fruit feed = fruit.get(i);
@@ -276,7 +297,6 @@ public class Nivel1 {
                     menu.render(g);
                 }
 
-                
                 g.drawString("PUNTAJE: " + game.getScore(), 2, 480);
                 g.drawString("MANZANAS: " + getCont() + "/100", 620, 480);
             } else {
@@ -292,6 +312,15 @@ public class Nivel1 {
                     g.drawImage(Assets.control1, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
+            }
+            if (isEnd()){
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
             }
             bs.show();
             g.dispose();

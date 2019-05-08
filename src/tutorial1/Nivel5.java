@@ -12,6 +12,7 @@
 package tutorial1;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.logging.Level;
@@ -49,6 +50,7 @@ public class Nivel5 {
     private int cont;
     private Animation next;
     private boolean start;
+    private boolean end;
     private int scene;
     private SoundClip songN5;
     String title;
@@ -86,6 +88,7 @@ public class Nivel5 {
         cont = 0;
         scene = 0;
         start = false;
+        end = false;
         this.next = new Animation(Assets.nextA, 500);
         songN5 = new SoundClip("/tutorial1/sounds/N5.wav", -3f, true);
         this.cronos = 0;
@@ -106,6 +109,14 @@ public class Nivel5 {
         this.PivoteAnterior = 1;
         this.var = 100;
 
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isEnd() {
+        return end;
     }
 
     /**
@@ -542,25 +553,40 @@ public class Nivel5 {
         }
         //If the counter get to 8
         if (getCont() == 8) {
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+            //Funtion metodos is called
             MetodosN();
-            try {
-                //The game is set on the level 5
+            setCont(9);
+        }
+        //If the game ended
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                try {
+                    //The game is set on the level 5
 
-                new DatabaseManager().updateScore(game.getScoreTableID(), "level5", game.getScore());
-            } catch (Exception ex) {
-                Logger.getLogger(Nivel5.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level5", game.getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel5.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-            try {
-                game.getDB().getScoreBoard();
-            } catch (Exception ex) {
-                Logger.getLogger(Nivel5.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    game.getDB().getScoreBoard();
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel5.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Last score is set on the last score you get through the level
+                game.setLastScore(game.getScore());
+                //The song is stop
+                songN5.stop();
+                game.setNivel(6);
             }
-            //Last score is set on the last score you get through the level
-            game.setLastScore(game.getScore());
-            //The song is stop
-            songN5.stop();
-            game.setNivel(6);
         }
     }
 
@@ -679,6 +705,15 @@ public class Nivel5 {
                     g.drawImage(Assets.control5, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
+            }
+            if (isEnd()) {
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
             }
 
             bs.show();
