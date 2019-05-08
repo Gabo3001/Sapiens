@@ -15,6 +15,7 @@ public class Assets {
 
     //menu assets
     public static BufferedImage background;
+    public static BufferedImage fin;
     public static BufferedImage start;
     public static BufferedImage help;
     public static BufferedImage info;
@@ -26,6 +27,8 @@ public class Assets {
     public static BufferedImage fruit;
     public static BufferedImage black;
     public static BufferedImage menu;
+    public static BufferedImage login;
+    public static BufferedImage pregunta;
     public static BufferedImage save;
     public static BufferedImage pauseN1;
     public static BufferedImage rev1;
@@ -156,6 +159,7 @@ public class Assets {
         //Assets Menu
 
         background = ImageLoader.loadImage("/tutorial1/images/Background.png");
+        fin = ImageLoader.loadImage("/tutorial1/images/fin.png");
         backgroundLevel1 = ImageLoader.loadImage("/tutorial1/images/BkLvl1.jpeg");
         backgroundN2 = ImageLoader.loadImage("/tutorial1/images/back1 2.png");
         backgroundLevel3 = ImageLoader.loadImage("/tutorial1/images/bkLvl3.jpg");
@@ -163,6 +167,8 @@ public class Assets {
         fruit = ImageLoader.loadImage("/tutorial1/images/manzana.png");
         start = ImageLoader.loadImage("/tutorial1/images/Inicio.png");
         help = ImageLoader.loadImage("/tutorial1/images/Ayuda.png");
+        login = ImageLoader.loadImage("/tutorial1/images/login.png");
+        pregunta = ImageLoader.loadImage("/tutorial1/images/pregunta.png");
         info = ImageLoader.loadImage("/tutorial1/images/Info.png");
         back = ImageLoader.loadImage("/tutorial1/images/Back.png");
 
@@ -199,7 +205,7 @@ public class Assets {
         rev1 = ImageLoader.loadImage("/tutorial1/images/Rev_ag.png");
         black = ImageLoader.loadImage("/tutorial1/images/black.png");
         rev2 = ImageLoader.loadImage("/tutorial1/images/Rev_cog.png");
-
+        
         info1 = ImageLoader.loadImage("/tutorial1/images/Info_N1.png");
         control1 = ImageLoader.loadImage("/tutorial1/images/Controles_N1.png");
         next = ImageLoader.loadImage("/tutorial1/images/Next.png");

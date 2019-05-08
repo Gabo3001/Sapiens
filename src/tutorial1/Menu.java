@@ -26,6 +26,8 @@ public class Menu {
     private Boton start;
     private Boton help;
     private Boton back;
+    private Boton login;
+    private Boton pregunta;
     private Game game;
     private BufferStrategy bs;
     private Graphics g;
@@ -84,8 +86,10 @@ public class Menu {
 
         log = new login(game);
         
-        prof=new AddQuestion(game);
-        start = new Boton(20, 150, 150, 75, game, 1);
+        
+        start = new Boton(20, -150, 150, 75, game, 1);
+        login = new Boton(20, 150, 150, 75, game, 9);
+        pregunta = new Boton(20, -150, 150, 75, game, 10);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
     }
@@ -103,9 +107,13 @@ public class Menu {
             setInfo(true);
             //The buttons start and help dissapear from the screen
             start.setX(start.getX() - 200);
+            login.setX(login.getX() - 200);
             help.setX(help.getX() - 200);
             //Back appear on the screen
-            back.setY(back.getY() - 100);          
+            back.setY(back.getY() - 100);
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
         }
         //if help is clicked
         if (back.intersecta(game.getMouseManager())) {
@@ -114,11 +122,15 @@ public class Menu {
             //The buttons start and help apear on the screen
             start.setX(start.getX() + 200);
             help.setX(help.getX() + 200);
+            login.setX(login.getX() + 200);
             //Back dissapear from the screen
             back.setY(back.getY() + 100);
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
         }
         //if start is clicked
-        if (start.intersecta(game.getMouseManager())&&game.getUserID()!=0) {
+        if (start.intersecta(game.getMouseManager())) {
             //The x and y of the mouse are set on 0
             game.getMouseManager().setX(0);
             game.getMouseManager().setY(0);
@@ -127,8 +139,37 @@ public class Menu {
             //The music stops
             songM.pause();
         }
-
-
+        //if the id is different to 0 and 42
+        if(game.getUserID() != 0 && game.getUserID() != 42){
+            //Login button dissapears
+            login.setX(-150);
+            //start button appears
+            start.setY(150);
+        }
+        //if the id correspong to the id of the teacher
+        if (game.getUserID() == 42){
+            //help and login button dissapear
+            help.setX(-150);
+            login.setX(-150);
+            //add question appear
+            pregunta.setY(150);
+            
+        }
+        //if loging button is clicked
+        if (login.intersecta(game.getMouseManager())) {
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
+        }
+        //if the id correspong to the id of the teacher
+        if (game.getUserID() == 42){
+            //help and login button dissapear
+            help.setX(-150);
+            login.setX(-150);
+            //add question appear
+            pregunta.setY(150);
+            
+        }
 
         
     }
@@ -155,6 +196,8 @@ public class Menu {
             start.render(g);
             help.render(g);
             back.render(g);
+            login.render(g);
+            pregunta.render(g);
             bs.show();
             g.dispose();
            

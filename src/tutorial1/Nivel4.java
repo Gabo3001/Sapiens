@@ -503,7 +503,7 @@ public class Nivel4 {
                 g.drawImage(Assets.black, 200, 125, 400, 250, null);
                 g.drawString("GANASTE", 290, 200);
                 g.setFont(new Font("Serif", Font.PLAIN, 30));
-                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
+                g.drawString("Tu puntaje es: " + (game.getScore() + getScore() * 10), 290, 250);
                 g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
             }
             bs.show();

@@ -116,6 +116,14 @@ public class Boton extends Item {
         if (getType() == 8){
             g.drawImage(Assets.d, getX(), getY(), getWidth(), getHeight(), null);
         }
+        //9 for the login key button
+        if (getType() == 9){
+            g.drawImage(Assets.login, getX(), getY(), getWidth(), getHeight(), null);
+        }
+        //10 for the add question key button
+        if (getType() == 10){
+            g.drawImage(Assets.pregunta, getX(), getY(), getWidth(), getHeight(), null);
+        }
     }
     
 }

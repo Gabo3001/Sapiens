@@ -283,7 +283,7 @@ public class Nivel1 {
                 g.drawImage(Assets.backgroundLevel1, 0, 0, width, height, null);
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
                 g.setColor(Color.WHITE);
-                g.drawString("Usuario: " + game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
+               
 
                 player.render(g);
                 for (int i = 0; i < fruit.size(); i++) {

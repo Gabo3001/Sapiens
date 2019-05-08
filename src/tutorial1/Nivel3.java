@@ -394,7 +394,7 @@ public class Nivel3 {
                 ball.render(g);
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
                 g.setColor(Color.BLACK);
-                g.drawString("Usuario: " + game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
+                
 
                 //render plants
                 for (int i = 0; i < corn.size(); i++) {

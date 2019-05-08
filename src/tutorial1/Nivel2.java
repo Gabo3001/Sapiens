@@ -429,7 +429,7 @@ public class Nivel2 {
             }
             //if menu is clicked
             if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
-                game.setWhatLevel(1);
+                game.setWhatLevel(2);
                 game.setNivel(0);
                 //The song is pause
                 songN2.pause();

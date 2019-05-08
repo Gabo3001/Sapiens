@@ -215,6 +215,8 @@ public class Nivel6 {
                     y.setVisible(false);
                     // LightsUp increase in one
                     setLightsUp(getLightsUp() + 1);
+                    //the score increase by 10
+                    game.setScore(game.getScore()+10);
                     //The function kstop is calles
                     game.getKeyManager().kStop();
                     //The sound of cristal is played
@@ -248,6 +250,8 @@ public class Nivel6 {
                     b.setVisible(false);
                     // LightsUp increase in one
                     setLightsUp(getLightsUp() + 1);
+                    //the score increase by 10
+                    game.setScore(game.getScore()+10);
                     //The function kstop is calles
                     game.getKeyManager().kStop();
                     Assets.cristal.play();
@@ -280,6 +284,8 @@ public class Nivel6 {
                     p.setVisible(false);
                     // LightsUp increase in one
                     setLightsUp(getLightsUp() + 1);
+                    //the score increase by 10
+                    game.setScore(game.getScore()+10);
                     //The function kstop is calles
                     game.getKeyManager().kStop();
                     Assets.cristal.play();
@@ -353,12 +359,17 @@ public class Nivel6 {
                     Logger.getLogger(Nivel6.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
         }
-        
+
         //When the qiz is done
         if (isBQuiz()) {
+            //setLights up to 300
+            setLightsUp(300);
             //the game end
-            game.setEnd(true);
+            songN6.stop();
+            //set end on false
+            setEnd(false);
         }
 
     }
@@ -393,6 +404,8 @@ public class Nivel6 {
             Bulbo p = purple.get(i);
             p.setY(-90);
         }
+        //The score is set to the same score as it started
+        game.setScore(game.getLastScore());
         //The game is no longer on pause
         game.setPause(false);
         //set the mause position on 0s
@@ -462,8 +475,12 @@ public class Nivel6 {
                 g.drawImage(Assets.black, 200, 125, 400, 250, null);
                 g.drawString("GANASTE", 290, 200);
                 g.setFont(new Font("Serif", Font.PLAIN, 30));
-                g.drawString("Tu puntaje es: " + game.getScore()+ getLightsUp(), 290, 250);
+                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
                 g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
+            }
+            //When the qiz is done
+            if (isBQuiz()) {
+                g.drawImage(Assets.fin, 0, 0, width, height, null);
             }
             bs.show();
             g.dispose();

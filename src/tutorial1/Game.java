@@ -34,9 +34,7 @@ public class Game implements Runnable {
     private MouseManager mouseManager;
     private int score;
     private int lastScore;
-    private boolean pause;
-    private boolean end;
-    
+    private boolean pause;    
     
     //DATABASE 
     private int userID;
@@ -51,13 +49,12 @@ public class Game implements Runnable {
         this.title = title;
         this.width = width;
         this.height = height;
-        this.nivel = 6;
+        this.nivel = 0;
         running = false;
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
         pause = false;
         score = 0;
-        end = false;
         
         whatLevel = 1;
         this.userID=0;
@@ -72,15 +69,6 @@ public class Game implements Runnable {
     public Nivel6 getNivel6(){
         return nivel6;
     }
-
-    public boolean isEnd() {
-        return end;
-    }
-
-    public void setEnd(boolean end) {
-        this.end = end;
-    }
-    
 
     public void setScoreTableID(int id){
         this.ScoreTableID=id;
@@ -198,7 +186,7 @@ public class Game implements Runnable {
         long now;
         // initializing last time to the computer time in nanosecs
         long lastTime = System.nanoTime();
-        while (!isEnd()) {
+        while (running) {
             // setting the time now to the actual time
             now = System.nanoTime();
             // acumulating to delta the difference between times in timeTick units
