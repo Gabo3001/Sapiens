@@ -207,7 +207,7 @@ public class Nivel2 {
             if (getTimer() / 60 == 0) {
                 //game.getDB().
             try {
-                game.getDB().getQuizInfo("Cognitiva",cognitive,game);
+                game.getDB().getQuizInfo("Cognitiva",cognitive,game,"quiz1Score","quiz1ID");
             } catch (Exception ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }

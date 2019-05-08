@@ -105,13 +105,7 @@ public class Menu {
             start.setX(start.getX() - 200);
             help.setX(help.getX() - 200);
             //Back appear on the screen
-            back.setY(back.getY() - 100);
-            try {
-                game.getDB().getQuizInfo("Cognitiva",question,game);
-            } catch (Exception ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            back.setY(back.getY() - 100);          
         }
         //if help is clicked
         if (back.intersecta(game.getMouseManager())) {

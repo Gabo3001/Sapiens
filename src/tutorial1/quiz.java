@@ -41,8 +41,11 @@ public class quiz {
     private int range;
     private int n;
     private int quizScore;
+    private int quizID;
+    private String quizName;
+    private String quizIDName;
     
-    public quiz(Game game,String q,String a,String o2,String o3,String o4,boolean p){
+    public quiz(Game game,String q,String a,String o2,String o3,String o4,boolean p,int id,String QName,String QNameID){
         this.game=game;
         this.quizScore=0;
         this.question = q;
@@ -51,6 +54,9 @@ public class quiz {
         this.option3 = o3;
         this.option4 = o4;
         this.finished=p;
+        this.quizID=id;
+        this.quizName=QName;
+        this.quizIDName=QNameID;
         response=new LinkedList<String>();
         
         frame = new JFrame();
@@ -170,6 +176,17 @@ public class quiz {
     public boolean getFinished(){
         return finished;
     }
+    
+    public int getQuizID(){
+        return quizID;
+    }
+    
+    public String getQuizName(){
+        return quizName;
+    }
+    public String getQuizIDName(){
+        return quizIDName;
+    }
 }
 
 class anwr implements ActionListener{
@@ -177,6 +194,7 @@ class anwr implements ActionListener{
     String res;
     quiz quiz;
     Game game;
+    int quizID;
     boolean save;
     public anwr(String a,String r,quiz b,boolean p,Game g){
         ans = a;
@@ -184,6 +202,7 @@ class anwr implements ActionListener{
         quiz = b;
         save=p;
         this.game=g;
+        
     }
     public void actionPerformed(ActionEvent ae) {
         quiz.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -200,8 +219,13 @@ class anwr implements ActionListener{
         }
         System.out.println(quiz.getScore());
         
+//        try {
+//            game.getDB().createQuizTable();
+//        } catch (Exception ex) {
+//            Logger.getLogger(anwr.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         try {
-            game.getDB().createQuizTable();
+            game.getDB().updateQuizScore(game.getScoreTableID(),quiz.getScore(),quiz.getQuizID(),quiz.getQuizName(),quiz.getQuizIDName());
         } catch (Exception ex) {
             Logger.getLogger(anwr.class.getName()).log(Level.SEVERE, null, ex);
         }

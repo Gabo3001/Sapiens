@@ -95,17 +95,17 @@ class Esp implements ActionListener{
         System.out.println(pass.getText());
         
         //if the table for users is not created it creates one
-        try {
-            game.getDB().createUsrTable();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            game.getDB().createUsrTable();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //if the table for scores isnt created yet it creates one
-        try {//trouble with foreign key syntax
-            game.getDB().createScoresTable();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {//trouble with foreign key syntax
+//            game.getDB().createScoresTable();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //ads a user from the DatabaseManager Class
 //        try {
 //            game.getDB().Usr();
@@ -137,18 +137,18 @@ class Esp implements ActionListener{
 
 
         //Prints the database in console
-        try {
-        game.getDB().get();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//        game.getDB().get();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         //shows the score table
-        try {
-            game.getDB().getScoreBoard();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            game.getDB().getScoreBoard();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         if(game.getUserID()!=0){
             frame.dispose();
         }

@@ -161,8 +161,12 @@ class preview implements ActionListener{
     }
     public void actionPerformed(ActionEvent ae) {
         
-    exampleQuiz=new quiz(game,question.getText(),answer.getText(),option2.getText(),option3.getText(),option4.getText(),true);
-
+        try {
+            //exampleQuiz=new quiz(game,question.getText(),answer.getText(),option2.getText(),option3.getText(),option4.getText(),true,1,"example","noID");
+            //game.getDB().Usr();
+        } catch (Exception ex) {
+            Logger.getLogger(preview.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 
