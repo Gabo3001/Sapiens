@@ -6,6 +6,7 @@
 package tutorial1;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -28,7 +29,7 @@ public class quiz {
     private JButton button4;
     private JLabel label1;
     private Game game;
-    private boolean visible;
+    private boolean finished;
     
     private String question;
     private String answer;
@@ -40,8 +41,12 @@ public class quiz {
     private int range;
     private int n;
     private int quizScore;
+    private int quizID;
+    private String quizName;
+    private String quizIDName;
+    private String revolution;
     
-    public quiz(Game game,String q,String a,String o2,String o3,String o4){
+    public quiz(Game game,String q,String a,String o2,String o3,String o4,boolean p,int id,String QName,String QNameID,String r){
         this.game=game;
         this.quizScore=0;
         this.question = q;
@@ -49,8 +54,12 @@ public class quiz {
         this.option2 = o2;
         this.option3 = o3;
         this.option4 = o4;
+        this.finished=p;
+        this.quizID=id;
+        this.quizName=QName;
+        this.quizIDName=QNameID;
         response=new LinkedList<String>();
-        
+        this.revolution=r;
         frame = new JFrame();
         frame.setLayout(null);
         frame.setResizable(false);
@@ -73,15 +82,16 @@ public class quiz {
         
         //QUESTION TEXT 
         JLabel label1 = new JLabel();
+        label1.setFont(new Font("Serif",Font.PLAIN,14));
         label1.setText(question);
-        label1.setBounds(90,-15,200,200);
+        label1.setBounds(5,-15,390,200);
         frame.add(label1);
         
         //BUTTON1 UI and behaviour
         button1 = new JButton (response.get(n));
         button1.setBounds(25,150,150,30);
         button1.setBackground(Color.decode("#00aaff"));
-        button1.addActionListener(new anwr(answer,response.get(n),this));
+        button1.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button1);
         n++;
         rollN();
@@ -90,7 +100,7 @@ public class quiz {
         button2 = new JButton (response.get(n));
         button2.setBounds(225,150,150,30);
         button2.setBackground(Color.decode("#aaff00"));
-        button2.addActionListener(new anwr(answer,response.get(n),this));
+        button2.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button2);
         n++;
         rollN();
@@ -99,7 +109,7 @@ public class quiz {
         button3 = new JButton (response.get(n));
         button3.setBounds(25,250,150,30);
         button3.setBackground(Color.decode("#ff00aa"));
-        button3.addActionListener(new anwr(answer,response.get(n),this));
+        button3.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button3);
         n++;
         rollN();
@@ -108,7 +118,7 @@ public class quiz {
         button4 = new JButton (response.get(n));
         button4.setBounds(225,250,150,30);
         button4.setBackground(Color.decode("#ffaa00"));
-        button4.addActionListener(new anwr(answer,response.get(n),this));
+        button4.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button4);
         n++;
         rollN();
@@ -163,19 +173,49 @@ public class quiz {
         
         return frame;
     }
+    
+    public boolean getFinished(){
+        return finished;
+    }
+    
+    public int getQuizID(){
+        return quizID;
+    }
+    
+    public String getQuizName(){
+        return quizName;
+    }
+    public String getQuizIDName(){
+        return quizIDName;
+    }
 }
 
 class anwr implements ActionListener{
     String ans;
     String res;
     quiz quiz;
-    public anwr(String a,String r,quiz b){
+    Game game;
+    int quizID;
+    boolean save;
+    String rev;
+    public anwr(String a,String r,quiz b,boolean p,Game g,String rev){
         ans = a;
         res = r;
         quiz = b;
+        save=p;
+        this.game=g;
+        this.rev=rev;
     }
     public void actionPerformed(ActionEvent ae) {
+        quiz.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         quiz.setButton1Color();
+        if(rev=="Cognitiva"){
+            game.getNivel2().setBQuiz(true);
+        }else if(rev=="Agricola"){
+            game.getNivel4().setBQuiz(true);
+        }else if(rev=="Scientifica"){
+            game.getNivel6().setBQuiz(true);
+        }
         if(quiz.getScore()==100||quiz.getScore()==50){
            quiz.getFrame().dispose(); 
         }
@@ -187,7 +227,16 @@ class anwr implements ActionListener{
             }
         }
         System.out.println(quiz.getScore());
-        quiz.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
+//        try {
+//            game.getDB().createQuizTable();
+//        } catch (Exception ex) {
+//            Logger.getLogger(anwr.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        try {
+            game.getDB().updateQuizScore(game.getScoreTableID(),quiz.getScore(),quiz.getQuizID(),quiz.getQuizName(),quiz.getQuizIDName());
+        } catch (Exception ex) {
+            Logger.getLogger(anwr.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

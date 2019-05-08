@@ -127,14 +127,18 @@ class insert implements ActionListener{
           
     }
     public void actionPerformed(ActionEvent ae) {
-        System.out.println(revolution.getSelectedItem().toString());
+        //System.out.println(revolution.getSelectedItem().toString());
         try {
             game.getDB().createQuizTable();
         } catch (Exception ex) {
             Logger.getLogger(preview.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-       // game.getDB().addQuiz4Questions();
+        try {
+            game.getDB().addQuiz4Question(revolution.getSelectedItem().toString(),question.getText(),answer.getText(),option2.getText(),option3.getText(),option4.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(insert.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 
@@ -157,8 +161,12 @@ class preview implements ActionListener{
     }
     public void actionPerformed(ActionEvent ae) {
         
-    exampleQuiz=new quiz(game,question.getText(),answer.getText(),option2.getText(),option3.getText(),option4.getText());
-
+        try {
+            //exampleQuiz=new quiz(game,question.getText(),answer.getText(),option2.getText(),option3.getText(),option4.getText(),true,1,"example","noID");
+            //game.getDB().Usr();
+        } catch (Exception ex) {
+            Logger.getLogger(preview.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 

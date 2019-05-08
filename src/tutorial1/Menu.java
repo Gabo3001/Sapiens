@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -46,7 +49,6 @@ public class Menu {
         this.height = height;
         this.game = game;
         info = false;
-
         songM = new SoundClip("/tutorial1/sounds/Inicio.wav",  -3f, true); 
         
     }
@@ -78,9 +80,11 @@ public class Menu {
 
     public void init() {
         //Start, help and back are initialized
-//        log = new login(game);
-//        question = new quiz(game,"donde se origino el ser humano","Africa","America del norte","Europa","Asia");
-//        prof=new AddQuestion(game);
+  
+
+        log = new login(game);
+        
+        prof=new AddQuestion(game);
         start = new Boton(20, 150, 150, 75, game, 1);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
@@ -101,8 +105,7 @@ public class Menu {
             start.setX(start.getX() - 200);
             help.setX(help.getX() - 200);
             //Back appear on the screen
-            back.setY(back.getY() - 100);
-            
+            back.setY(back.getY() - 100);          
         }
         //if help is clicked
         if (back.intersecta(game.getMouseManager())) {

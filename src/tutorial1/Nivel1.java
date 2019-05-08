@@ -193,11 +193,11 @@ public class Nivel1 {
             }catch (Exception ex) {
                 Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
             }
-            try {
-                game.getDB().getScoreBoard();
-            } catch (Exception ex) {
-                Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                game.getDB().getScoreBoard();
+//            } catch (Exception ex) {
+//                Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             //Last score is set on the last score you get through the level
             game.setLastScore(game.getScore());
             //music stops

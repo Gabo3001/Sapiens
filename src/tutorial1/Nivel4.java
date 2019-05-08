@@ -45,6 +45,8 @@ public class Nivel4 {
     private boolean start;
     private int scene;
     private SoundClip songN4;
+    private quiz agricultural;
+    private boolean bQuiz;
 //    private Boton back;
 
     /**
@@ -72,8 +74,16 @@ public class Nivel4 {
         scene = 0;
         start = false;
         this.next = new Animation(Assets.nextA, 500);
-
+        this.bQuiz=false;
         songN4 = new SoundClip("/tutorial1/sounds/N4.wav", -3f, true);
+    }
+    
+    public boolean isBQuiz(){
+        return bQuiz;
+    }
+    
+    public void setBQuiz(boolean b){
+        this.bQuiz=b;
     }
 
     public void setStart(boolean start) {
@@ -319,12 +329,18 @@ public class Nivel4 {
             //The x and y of the keymanadager are set on 0
             game.getMouseManager().setX(0);
             game.getMouseManager().setY(0);
+            game.setLastScore(game.getScore()+getScore()*10);
             //The song is stop
             songN4.stop();
             try {
                 //The game is set on the level 5
 
                 new DatabaseManager().updateScore(game.getScoreTableID(), "level4", game.getScore()+getScore()*10);
+            } catch (Exception ex) {
+                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                game.getDB().getQuizInfo("Agricola",agricultural,game,"quiz2Score","quiz2ID");
             } catch (Exception ex) {
                 Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -335,7 +351,7 @@ public class Nivel4 {
                 Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
             }
             //Last score is set on the last score you get through the level
-            game.setLastScore(game.getScore()+getScore()*10);
+            
             //The game is set on the level 5
             game.setNivel(5);
         }
@@ -463,3 +479,4 @@ public class Nivel4 {
     }
 
 }
+

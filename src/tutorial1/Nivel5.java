@@ -3,6 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//Ready for level 5
+//try {
+//    new DatabaseManager().updateScore(game.getScoreTableID(),"level5",game.getScore());
+//} catch (Exception ex) {
+//    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+//}
 package tutorial1;
 
 import java.awt.Color;
@@ -98,7 +104,7 @@ public class Nivel5 {
         this.sXY = sXY;
         this.N = 8;
         this.PivoteAnterior = 1;
-        this.var = 50;
+        this.var = 100;
 
     }
 
@@ -350,8 +356,8 @@ public class Nivel5 {
         //The resulting function is evalueted in 10
         int func = a1 * var + a2;
         //if funtion is greater than 5000 the player dont resive points
-        if(func < 5000){
-            game.setScore(game.getScore()+(5000-func));
+        if (func < 5000) {
+            game.setScore(game.getScore() + (5000 - func));
         }
 
     }
