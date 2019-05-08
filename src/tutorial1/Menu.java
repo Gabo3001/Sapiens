@@ -161,6 +161,13 @@ public class Menu {
             game.getMouseManager().setX(0);
             game.getMouseManager().setY(0);
         }
+        //if add question is clicked
+        if (pregunta.intersecta(game.getMouseManager())) {
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
+            prof=new AddQuestion(game);
+        }
         //if the id correspong to the id of the teacher
         if (game.getUserID() == 42){
             //help and login button dissapear

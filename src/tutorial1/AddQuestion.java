@@ -93,13 +93,13 @@ public class AddQuestion {
         combo1.setBounds(115,270,250,30);
         frame.add(combo1);
         
-        preview = new JButton ("Ver");
-        preview.setBounds(80,320,100,30);
-        preview.addActionListener(new preview(game,question,answer,option2,option3,option4));
-        frame.add(preview);
+//        preview = new JButton ("Ver");
+//        preview.setBounds(80,320,100,30);
+//        preview.addActionListener(new preview(game,question,answer,option2,option3,option4));
+//        frame.add(preview);
         
         insert = new JButton ("Insertar");
-        insert.setBounds(230,320,100,30);
+        insert.setBounds(115,320,150,30);
         insert.addActionListener(new insert(game,question,answer,option2,option3,option4,combo1));
         frame.add(insert);
         
