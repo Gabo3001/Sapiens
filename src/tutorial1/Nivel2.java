@@ -35,7 +35,7 @@ public class Nivel2 {
     private BufferStrategy bs;
     private Graphics g;
     String title;
-    private Player player;
+    private PlayerN2 player;
     private boolean start;
     private Boton menu;
     private Boton save;
@@ -151,14 +151,6 @@ public class Nivel2 {
         this.title = title;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public void setStart(boolean start) {
         this.start = start;
     }
@@ -169,7 +161,7 @@ public class Nivel2 {
 
     public void init() {
 
-        player = new Player(300, 430, 3, 60, 40, game);
+        player = new PlayerN2(300, 430, 3, 60, 40, game);
 
         //we add the laser but with no size         
         laser = new Laser(0, 0, 0, 0, 0, game);
@@ -204,6 +196,7 @@ public class Nivel2 {
     public void tick() {
 
         if (isStart() && !game.isPause()) {
+            setNum("" + game.getScore());
             //If theres no song playing
             if (songN2.isStop()) {
                 //Reproduce el clip
@@ -223,6 +216,8 @@ public class Nivel2 {
                 }
                 //If the mamut intersect with the projectile
                 if (mamut.intersecta(laser)) {
+                    //The player is no longer launching a spear
+                    player.setLaunch(false);
                     //The mamut is not longer alive
                     mamut.changeAlive();
                     //The projectile is destroyed
@@ -243,6 +238,8 @@ public class Nivel2 {
                 mamut.tick();
                 //If the mamut intersect with the projectile
                 if (mamut.intersecta(laser)) {
+                    //The player is no longer launching a spear
+                    player.setLaunch(false);
                     //The mamut is not longer alive
                     mamut.changeAlive();
                     //The projectile is destroyed
@@ -263,6 +260,8 @@ public class Nivel2 {
                 mamut.tick();
                 //If the mamut intersect with the projectile
                 if (mamut.intersecta(laser)) {
+                    //The player is no longer launching a spear
+                    player.setLaunch(false);
                     //The mamut is not longer alive
                     mamut.changeAlive();
                     //The projectile is destroyed
@@ -279,13 +278,17 @@ public class Nivel2 {
             }
             //if space is clicked and the laser is shoting
             if (game.getKeyManager().space && laser.isShooting()) {
+                //The player is launching a spear
+                player.setLaunch(true);
                 //a new laser is generated
-                laser = new Laser(player.getX() + 11, player.getY() - 10, 1, 20, 30, game);
+                laser = new Laser(player.getX() + 25, player.getY() - 10, 1, 15, 45, game);
                 //the laser can not be shoot
                 laser.cantShoot();
             }
             //if the laser y position is smaller that 0
             if (laser.getY() < 0) {
+                //The player is no longer launching a spear
+                player.setLaunch(false);
                 //the laser can be shoot
                 laser.canShoot();
             }
@@ -409,6 +412,8 @@ public class Nivel2 {
             ETB.setX(getWidth() - 30 - iX * i);
             ETB.setAlive(true);
         }
+        //the player is not ñaunching the spear
+        player.setLaunch(false);
         //The score is set to the same score as it started
         game.setScore(game.getLastScore());
         //The score that is showed is actualized
@@ -463,7 +468,7 @@ public class Nivel2 {
                 }
 
                 if (game.isPause()) {
-                    g.drawImage(Assets.pauseN3, 250, 50, 300, 400, null);
+                    g.drawImage(Assets.pauseN2, 250, 50, 300, 400, null);
                     save.render(g);
                     menu.render(g);
                 }

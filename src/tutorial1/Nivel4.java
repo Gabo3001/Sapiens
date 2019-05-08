@@ -416,8 +416,6 @@ public class Nivel4 {
 
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
-                //draws the remaining time
-                g.drawString(cronos, 0 + getWidth() / 100, getHeight() - getHeight() / 25);
                 if (!game.isPause()) {
                     setTimer(getTimer() - 1);
                 }
@@ -427,6 +425,21 @@ public class Nivel4 {
                 g.setFont(new Font("Serif", Font.PLAIN, 35));
                 g.drawString(points, getWidth() - getWidth() / 6, getHeight() - getHeight() / 30);
                 setPoints(": " + getScore());
+                if(getTimer()/60 <= 1){
+                    g.drawImage(Assets.prog7, 300, 20, 200, 60, null);
+                } else if (getTimer()/60 <= 15 ){
+                    g.drawImage(Assets.prog6, 300, 20, 200, 60, null);
+                } else if (getTimer()/60 <= 30){
+                    g.drawImage(Assets.prog5, 300, 20, 200, 60, null);
+                } else if (getTimer()/60 <= 45){
+                    g.drawImage(Assets.prog4, 300, 20, 200, 60, null);
+                } else if (getTimer()/60 <= 60){
+                    g.drawImage(Assets.prog3, 300, 20, 200, 60, null);
+                } else if (getTimer()/60 <= 75){
+                    g.drawImage(Assets.prog2, 300, 20, 200, 60, null);
+                } else{
+                    g.drawImage(Assets.prog1, 300, 20, 200, 60, null);
+                }
                 if (game.isPause()) {
                     g.drawImage(Assets.pauseN4, 250, 50, 300, 400, null);
                     save.render(g);

@@ -21,12 +21,8 @@ public class PlayerN4 extends Item {
     private int speed;
     private boolean jumping;
     private boolean gravity;
-    private Animation animationRight;
-    private Animation animationLeft;
+    private Animation animationRight;    
     
-    
-
-
     public PlayerN4(int x, int y, int direction, int width, int height, Game game) {
         super(x, y);
         this.direction = direction;
@@ -36,8 +32,7 @@ public class PlayerN4 extends Item {
         this.speed = direction;
         this.jumping = false;
         this.gravity = false;
-        this.animationRight = new Animation(Assets.playerRight, 100);
-        this.animationLeft = new Animation(Assets.playerLeft, 100);
+        this.animationRight = new Animation(Assets.playerRight4, 100);
     }
 
     public int getDirection() {
@@ -140,11 +135,7 @@ public class PlayerN4 extends Item {
     public void render(Graphics g) {
         if (game.getKeyManager().right && !game.isPause()||(game.getNivel()==4)) {
             g.drawImage(animationRight.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);
-        } else if (game.getKeyManager().left && !game.isPause()) {
-            g.drawImage(animationLeft.getCurretFrame(), getX(), getY(), getHeight(), getWidth(), null);
-        } else {
-            g.drawImage(Assets.playerLevel1, getX(), getY(), getHeight(), getWidth(), null);
-        }
+        } 
     }
 
 }
