@@ -1,4 +1,5 @@
 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -45,7 +46,6 @@ public class Nivel4 {
     private boolean start;
     private int scene;
     private SoundClip songN4;
-    private quiz agricultural;
 //    private Boton back;
 
     /**
@@ -68,11 +68,12 @@ public class Nivel4 {
         this.mvBk2 = 0;
         this.clock = 0;
         this.points = ": " + score;
+        this.aRight = true;
         this.score = 0;
         scene = 0;
         start = false;
         this.next = new Animation(Assets.nextA, 500);
-        aRight = true;
+
         songN4 = new SoundClip("/tutorial1/sounds/N4.wav", -3f, true);
     }
 
@@ -184,7 +185,7 @@ public class Nivel4 {
             posY = (int) (Math.random() * 56) + 345;
             arrow.add(new Arrow4(getWidth(), posY, 54, 12, game));
         }
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 200; i++) {
             coin.add(new coin(getWidth() + i * 100, getHeight() - getHeight() / 5, 20, 30, game));
         }
 
@@ -285,6 +286,11 @@ public class Nivel4 {
                 //The song is pause
                 songN4.pause();
             }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //Thr level is reset
+                reset();
+            }
         } else {
             //When thw n key is press
             if (game.getKeyManager().next) {
@@ -316,22 +322,75 @@ public class Nivel4 {
             game.getMouseManager().setY(0);
             //The song is stop
             songN4.stop();
-                try {
-                    game.getDB().getQuizInfo("Agricola",agricultural,game);
-                } catch (Exception ex) {
-                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    //The game is set on the level 5
-                    new DatabaseManager().updateScore(game.getScoreTableID(),"level4",getScore());
-                } catch (Exception ex) {
-                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
-                }
-     
+            try {
+                //The game is set on the level 5
+
+                new DatabaseManager().updateScore(game.getScoreTableID(), "level4", game.getScore()+getScore()*10);
+            } catch (Exception ex) {
+                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                game.getDB().getScoreBoard();
+            } catch (Exception ex) {
+                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Last score is set on the last score you get through the level
+            game.setLastScore(game.getScore()+getScore()*10);
             //The game is set on the level 5
             game.setNivel(5);
         }
 
+    }
+
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset() {
+        //The timer is set back to 90 seconds
+        setTimer(60 * 90);
+        //Cronos is set with the initial timer
+        setCronos("tiempo: " + timer);
+        //mvbk is set on width
+        setMvBk(width);
+        //mvk2 is set on 0
+        setMvBk2(0);
+        //clock is set on 0
+        setClock(0);
+        //score is set on 0
+        setScore(0);
+        //points are draw acording to the score
+        setPoints(": " + score);
+        //aRight is set on true
+        setaRight(true);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //The song start from the begining
+        songN4.stop();
+        songN4.setfPosition(0);
+        //The player is set on its original position
+        player.setX(0);
+        player.setY(getHeight() - getHeight() / 4 - 20);
+        //The arrow andthe coins are initialice again
+        int posY;
+        for (int i = 0; i < arrow.size(); i++) {
+            Arrow4 quiver = arrow.get(i);
+            posY = (int) (Math.random() * 56) + 345;
+            quiver.setX(getWidth());
+            quiver.setY(posY);
+        }
+        for (int i = 0; i < coin.size(); i++) {
+            coin bitcoin = coin.get(i);
+            bitcoin.setX(getWidth() + i * 100);
+            bitcoin.setY(getHeight() - getHeight() / 5);
+        }
+        //The game is no longer on pause
+        game.setPause(false);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
     }
 
     public void render() {

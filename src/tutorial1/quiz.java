@@ -6,6 +6,7 @@
 package tutorial1;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -74,6 +75,7 @@ public class quiz {
         
         //QUESTION TEXT 
         JLabel label1 = new JLabel();
+        label1.setFont(new Font("Serif",Font.PLAIN,14));
         label1.setText(question);
         label1.setBounds(5,-15,390,200);
         frame.add(label1);

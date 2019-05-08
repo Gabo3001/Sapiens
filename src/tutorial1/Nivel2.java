@@ -12,27 +12,22 @@ import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
- * 
+ *
  *
  * @author karymenahleacosta
  */
 public class Nivel2 {
-   
 
-private MamutN2 alien;
-private Laser laser; //To use the ball
-private boolean lasershoot;
-private LinkedList<Mamut> enemigo;
-private LinkedList<MamutBlanco> blanco;
-private LinkedList<MamutNegro> negro;
-private int score; // puntaje
-private String num; //to display score
-private int TotalAlien;//to keep track of total bricks
-private int Win;//to keep score of destroyed bricks
-private int lives;
-private int timer;
-private String cronos;
+    private Laser laser; //To use the ball
+    private boolean lasershoot;
+    private LinkedList<Mamut> enemigo;
+    private LinkedList<MamutBlanco> blanco;
+    private LinkedList<MamutNegro> negro;
+    private String num; //to display score
+    private int timer;
+    private String cronos;
 
     private int width;
     private int height;
@@ -46,9 +41,10 @@ private String cronos;
     private Boton save;
     private Animation next;
     private int scene;
+    private SoundClip songN2;
     private quiz cognitive;
-    
-    public Nivel2(String title, int width, int height, Game game) { 
+
+    public Nivel2(String title, int width, int height, Game game) {
         this.title = title;
         this.width = width;
         this.height = height;
@@ -56,17 +52,14 @@ private String cronos;
         enemigo = new LinkedList<Mamut>(); //lista que despliega los bricks
         blanco = new LinkedList<MamutBlanco>(); //lista que despliega los bricks
         negro = new LinkedList<MamutNegro>(); //lista que despliega los bricks
-        score = 0; //puntaje es 0 cuando inicia el juego
-        num = ""+score; //string que despliega en la pantalla el puntaje
-        this.TotalAlien = 0; //se inicializa como 0 y ya despues se asignan los bricks con un for
-        this.lasershoot=true;
-        this.Win = 0; // se inicializa como 0 cuando inicia el juego porque todavia no destruye ningun brick
+        num = "" + game.getScore(); //string que despliega en la pantalla el puntaje
+        this.lasershoot = true;
         start = false;
-        this.lives= 3;
         scene = 0;
         this.next = new Animation(Assets.nextA, 500);
-        this.timer = 60 * 50;//fps*time you want
+        this.timer = 60 * 60;//fps*time you want
         this.cronos = "tiempo: " + timer;
+        songN2 = new SoundClip("/tutorial1/sounds/N2.wav", -3f, true);
     }
 
     public Animation getNext() {
@@ -76,7 +69,7 @@ private String cronos;
     public void setNext(Animation next) {
         this.next = next;
     }
-    
+
     public int getTimer() {
         return timer;
     }
@@ -94,23 +87,14 @@ private String cronos;
     public void setScene(int scene) {
         this.scene = scene;
     }
-    
-        public String getCronos() {
+
+    public String getCronos() {
         return cronos;
     }
 
     public void setCronos(String t) {
         this.cronos = t;
     }
-
-    public MamutN2 getAlien() {
-        return alien;
-    }
-
-    public void setAlien(MamutN2 alien) {
-        this.alien = alien;
-    }
-
 
     public Laser getLaser() {
         return laser;
@@ -128,28 +112,12 @@ private String cronos;
         this.lasershoot = lasershoot;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public String getNum() {
         return num;
     }
 
     public void setNum(String num) {
         this.num = num;
-    }
-
-    public int getTotalAlien() {
-        return TotalAlien;
-    }
-
-    public void setTotalAlien(int TotalAlien) {
-        this.TotalAlien = TotalAlien;
     }
 
     public int getWidth() {
@@ -191,7 +159,7 @@ private String cronos;
     public void setPlayer(Player player) {
         this.player = player;
     }
-    
+
     public void setStart(boolean start) {
         this.start = start;
     }
@@ -199,68 +167,43 @@ private String cronos;
     public boolean isStart() {
         return start;
     }
-    
-    private int getWin() {
-        return Win;
-    }
-    
-    private void setWin(int i) {
-       this.Win = i;
-    }
-    
-    public void init() { 
+
+    public void init() {
 
         player = new Player(300, 430, 3, 60, 40, game);
 
         //we add the laser but with no size         
         laser = new Laser(0, 0, 0, 0, 0, game);
-        
+
         //we create an alien matrix
-        for(int j = 1; j <= 1; j++) {
-            for (int i = 1; i <= 1; i++) {
-                 enemigo.add(new Mamut(getWidth()-30 - 100*i ,5 + 110*j, 40, 40, game));  
-                 setTotalAlien(getTotalAlien()+1); 
-            } 
+        enemigo.add(new Mamut(getWidth() - 30 - 100, 5 + 110, 40, 40, game));
+
+        for (int i = 1; i <= 200; i++) {
+            int iX = (int) (Math.random() * 800);
+            negro.add(new MamutNegro(getWidth() + 10000 - iX * i, 5 + 170, 40, 40, game, 4));
         }
-        
-            for(int j = 1; j <= 1; j++) {
-            for (int i = 1; i <= 200; i++) {
-                int iX = (int) (Math.random() * 800);
-                 negro.add(new MamutNegro(getWidth()+10000 - iX*i ,5 + 170*j, 40, 40, game, 4));  
-                 setTotalAlien(getTotalAlien()+1); 
-            } 
+
+        for (int i = 1; i <= 200; i++) {
+            int iX = (int) (Math.random() * 800);
+            negro.add(new MamutNegro(getWidth() + 10000 - iX * i, 5 + 220, 40, 40, game, -4));
         }
-            
-            for(int j = 1; j <= 1; j++) {
-            for (int i = 1; i <= 200; i++) {
-                int iX = (int) (Math.random() * 800);
-                 negro.add(new MamutNegro(getWidth()+10000 - iX*i ,5 + 220*j, 40, 40, game,-4));  
-                 setTotalAlien(getTotalAlien()+1); 
-            } 
+
+        for (int i = 1; i <= 100; i++) {
+            int iX = (int) (Math.random() * 800);
+            blanco.add(new MamutBlanco(getWidth() + 10000 - iX * i, 5 + 270, 40, 40, game, -1));
         }
-                
-            for(int j = 1; j <= 1; j++) {
-            for (int i = 1; i <= 100; i++) {
-                int iX = (int) (Math.random() * 800);
-                 blanco.add(new MamutBlanco(getWidth()+10000 - iX*i ,5 + 270*j, 40, 40, game, -1));  
-                 setTotalAlien(getTotalAlien()+1); 
-            } 
+
+        for (int i = 1; i <= 100; i++) {
+            int iX = (int) (Math.random() * 800);
+            blanco.add(new MamutBlanco(getWidth() - 30 - iX * i, 5 + 320, 40, 40, game, 1));
         }
-            for(int j = 1; j <= 1; j++) {
-            for (int i = 1; i <= 100; i++) {
-                int iX = (int) (Math.random() * 800);
-                 blanco.add(new MamutBlanco(getWidth()-30 - iX*i ,5 + 320*j, 40, 40, game, 1));  
-                 setTotalAlien(getTotalAlien()+1); 
-            } 
-        }
-        
-    
+
         menu = new Boton(413, 360, 100, 50, game, 5);
         save = new Boton(283, 360, 100, 50, game, 4);
     }
-        
-        
+
     public void tick() {
+
             if (getTimer() / 60 == 0) {
                 //game.getDB().
             try {
@@ -278,171 +221,118 @@ private String cronos;
             game.setNivel(3);
         }
             
-            if (isStart() && !game.isPause()) {
+
              
             //advancing player with colition
+
+
+        if (isStart() && !game.isPause()) {
+            //If theres no song playing
+            if (songN2.isStop()) {
+                //Reproduce el clip
+                songN2.play();
+            }
+            //the tick for player and laser is made
+
             player.tick();
             laser.tick();
 
-              
-             //we actualize the bricks for rendering
-             for (int i = 0; i < enemigo.size(); i++) {
-               Mamut marciano =  enemigo.get(i);
-               marciano.tick();
-               if(marciano.getX()>getWidth()+getWidth()/10 || marciano.getX()<-(getWidth()/10)){
-                    for(int j = 0; j < enemigo.size(); j++){
-                        Mamut alien = enemigo.get(j);
-                        alien.SwitchLayer();
-                    }
-               }
-               if(marciano.intersecta(laser)){
-    //              Assets.alienExplosion.play();
-                  marciano.changeAlive(); 
-                  laser.destroy();
-                  laser.canShoot();
-                  setWin(getWin()+1);
-                  //actualize score
-                  setScore(getScore() + 100);
-                  setNum(""+ getScore());
-                  Assets.jabalia.play();
-             }
-
+            //make white mamut tick
+            for (int i = 0; i < enemigo.size(); i++) {
+                Mamut mamut = enemigo.get(i);
+                mamut.tick();
+                //If the mamut go out of the screen it chenge direction
+                if (mamut.getX() > getWidth() + getWidth() / 10 || mamut.getX() < -(getWidth() / 10)) {
+                    mamut.SwitchLayer();
                 }
-             
-             
-             
-             
-             
-             
-             
-             
-             for (int i = 0; i < blanco.size(); i++) {
-               MamutBlanco marcianoB =  blanco.get(i);
-               marcianoB.tick();
-               if(marcianoB.getX()>getWidth()+220+getWidth()/2 || marcianoB.getX()<-(getWidth()/2)-260){
-                    for(int j = 0; j < blanco.size(); j++){
-               //         MamutBlanco alienB = blanco.get(j);
-               //         alienB.SwitchLayer();
-                    }
-               }
-               if(marcianoB.intersecta(laser)){
-    //              Assets.alienExplosion.play();
-                  marcianoB.changeAlive(); 
-                  laser.destroy();
-                  laser.canShoot();
-                  setWin(getWin()+1);
-                  //actualize score
-                  setScore(getScore() + 10);
-                  setNum(""+ getScore());
-                  Assets.jabalia.play();
-             }
-
+                //If the mamut intersect with the projectile
+                if (mamut.intersecta(laser)) {
+                    //The mamut is not longer alive
+                    mamut.changeAlive();
+                    //The projectile is destroyed
+                    laser.destroy();
+                    //The variable can shoot is set on true
+                    laser.canShoot();
+                    //actualize score
+                    game.setScore(game.getScore() + 100);
+                    setNum("" + game.getScore());
+                    //the jabalina sound is played
+                    Assets.jabalia.play();
                 }
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             for (int i = 0; i < negro.size(); i++) {
-               MamutNegro marcianoN =  negro.get(i);
-               marcianoN.tick();
-               if(marcianoN.getX()>getWidth()+180+getWidth()/2 || marcianoN.getX()<-(getWidth()/2)-220){
-                    for(int j = 0; j < negro.size(); j++){
-                 //       MamutNegro alienN = negro.get(j);
-                 //       alienN.SwitchLayer();
-                    }
-               }
-               if(marcianoN.intersecta(laser)){
-    //              Assets.alienExplosion.play();
-                  marcianoN.changeAlive(); 
-                  laser.destroy();
-                  laser.canShoot();
-                  setWin(getWin()+1);
-                  //actualize score
-                  setScore(getScore() + 50);
-                  setNum(""+ getScore());
-                  Assets.jabalia.play();
-             }
- 
-                }
-             
-             
-             
-             
-             
-             
-             
 
-            if (game.getKeyManager().space && laser.isShooting()){
-    //            Assets.laserSound.play();
-            laser = new Laser( player.getX() + 11, player.getY()-10, 1, 20, 30, game);
-            laser.cantShoot();
             }
-            if(laser.getY()<0){
+            //make tick for the normal mamut
+            for (int i = 0; i < blanco.size(); i++) {
+                MamutBlanco mamut = blanco.get(i);
+                mamut.tick();
+                //If the mamut intersect with the projectile
+                if (mamut.intersecta(laser)) {
+                    //The mamut is not longer alive
+                    mamut.changeAlive();
+                    //The projectile is destroyed
+                    laser.destroy();
+                    //The variable can shoot is set on true
+                    laser.canShoot();
+                    //actualize score
+                    game.setScore(game.getScore() + 10);
+                    setNum("" + game.getScore());
+                    //the jabalina sound is played
+                    Assets.jabalia.play();
+                }
+
+            }
+            //the tick for the black mamut is made
+            for (int i = 0; i < negro.size(); i++) {
+                MamutNegro mamut = negro.get(i);
+                mamut.tick();
+                //If the mamut intersect with the projectile
+                if (mamut.intersecta(laser)) {
+                    //The mamut is not longer alive
+                    mamut.changeAlive();
+                    //The projectile is destroyed
+                    laser.destroy();
+                    //The variable can shoot is set on true
+                    laser.canShoot();
+                    //actualize score
+                    game.setScore(game.getScore() + 50);
+                    setNum("" + game.getScore());
+                    //the jabalina sound is played
+                    Assets.jabalia.play();
+                }
+
+            }
+            //if space is clicked and the laser is shoting
+            if (game.getKeyManager().space && laser.isShooting()) {
+                //a new laser is generated
+                laser = new Laser(player.getX() + 11, player.getY() - 10, 1, 20, 30, game);
+                //the laser can not be shoot
+                laser.cantShoot();
+            }
+            //if the laser y position is smaller that 0
+            if (laser.getY() < 0) {
+                //the laser can be shoot
                 laser.canShoot();
             }
 
-             //logic for when the player loses a live
-
-             if(laser.getY() > getHeight() && lives > 0 ){
-                 lives = lives-1;
-                 setScore(getScore() - 50);
-                 setNum(""+ getScore());
-         //        player.setX(320);
-                 laser.setX(370);
-                 laser.setY(player.getY() - 40); 
-             }
-             //sets our lose ocndition
-             else if (lives == 0){ 
-                 setScore(0);
-                    setNum(""+score);
-                    for(int w = 0; w<enemigo.size();w++){
-                        Mamut Area51 = enemigo.get(w);
-                        Area51.setAlive(false);
-                    }
-                    
-                    
-                    
-                    
-                    
-                    
-                    for(int w = 0; w<negro.size();w++){
-                        MamutNegro Area51N = negro.get(w);
-                        Area51N.setAlive(false);
-                    }
-                    
-                    
-                    
-                    
-                    
-                    for(int w = 0; w<blanco.size();w++){
-                        MamutBlanco Area51B = blanco.get(w);
-                        Area51B.setAlive(false);
-                    }
-                    
-                    
-                    
-                    
-                    
-       
-                    lives = 3;
-                    player.setSpeed(4);
-    //                Assets.song.play();
-                    laser.setX(0); 
-                    laser.setY(0);
-                    setWin(0);
-                    setTotalAlien(0);
-                
-             }
-
-
-    }
-            else {
+        } else if (game.isPause() && isStart()) {
+            //If theres no song playing
+            if (songN2.isStop()) {
+                //Reproduce el clip
+                songN2.play();
+            }
+            //if menu is clicked
+            if (menu.intersecta(game.getMouseManager()) && game.isPause()) {
+                game.setWhatLevel(1);
+                game.setNivel(0);
+                //The song is pause
+                songN2.pause();
+            }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //Thr level is reset
+                reset();
+            }
+        } else {
             //When the n key is pressed
             if (game.getKeyManager().next) {
                 //If scene is minor to 3
@@ -459,85 +349,169 @@ private String cronos;
                 //start is set on true
                 setStart(true);
             }
+            //If theres no song playing
+            if (songN2.isStop()) {
+                //Reproduce el clip
+                songN2.play();
             }
-     }
-        public void render() {
-             bs = game.getDisplay().getCanvas().getBufferStrategy();
+        }
+        if (getTimer() / 60 == 0) {
+            try {
+                //The game is set on the level 5
+                new DatabaseManager().updateScore(game.getScoreTableID(), "level2", game.getScore());
+            } catch (Exception ex) {
+                Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                game.getDB().getScoreBoard();
+            } catch (Exception ex) {
+                Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Last score is set on the last score you get through the level
+            game.setLastScore(game.getScore());
+            //music stops
+            songN2.stop();
+            //The user is move to the next level
+            game.setNivel(3);
+        }
+    }
 
-             if (bs == null) {
-             game.getDisplay().getCanvas().createBufferStrategy(3);
-           } else {
-             g = bs.getDrawGraphics();
-           
+    /**
+     * funtion that reset the level 2 to its initial state
+     */
+    void reset() {
+        //The music restart from the begining
+        songN2.stop();
+        songN2.setfPosition(0);
+        //Laser is set on true
+        setLasershoot(true);
+        //start is set on false
+        setStart(false);
+        //scene is set on 0
+        setScene(0);
+        //The timer start in 50
+        setTimer(60 * 60);//fps*time you want
+        setCronos("tiempo: " + timer);
+        //The position of the player is reset to ist original position
+        player.setX(300);
+        player.setY(430);
+        //The position of the laset is set to its original position
+        laser.setX(0);
+        laser.setY(0);
+        //All the animals are set on random position acording to its initialization
+        for (int i = 0; i < enemigo.size(); i++) {
+            Mamut ET = enemigo.get(i);
+            ET.setAlive(true);
+            ET.setY(115);
+            ET.setX(getWidth() - 30 - 100);
+
+        }
+        for (int i = 0; i < 200; i++) {
+            int iX = (int) (Math.random() * 800);
+            MamutNegro ETN = negro.get(i);
+            ETN.setX(getWidth() + 10000 - iX * i);
+            ETN.setAlive(true);
+        }
+
+        for (int i = 0; i < 200; i++) {
+            int iX = (int) (Math.random() * 800);
+            MamutNegro ETN = negro.get(i + 200);
+            ETN.setX(getWidth() + 10000 - iX * i);
+            ETN.setAlive(true);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            MamutBlanco ETB = blanco.get(i);
+            int iX = (int) (Math.random() * 800);
+            ETB.setX(getWidth() + 10000 - iX * i);
+            ETB.setAlive(true);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            MamutBlanco ETB = blanco.get(i + 100);
+            int iX = (int) (Math.random() * 800);
+            ETB.setX(getWidth() - 30 - iX * i);
+            ETB.setAlive(true);
+        }
+        //The score is set to the same score as it started
+        game.setScore(game.getLastScore());
+        //The score that is showed is actualized
+        setNum("" + game.getScore());
+        //The game is no longer on pause
+        game.setPause(false);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
+    }
+
+    public void render() {
+        bs = game.getDisplay().getCanvas().getBufferStrategy();
+
+        if (bs == null) {
+            game.getDisplay().getCanvas().createBufferStrategy(3);
+        } else {
+            g = bs.getDrawGraphics();
+
             if (isStart()) {
 
                 g.drawImage(Assets.backgroundN2, 0, 0, width, height, null);
                 player.render(g);
                 laser.render(g);
-                
+
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
-                g.setColor(Color.WHITE);
-                g.drawString(cronos, 670, 480);
+                g.setColor(Color.BLACK);
+                g.drawString(cronos, 670, 20);
                 if (!game.isPause()) {
                     setTimer(getTimer() - 1);
                 }
                 //updates the time, it is divided by 60 because it moves at 60fps
                 setCronos("TIEMPO: " + getTimer() / 60);
-        
+
                 //loopfor rendering all bricks
                 for (int i = 0; i < enemigo.size(); i++) {
-                    Mamut ET =  enemigo.get(i);
+                    Mamut ET = enemigo.get(i);
                     ET.render(g);
 
                 }
-                
-                
-                
+
                 for (int i = 0; i < blanco.size(); i++) {
-                    MamutBlanco ETB =  blanco.get(i);
+                    MamutBlanco ETB = blanco.get(i);
                     ETB.render(g);
 
                 }
-                
-                
-                
-                
-                
-                
+
                 for (int i = 0; i < negro.size(); i++) {
-                    MamutNegro ETN =  negro.get(i);
+                    MamutNegro ETN = negro.get(i);
                     ETN.render(g);
 
                 }
-       
+
                 if (game.isPause()) {
                     g.drawImage(Assets.pauseN3, 250, 50, 300, 400, null);
                     save.render(g);
                     menu.render(g);
                 }
-     
-        
-            //draw score
-                   g.setFont(new Font("Serif", Font.PLAIN, 20));
-                   g.setColor(Color.WHITE);
-                   g.drawString("PUNTAJE: " + num, 2, 480);
 
-        
-        } else {
+                //draw score
+                g.setFont(new Font("Serif", Font.PLAIN, 20));
+                g.setColor(Color.BLACK);
+                g.drawString("PUNTAJE: " + num, 2, 20);
+
+            } else {
 
                 if (getScene() == 0) {
-                    g.drawImage(Assets.control2, 0, 0, width, height, null);
-                    g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
-                }
-                if (getScene() == 1) {
                     g.drawImage(Assets.info2, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
+                if (getScene() == 1) {
+                    g.drawImage(Assets.control2, 0, 0, width, height, null);
+                    g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
+                }
             }
-       
-        bs.show();
-        g.dispose();
-    }
 
-}
+            bs.show();
+            g.dispose();
+        }
+
+    }
 }

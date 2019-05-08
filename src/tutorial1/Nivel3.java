@@ -94,6 +94,14 @@ public class Nivel3 {
         return scene;
     }
 
+    public void setCont(int cont) {
+        this.cont = cont;
+    }
+
+    public int getCont() {
+        return cont;
+    }
+
     public void init() {
         player = new PlayerLevel3(330, getHeight() - 100, 1, 160, 80, game);
         ball = new BallLevel3(385, getHeight() - 145, 1, 40, 50, game);
@@ -131,16 +139,16 @@ public class Nivel3 {
             for (int i = 0; i < corn.size(); i++) {
                 PlantLevel3 plant = corn.get(i);
                 plant.tick();
-                cont = cont + 1;
-                if (ball.intersecta(plant) && cont > 200 && plant.getLives() > 1) {
-                    cont = 0;
+                setCont(getCont() + 1);
+                if (ball.intersecta(plant) && getCont() > 200 && plant.getLives() > 1) {
+                    setCont(0);
                     //corn loses one life
                     plant.setLives(plant.getLives() - 1);
 
                     //get 50 points fore every mature plant
                     if (plant.getLives() < 2) {
                         game.setScore(game.getScore() + 50);
-                        maturePlants += 1;
+                        setMaturePlants(getMaturePlants() + 1);
                     }
 
                     //Make the ball bounce away from plant
@@ -160,16 +168,16 @@ public class Nivel3 {
             for (int i = 0; i < pepper.size(); i++) {
                 PlantLevel3 plant = pepper.get(i);
                 plant.tick();
-                cont = cont + 1;
-                if (ball.intersecta(plant) && cont > 200 && plant.getLives() > 1) {
-                    cont = 0;
+                setCont(getCont() + 1);
+                if (ball.intersecta(plant) && getCont() > 200 && plant.getLives() > 1) {
+                    setCont(0);
                     //pepper plant lose one life
                     plant.setLives(plant.getLives() - 1);
 
                     //get 50 points fore every mature plant
                     if (plant.getLives() < 2) {
                         game.setScore(game.getScore() + 50);
-                        maturePlants += 1;
+                        setMaturePlants(getMaturePlants() + 1);
                     }
                     //Make the ball bounce away from plant
                     if (ball.getDirection() == 1) {
@@ -188,16 +196,16 @@ public class Nivel3 {
             for (int i = 0; i < tomato.size(); i++) {
                 PlantLevel3 plant = tomato.get(i);
                 plant.tick();
-                cont = cont + 1;
-                if (ball.intersecta(plant) && cont > 200 && plant.getLives() > 1) {
-                    cont = 0;
+                setCont(getCont() + 1);
+                if (ball.intersecta(plant) && getCont() > 200 && plant.getLives() > 1) {
+                    setCont(0);
                     //tomato plant lose one life
                     plant.setLives(plant.getLives() - 1);
 
                     //get 50 points fore every mature plant
                     if (plant.getLives() < 2) {
                         game.setScore(game.getScore() + 50);
-                        maturePlants += 1;
+                        setMaturePlants(getMaturePlants() + 1);
                     }
 
                     //Make the ball bounce away from plant
@@ -251,6 +259,11 @@ public class Nivel3 {
                 //The song is pause
                 songN3.pause();
             }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //Thr level is reset
+                reset();
+            }
         } else {
             //When the n key is pressed
             if (game.getKeyManager().next) {
@@ -280,23 +293,71 @@ public class Nivel3 {
             //The music stops
             songN3.stop();
             //The game is moved to level 4
-                            try {
-                    //The game is set on the level 5
+            try {
+                //The game is set on the level 5
 
-                    new DatabaseManager().updateScore(game.getScoreTableID(),"level3",game.getScore());
-                } catch (Exception ex) {
-                    Logger.getLogger(Nivel3.class.getName()).log(Level.SEVERE, null, ex);
-                }
-     
-           
-                try {
-                    game.getDB().getScoreBoard();
-                } catch (Exception ex) {
-                    Logger.getLogger(Nivel3.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new DatabaseManager().updateScore(game.getScoreTableID(), "level3", game.getScore());
+            } catch (Exception ex) {
+                Logger.getLogger(Nivel3.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                game.getDB().getScoreBoard();
+            } catch (Exception ex) {
+                Logger.getLogger(Nivel3.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Last score is set on the last score you get through the level
+            game.setLastScore(game.getScore());
+            //music stops
+            songN3.stop();
+            //The user is move to the next level
             game.setNivel(4);
         }
 
+    }
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset() {
+        //The counter of the apples is back to 0
+        setCont(0);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //Mature plants are set on 0
+        setMaturePlants(0);
+        //The song start from the begining
+        songN3.stop();
+        songN3.setfPosition(0);
+        //The player is set on its original position
+        player.setX(330);
+        player.setY(getHeight() - 100);
+        //The Ball is set on its original position
+        ball.setX(385);
+        ball.setY(getHeight() - 145);
+        //The lives of all the plants are set on 3
+        for (int i = 0; i < corn.size(); i++) {
+            PlantLevel3 plant = corn.get(i);
+            plant.setLives(3);
+        }
+
+        for (int i = 0; i < pepper.size(); i++) {
+            PlantLevel3 plant = pepper.get(i);
+            plant.setLives(3);
+        }
+
+        for (int i = 0; i < tomato.size(); i++) {
+            PlantLevel3 plant = tomato.get(i);
+            plant.setLives(3);
+        }
+        //The game is no longer on pause
+        game.setPause(false);
+        //The score go back to 0
+        game.setScore(game.getLastScore());
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
     }
 
     public void render() {
@@ -312,7 +373,7 @@ public class Nivel3 {
                 ball.render(g);
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
                 g.setColor(Color.BLACK);
-                g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
+                g.drawString("Usuario: " + game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
 
                 //render plants
                 for (int i = 0; i < corn.size(); i++) {
@@ -337,7 +398,6 @@ public class Nivel3 {
                 }
 
                 //display score
-
                 g.drawString("PUNTAJE: " + game.getScore(), getWidth() - 150, 480);
 
             } else {

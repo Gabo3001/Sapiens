@@ -1,3 +1,10 @@
+
+//                try {
+//                    game.getDB().getQuizInfo("Scientifica",scientific,game);
+//                } catch (Exception ex) {
+//                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,8 +17,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -41,7 +46,6 @@ public class Nivel6 {
     private boolean start;
     private int scene;
     private SoundClip songN6;
-    private quiz scientific;
 
     public Nivel6(String title, int width, int height, Game game) {
         this.title = title;
@@ -128,7 +132,7 @@ public class Nivel6 {
     public void init() {
         A = new Boton(231, 440, 70, 60, game, 6);
         S = new Boton(381, 440, 70, 60, game, 7);
-        D = new Boton(532, 440, 70, 60, game, 8);
+        D = new Boton(531, 440, 70, 60, game, 8);
         for (int i = 0; i < 10; i++) {
             yellow.add(new Bulbo(228, -90, 80, 90, game, 1));
         }
@@ -265,6 +269,11 @@ public class Nivel6 {
                 //The song is pause
                 songN6.pause();
             }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //The level is reset
+                reset();
+            }
         } else {
             //When thw n key is press
             if (game.getKeyManager().next) {
@@ -291,6 +300,43 @@ public class Nivel6 {
         }
     }
 
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset(){
+        //set yellow, blue and purple right on true
+        setYellowRight(true);
+        setPurpleRight(true);
+        setBlueRight(true);
+        //set lights up on 0
+        setLightsUp(0);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //The song start from the begining
+        songN6.stop();
+        songN6.setfPosition(0);
+        //The bulbs are initialice again
+        for (int i = 0; i < yellow.size(); i++) {
+                    Bulbo y = yellow.get(i);
+                    y.setY(-90);
+                }
+                for (int i = 0; i < blue.size(); i++) {
+                    Bulbo b = blue.get(i);
+                    b.setY(-90);
+                }
+                for (int i = 0; i < purple.size(); i++) {
+                    Bulbo p = purple.get(i);
+                    p.setY(-90);
+                }
+        //The game is no longer on pause
+        game.setPause(false);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
+    }
+    
     public void render() {
         bs = game.getDisplay().getCanvas().getBufferStrategy();
 
@@ -352,8 +398,4 @@ public class Nivel6 {
         }
     }
 }
-//                try {
-//                    game.getDB().getQuizInfo("Scientifica",scientific,game);
-//                } catch (Exception ex) {
-//                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+

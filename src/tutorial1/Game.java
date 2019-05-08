@@ -33,6 +33,7 @@ public class Game implements Runnable {
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private int score;
+    private int lastScore;
     private boolean pause;
     
     
@@ -70,7 +71,14 @@ public class Game implements Runnable {
     public int getScoreTableID(){
         return ScoreTableID;
     } 
-    
+
+    public int getLastScore() {
+        return lastScore;
+    }
+
+    public void setLastScore(int lastScore) {
+        this.lastScore = lastScore;
+    }
     
     public void setUserID(int id){
         this.userID=id;
