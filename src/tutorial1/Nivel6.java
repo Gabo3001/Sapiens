@@ -1,9 +1,15 @@
 
 //                try {
-//                    game.getDB().getQuizInfo("Scientifica",scientific,game);
+//                    game.getDB().getQuizInfo("Scientifica",scientific,game,"quiz3Score","quiz3ID");
 //                } catch (Exception ex) {
 //                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
 //                }
+//            try {
+//                //The game is set on the level 5
+//                new DatabaseManager().updateScore(game.getScoreTableID(), "level6", game.getScore()+getScore()*10);
+//            } catch (Exception ex) {
+//                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+//            }
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -46,6 +52,8 @@ public class Nivel6 {
     private boolean start;
     private int scene;
     private SoundClip songN6;
+    private quiz scientific;
+    private boolean bQuiz;
 
     public Nivel6(String title, int width, int height, Game game) {
         this.title = title;
@@ -63,6 +71,14 @@ public class Nivel6 {
         start = false;
         this.next = new Animation(Assets.nextA, 500);
         songN6 = new SoundClip("/tutorial1/sounds/N6.wav", -3f, true);
+        this.bQuiz=false;
+    }
+    public boolean isBQuiz(){
+        return bQuiz;
+    }
+    
+    public void setBQuiz(boolean b){
+        this.bQuiz=b;
     }
 
     public void setStart(boolean start) {

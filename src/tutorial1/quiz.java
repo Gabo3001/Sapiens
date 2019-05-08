@@ -44,8 +44,9 @@ public class quiz {
     private int quizID;
     private String quizName;
     private String quizIDName;
+    private String revolution;
     
-    public quiz(Game game,String q,String a,String o2,String o3,String o4,boolean p,int id,String QName,String QNameID){
+    public quiz(Game game,String q,String a,String o2,String o3,String o4,boolean p,int id,String QName,String QNameID,String r){
         this.game=game;
         this.quizScore=0;
         this.question = q;
@@ -58,7 +59,7 @@ public class quiz {
         this.quizName=QName;
         this.quizIDName=QNameID;
         response=new LinkedList<String>();
-        
+        this.revolution=r;
         frame = new JFrame();
         frame.setLayout(null);
         frame.setResizable(false);
@@ -90,7 +91,7 @@ public class quiz {
         button1 = new JButton (response.get(n));
         button1.setBounds(25,150,150,30);
         button1.setBackground(Color.decode("#00aaff"));
-        button1.addActionListener(new anwr(answer,response.get(n),this,finished,game));
+        button1.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button1);
         n++;
         rollN();
@@ -99,7 +100,7 @@ public class quiz {
         button2 = new JButton (response.get(n));
         button2.setBounds(225,150,150,30);
         button2.setBackground(Color.decode("#aaff00"));
-        button2.addActionListener(new anwr(answer,response.get(n),this,finished,game));
+        button2.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button2);
         n++;
         rollN();
@@ -108,7 +109,7 @@ public class quiz {
         button3 = new JButton (response.get(n));
         button3.setBounds(25,250,150,30);
         button3.setBackground(Color.decode("#ff00aa"));
-        button3.addActionListener(new anwr(answer,response.get(n),this,finished,game));
+        button3.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button3);
         n++;
         rollN();
@@ -117,7 +118,7 @@ public class quiz {
         button4 = new JButton (response.get(n));
         button4.setBounds(225,250,150,30);
         button4.setBackground(Color.decode("#ffaa00"));
-        button4.addActionListener(new anwr(answer,response.get(n),this,finished,game));
+        button4.addActionListener(new anwr(answer,response.get(n),this,finished,game,revolution));
         frame.add(button4);
         n++;
         rollN();
@@ -196,17 +197,25 @@ class anwr implements ActionListener{
     Game game;
     int quizID;
     boolean save;
-    public anwr(String a,String r,quiz b,boolean p,Game g){
+    String rev;
+    public anwr(String a,String r,quiz b,boolean p,Game g,String rev){
         ans = a;
         res = r;
         quiz = b;
         save=p;
         this.game=g;
-        
+        this.rev=rev;
     }
     public void actionPerformed(ActionEvent ae) {
         quiz.getFrame().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         quiz.setButton1Color();
+        if(rev=="Cognitiva"){
+            game.getNivel2().setBQuiz(true);
+        }else if(rev=="Agricola"){
+            game.getNivel4().setBQuiz(true);
+        }else if(rev=="Scientifica"){
+            game.getNivel6().setBQuiz(true);
+        }
         if(quiz.getScore()==100||quiz.getScore()==50){
            quiz.getFrame().dispose(); 
         }

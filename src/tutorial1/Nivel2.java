@@ -43,7 +43,15 @@ public class Nivel2 {
     private int scene;
     private SoundClip songN2;
     private quiz cognitive;
+    private boolean bQuiz;
 
+    /**
+     *
+     * @param title
+     * @param width
+     * @param height
+     * @param game
+     */
     public Nivel2(String title, int width, int height, Game game) {
         this.title = title;
         this.width = width;
@@ -60,114 +68,230 @@ public class Nivel2 {
         this.timer = 60 * 60;//fps*time you want
         this.cronos = "tiempo: " + timer;
         songN2 = new SoundClip("/tutorial1/sounds/N2.wav", -3f, true);
+        this.bQuiz=false;
+    }
+    
+    public boolean isBQuiz(){
+        return bQuiz;
+    }
+    
+    public void setBQuiz(boolean b){
+        this.bQuiz=b;
     }
 
+    /**
+     *
+     * @return
+     */
     public Animation getNext() {
         return next;
     }
 
+    /**
+     *
+     * @param next
+     */
     public void setNext(Animation next) {
         this.next = next;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTimer() {
         return timer;
     }
 
+    /**
+     *
+     * @param t
+     */
     public void setTimer(int t) {
         if (t != 0) {
             this.timer = t;
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getScene() {
         return scene;
     }
 
+    /**
+     *
+     * @param scene
+     */
     public void setScene(int scene) {
         this.scene = scene;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCronos() {
         return cronos;
     }
 
+    /**
+     *
+     * @param t
+     */
     public void setCronos(String t) {
         this.cronos = t;
     }
 
+    /**
+     *
+     * @return
+     */
     public Laser getLaser() {
         return laser;
     }
 
+    /**
+     *
+     * @param laser
+     */
     public void setLaser(Laser laser) {
         this.laser = laser;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isLasershoot() {
         return lasershoot;
     }
 
+    /**
+     *
+     * @param lasershoot
+     */
     public void setLasershoot(boolean lasershoot) {
         this.lasershoot = lasershoot;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNum() {
         return num;
     }
 
+    /**
+     *
+     * @param num
+     */
     public void setNum(String num) {
         this.num = num;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     *
+     * @param height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
 
+    /**
+     *
+     * @return
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     *
+     * @param game
+     */
     public void setGame(Game game) {
         this.game = game;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @param player
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+    /**
+     *
+     * @param start
+     */
     public void setStart(boolean start) {
         this.start = start;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isStart() {
         return start;
     }
 
+    /**
+     *
+     */
     public void init() {
 
         player = new Player(300, 430, 3, 60, 40, game);
@@ -202,6 +326,9 @@ public class Nivel2 {
         save = new Boton(283, 360, 100, 50, game, 4);
     }
 
+    /**
+     *
+     */
     public void tick() {
 
             if (getTimer() / 60 == 0) {
@@ -444,6 +571,9 @@ public class Nivel2 {
         game.getMouseManager().setY(0);
     }
 
+    /**
+     *
+     */
     public void render() {
         bs = game.getDisplay().getCanvas().getBufferStrategy();
 

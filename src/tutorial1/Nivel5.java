@@ -3,6 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//Ready for level 5
+//try {
+//    new DatabaseManager().updateScore(game.getScoreTableID(),"level5",game.getScore());
+//} catch (Exception ex) {
+//    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+//}
+
 package tutorial1;
 
 import java.awt.Color;
@@ -44,6 +51,16 @@ public class Nivel5 {
     private int scene;
     private SoundClip songN5;
     String title;
+    private int timer;
+    private int cronos;
+    private int Timeobj1;
+    private int Timeobj2;
+    private int Timeobj3;
+    private int Timeobj4;
+    private int Timeobj5;
+    private int Timeobj6;
+    private int Timeobj7;
+    private int Timeobj8;
 
     public Nivel5(String title, int width, int height, Game game) {
         this.title = title;
@@ -63,6 +80,97 @@ public class Nivel5 {
         start = false;
         this.next = new Animation(Assets.nextA, 500);
         songN5 = new SoundClip("/tutorial1/sounds/N5.wav", -3f, true);
+        this.cronos=0;
+        this.timer=0;
+        this.Timeobj1=0;
+        this.Timeobj2=0;
+        this.Timeobj3=0;
+        this.Timeobj4=0;
+        this.Timeobj5=0;
+        this.Timeobj6=0;
+        this.Timeobj7=0;
+        this.Timeobj8=0;
+    }
+    /**
+     *
+     * @return
+     */
+    public int getTimer() {
+        return timer;
+    }
+    /**
+     *
+     * @return
+     */
+    public int getCronos() {
+        return cronos;
+    }
+   /**
+     *
+     * @param t
+     */
+    public void setCronos(int t) {
+        if (t != 0) {
+            this.cronos = t;
+        }
+    }
+    /**
+     *
+     * @param t
+     */
+    public void setTimer(int t) {
+        if (t != 0) {
+            this.timer = t;
+        }
+    }
+    
+    public void setTimeObj1(int t){
+        this.Timeobj1=t;
+    }
+    public void setTimeObj2(int t){
+        this.Timeobj2=t;
+    }
+        public void setTimeObj3(int t){
+        this.Timeobj3=t;
+    }
+    public void setTimeObj4(int t){
+        this.Timeobj4=t;
+    }
+    public void setTimeObj5(int t){
+        this.Timeobj5=t;
+    }
+    public void setTimeObj6(int t){
+        this.Timeobj6=t;
+    }
+    public void setTimeObj7(int t){
+        this.Timeobj7=t;
+    }
+    public void setTimeObj8(int t){
+        this.Timeobj8=t;
+    }
+    public int getTimeObj1(){
+        return Timeobj1;
+    }   
+    public int getTimeObj2(){
+        return Timeobj2;
+    }
+    public int getTimeObj3(){
+        return Timeobj3;
+    }
+    public int getTimeObj4(){
+        return Timeobj4;
+    }
+    public int getTimeObj5(){
+        return Timeobj5;
+    }
+    public int getTimeObj6(){
+        return Timeobj6;
+    }
+    public int getTimeObj7(){
+        return Timeobj7;
+    }
+    public int getTimeObj8(){
+        return Timeobj8;
     }
 
     public void setScene(int scene) {
@@ -187,6 +295,7 @@ public class Nivel5 {
             //if axe is clicked
             if (hacha.intersecta(game.getMouseManager())) {
                 if (!isI1()) {
+                    setTimeObj1(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -202,6 +311,7 @@ public class Nivel5 {
             if (martillo.intersecta(game.getMouseManager())) {
 
                 if (!isI2()) {
+                    setTimeObj2(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -217,6 +327,7 @@ public class Nivel5 {
             if (pala.intersecta(game.getMouseManager())) {
 
                 if (!isI3()) {
+                    setTimeObj3(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -232,6 +343,7 @@ public class Nivel5 {
             if (peine.intersecta(game.getMouseManager())) {
 
                 if (!isI4()) {
+                    setTimeObj4(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -247,6 +359,7 @@ public class Nivel5 {
             if (regla.intersecta(game.getMouseManager())) {
 
                 if (!isI5()) {
+                    setTimeObj5(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -262,6 +375,7 @@ public class Nivel5 {
             if (sierra.intersecta(game.getMouseManager())) {
 
                 if (!isI6()) {
+                    setTimeObj6(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -277,6 +391,7 @@ public class Nivel5 {
             if (telescopio.intersecta(game.getMouseManager())) {
 
                 if (!isI7()) {
+                    setTimeObj7(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -292,6 +407,7 @@ public class Nivel5 {
             if (tijera.intersecta(game.getMouseManager())) {
 
                 if (!isI8()) {
+                    setTimeObj8(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -390,6 +506,10 @@ public class Nivel5 {
         } else {
             g = bs.getDrawGraphics();
             if (isStart()) {
+                if (!game.isPause()) {
+                    setTimer(getTimer() + 1);
+                    setCronos(getTimer()/60);
+                }
                 g.drawImage(Assets.backgroundLevel5, 0, 0, width, height, null);
                 //g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
                 if (!isI1()) {

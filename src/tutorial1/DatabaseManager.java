@@ -86,6 +86,7 @@ public class DatabaseManager {
             //Problem in the mySQL Syntax
             PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS scores(scoreID INT NOT NULL AUTO_INCREMENT, level1 int,level2 int,level3 int,level4 int,level5 int,level6 int,usrID INT NOT NULL,quiz1Score int, quiz1ID int, quiz2Score int, quiz2ID int, quiz3Score int, quiz3ID int, FOREIGN KEY(usrID) REFERENCES users(id), PRIMARY KEY(scoreID))");
             create.executeUpdate();
+            con.close();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -122,7 +123,7 @@ public class DatabaseManager {
         try{
             Connection con = getConnection();
             //Problem in the mySQL Syntax
-            PreparedStatement dropScores = con.prepareStatement("set global max_connections = 200;");
+            PreparedStatement dropScores = con.prepareStatement("DROP TABLE scores");
             dropScores.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -159,20 +160,20 @@ public class DatabaseManager {
      * @throws Exception
      * used to add users from login
      */
-    public static void postUsr(String u, String p) throws Exception{
-        final String var1 = u;
-        final String var2 = p;
-        try{
-            Connection con = getConnection();
-            PreparedStatement posted = con.prepareStatement("INSERT INTO users (username, password)VALUES('"+var1+"','"+var2+"')");
-            posted.executeUpdate();
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        finally{
-            System.out.println("Inset completed");
-        }
-    }
+//    public static void postUsr(String u, String p) throws Exception{
+//        final String var1 = u;
+//        final String var2 = p;
+//        try{
+//            Connection con = getConnection();
+//            PreparedStatement posted = con.prepareStatement("INSERT INTO users (username, password)VALUES('"+var1+"','"+var2+"')");
+//            posted.executeUpdate();
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
+//        finally{
+//            System.out.println("Inset completed");
+//        }
+//    }
         
     /**
      *
@@ -189,6 +190,7 @@ public class DatabaseManager {
             Connection con = getConnection();
             PreparedStatement posted = con.prepareStatement("UPDATE scores SET " +var2+" = "+var3+" WHERE scoreID = "+var1);
             posted.executeUpdate();
+            con.close();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -207,6 +209,7 @@ public class DatabaseManager {
             Connection con = getConnection();
             PreparedStatement posted = con.prepareStatement("UPDATE scores SET "+var4+" = "+var2+","+var5+"="+var3+" WHERE scoreID = "+var1);
             posted.executeUpdate();
+            con.close();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -376,12 +379,13 @@ public class DatabaseManager {
             Connection con = getConnection();
             PreparedStatement posted = con.prepareStatement("INSERT INTO scores (usrID)VALUES('"+var1+"')");
             posted.executeUpdate();
+            con.close();
         }catch(Exception e){
             System.out.println(e);
         }
         finally{
             System.out.println("Inset completed");
-            
+         
         }
     }
         
@@ -391,6 +395,7 @@ public class DatabaseManager {
             Connection con = getConnection();
             PreparedStatement posted = con.prepareStatement("INSERT INTO quiz (revolution,question,answer,option2,option3,option4)VALUES('"+rev+"','"+question+"','"+answer+"','"+option2+"','"+option3+"','"+option4+"')");
             posted.executeUpdate();
+            con.close();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -485,7 +490,7 @@ public class DatabaseManager {
             ResultSet result = statement.executeQuery();
             
             result.next();
-            q = new quiz(g,result.getString("question"),result.getString("answer"),result.getString("option2"),result.getString("option3"),result.getString("option4"),false,result.getInt("quizID"),QuizName,QuizNameID);
+            q = new quiz(g,result.getString("question"),result.getString("answer"),result.getString("option2"),result.getString("option3"),result.getString("option4"),false,result.getInt("quizID"),QuizName,QuizNameID,rev);
             System.out.println(result.getString("revolution"));
             System.out.println(result.getString("question"));
             System.out.println(result.getString("answer"));
@@ -495,7 +500,7 @@ public class DatabaseManager {
             
                 
             System.out.println("score id found!");
-            
+            con.close();
         }catch (Exception e){
             System.out.println(e);
         }

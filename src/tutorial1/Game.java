@@ -62,6 +62,15 @@ public class Game implements Runnable {
         this.userID=0;
         this.username="XXXXXXX";
     }
+    public Nivel2 getNivel2(){
+        return nivel2;
+    }
+    public Nivel4 getNivel4(){
+        return nivel4;
+    }
+    public Nivel6 getNivel6(){
+        return nivel6;
+    }
     
 
     public void setScoreTableID(int id){
@@ -134,9 +143,6 @@ public class Game implements Runnable {
         return height;
     }
 
-    public Nivel6 getNivel6() {
-        return nivel6;
-    }
 
     private void init() {
         display = new Display(title, getWidth(), getHeight());
