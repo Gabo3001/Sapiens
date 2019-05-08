@@ -69,7 +69,7 @@ public class Nivel6 {
         yellowRight = true;
         purpleRight = true;
         blueRight = true;
-        lightsUp = 140;
+        lightsUp = 0;
         scene = 0;
         start = false;
         end = false;
