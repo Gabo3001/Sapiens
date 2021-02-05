@@ -3,11 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+//Ready for level 5
+//try {
+//    new DatabaseManager().updateScore(game.getScoreTableID(),"level5",game.getScore());
+//} catch (Exception ex) {
+//    Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);
+//}
 package tutorial1;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,9 +50,27 @@ public class Nivel5 {
     private int cont;
     private Animation next;
     private boolean start;
+    private boolean end;
     private int scene;
     private SoundClip songN5;
     String title;
+    private int timer;
+    private int cronos;
+    private int Timeobj1;
+    private int Timeobj2;
+    private int Timeobj3;
+    private int Timeobj4;
+    private int Timeobj5;
+    private int Timeobj6;
+    private int Timeobj7;
+    private int Timeobj8;
+    private int sX;
+    private int sY;
+    private int sX2;
+    private int sXY;
+    private int N;
+    private int PivoteAnterior;
+    private int var;
 
     public Nivel5(String title, int width, int height, Game game) {
         this.title = title;
@@ -61,8 +88,135 @@ public class Nivel5 {
         cont = 0;
         scene = 0;
         start = false;
+        end = false;
         this.next = new Animation(Assets.nextA, 500);
         songN5 = new SoundClip("/tutorial1/sounds/N5.wav", -3f, true);
+        this.cronos = 0;
+        this.timer = 0;
+        this.Timeobj1 = 0;
+        this.Timeobj2 = 0;
+        this.Timeobj3 = 0;
+        this.Timeobj4 = 0;
+        this.Timeobj5 = 0;
+        this.Timeobj6 = 0;
+        this.Timeobj7 = 0;
+        this.Timeobj8 = 0;
+        this.sX = sX;
+        this.sY = sY;
+        this.sX2 = sX2;
+        this.sXY = sXY;
+        this.N = 8;
+        this.PivoteAnterior = 1;
+        this.var = 100;
+
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getTimer() {
+        return timer;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getCronos() {
+        return cronos;
+    }
+
+    /**
+     *
+     * @param t
+     */
+    public void setCronos(int t) {
+        if (t != 0) {
+            this.cronos = t;
+        }
+    }
+
+    /**
+     *
+     * @param t
+     */
+    public void setTimer(int t) {
+        if (t != 0) {
+            this.timer = t;
+        }
+    }
+
+    public void setTimeObj1(int t) {
+        this.Timeobj1 = t;
+    }
+
+    public void setTimeObj2(int t) {
+        this.Timeobj2 = t;
+    }
+
+    public void setTimeObj3(int t) {
+        this.Timeobj3 = t;
+    }
+
+    public void setTimeObj4(int t) {
+        this.Timeobj4 = t;
+    }
+
+    public void setTimeObj5(int t) {
+        this.Timeobj5 = t;
+    }
+
+    public void setTimeObj6(int t) {
+        this.Timeobj6 = t;
+    }
+
+    public void setTimeObj7(int t) {
+        this.Timeobj7 = t;
+    }
+
+    public void setTimeObj8(int t) {
+        this.Timeobj8 = t;
+    }
+
+    public int getTimeObj1() {
+        return Timeobj1;
+    }
+
+    public int getTimeObj2() {
+        return Timeobj2;
+    }
+
+    public int getTimeObj3() {
+        return Timeobj3;
+    }
+
+    public int getTimeObj4() {
+        return Timeobj4;
+    }
+
+    public int getTimeObj5() {
+        return Timeobj5;
+    }
+
+    public int getTimeObj6() {
+        return Timeobj6;
+    }
+
+    public int getTimeObj7() {
+        return Timeobj7;
+    }
+
+    public int getTimeObj8() {
+        return Timeobj8;
     }
 
     public void setScene(int scene) {
@@ -174,9 +328,53 @@ public class Nivel5 {
         save = new Boton(283, 360, 100, 50, game, 4);
     }
 
+    //implements a numeric method to get the score of the game
+    public void MetodosN() {
+
+        //The sumatory of the number from 1 to 8
+        sX = 36;
+        //Sum of all the times
+        sY = getTimeObj1() + getTimeObj2() + getTimeObj3() + getTimeObj4() + getTimeObj5() + getTimeObj6() + getTimeObj7() + getTimeObj8();
+        //The sumatory of the number from 1 to 8 to the square
+        sX2 = 204;
+        //Sum of the values of x * the values of y
+        sXY = (1 * getTimeObj1() + 2 * getTimeObj2() + 3 * getTimeObj3() + 4 * getTimeObj4() + 5 * getTimeObj5() + 6 * getTimeObj6() + 7 * getTimeObj7() + 8 * getTimeObj8());
+
+        //Initialize the matrix 
+        int mati[][] = {{N, sX, sY}, {sX, sX2, sXY}};
+        //Montante is called to solve the matrix
+        for (int i = 0; i < 2; i++) {
+            for (int k = 0; k < 2; k++) {
+
+                if (i != k) {
+                    for (int j = (i + 1); j < 3; j++) {
+                        mati[k][j] = (mati[i][i] * mati[k][j] - mati[k][i] * mati[i][j]) / PivoteAnterior;
+                    }
+                }
+
+            }
+            PivoteAnterior = mati[i][i];
+        }
+        //The data is save on an array
+        int[] data = new int[2];
+        for (int i = 0; i < 2; i++) {
+
+            data[i] = mati[i][2] / PivoteAnterior;
+        }
+        //The data is recolected
+        int a1 = data[0];
+        int a2 = data[1];
+        //The resulting function is evalueted in 10
+        int func = a1 * var + a2;
+        //if funtion is greater than 5000 the player dont resive points
+        if (func < 5000) {
+            game.setScore(game.getScore() + (5000 - func));
+        }
+
+    }
+
     public void tick() {
-        
-        
+
         //If start is true and not in pause
         if (isStart() && !game.isPause()) {
             //If theres no song playing
@@ -187,6 +385,7 @@ public class Nivel5 {
             //if axe is clicked
             if (hacha.intersecta(game.getMouseManager())) {
                 if (!isI1()) {
+                    setTimeObj1(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -202,6 +401,7 @@ public class Nivel5 {
             if (martillo.intersecta(game.getMouseManager())) {
 
                 if (!isI2()) {
+                    setTimeObj2(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -217,6 +417,7 @@ public class Nivel5 {
             if (pala.intersecta(game.getMouseManager())) {
 
                 if (!isI3()) {
+                    setTimeObj3(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -232,6 +433,7 @@ public class Nivel5 {
             if (peine.intersecta(game.getMouseManager())) {
 
                 if (!isI4()) {
+                    setTimeObj4(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -247,6 +449,7 @@ public class Nivel5 {
             if (regla.intersecta(game.getMouseManager())) {
 
                 if (!isI5()) {
+                    setTimeObj5(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -262,6 +465,7 @@ public class Nivel5 {
             if (sierra.intersecta(game.getMouseManager())) {
 
                 if (!isI6()) {
+                    setTimeObj6(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -277,6 +481,7 @@ public class Nivel5 {
             if (telescopio.intersecta(game.getMouseManager())) {
 
                 if (!isI7()) {
+                    setTimeObj7(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -292,6 +497,7 @@ public class Nivel5 {
             if (tijera.intersecta(game.getMouseManager())) {
 
                 if (!isI8()) {
+                    setTimeObj8(getCronos());
                     //Blink sound is played
                     Assets.blink.play();
                     //The conuter increase in one
@@ -315,6 +521,11 @@ public class Nivel5 {
                 game.setNivel(0);
                 //The song is pause
                 songN5.pause();
+            }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //Thr level is reset
+                reset();
             }
         } else {
             //When thw n key is press
@@ -342,10 +553,84 @@ public class Nivel5 {
         }
         //If the counter get to 8
         if (getCont() == 8) {
-            //The song is stop
-            songN5.stop();
-            game.setNivel(6);
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+            //Funtion metodos is called
+            MetodosN();
+            setCont(9);
         }
+        //If the game ended
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                try {
+                    //The game is set on the level 5
+
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level5", game.getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel5.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    game.getDB().getScoreBoard();
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel5.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Last score is set on the last score you get through the level
+                game.setLastScore(game.getScore());
+                //The song is stop
+                songN5.stop();
+                game.setNivel(6);
+            }
+        }
+    }
+
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset() {
+        //The counter of the apples is back to 0
+        setCont(0);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //All the booleans for the tools are set on false
+        setI1(false);
+        setI2(false);
+        setI3(false);
+        setI4(false);
+        setI5(false);
+        setI6(false);
+        setI7(false);
+        setI8(false);
+        //Set the time on 0
+        setCronos(0);
+        setTimer(0);
+        //The time when the objects are found are set on 0
+        setTimeObj1(0);
+        setTimeObj2(0);
+        setTimeObj3(0);
+        setTimeObj4(0);
+        setTimeObj5(0);
+        setTimeObj6(0);
+        setTimeObj7(0);
+        setTimeObj8(0);
+        //The score is set to the same score as it started
+        game.setScore(game.getLastScore());
+        //The song start from the begining
+        songN5.stop();
+        songN5.setfPosition(0);
+        //The game is no longer on pause
+        game.setPause(false);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
     }
 
     public void render() {
@@ -356,12 +641,16 @@ public class Nivel5 {
         } else {
             g = bs.getDrawGraphics();
             if (isStart()) {
+                if (!game.isPause()) {
+                    setTimer(getTimer() + 1);
+                    setCronos(getTimer() / 60);
+                }
                 g.drawImage(Assets.backgroundLevel5, 0, 0, width, height, null);
                 //g.drawString("Usuario: "+game.getUsername(), getWidth() - getWidth() / 4, 0 + getHeight() / 15);
                 if (!isI1()) {
-                    g.drawImage(Assets.hachaBW, 80, 370, 70, 50, null);
+                    g.drawImage(Assets.hachaBW, 80, 370, 80, 50, null);
                 } else {
-                    g.drawImage(Assets.hacha, 80, 370, 70, 50, null);
+                    g.drawImage(Assets.hacha, 80, 370, 80, 50, null);
                 }
                 if (!isI2()) {
                     g.drawImage(Assets.martilloBW, 160, 368, 70, 50, null);
@@ -379,9 +668,9 @@ public class Nivel5 {
                     g.drawImage(Assets.peine, 330, 370, 70, 50, null);
                 }
                 if (!isI5()) {
-                    g.drawImage(Assets.reglaBW, 400, 365, 70, 50, null);
+                    g.drawImage(Assets.reglaBW, 415, 360, 40, 60, null);
                 } else {
-                    g.drawImage(Assets.regla, 400, 365, 70, 50, null);
+                    g.drawImage(Assets.regla, 415, 360, 40, 60, null);
                 }
                 if (!isI6()) {
                     g.drawImage(Assets.sierraBW, 480, 365, 70, 50, null);
@@ -416,6 +705,15 @@ public class Nivel5 {
                     g.drawImage(Assets.control5, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
+            }
+            if (isEnd()) {
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
             }
 
             bs.show();

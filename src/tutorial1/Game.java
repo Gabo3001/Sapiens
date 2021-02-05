@@ -33,13 +33,15 @@ public class Game implements Runnable {
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private int score;
-    private boolean pause;
+    private int lastScore;
+    private boolean pause;    
     
     //DATABASE 
     private int userID;
     private String username;
     private String password;
     private DatabaseManager dbm;
+    private int ScoreTableID;
     
 
     public Game(String title, int width, int height) {
@@ -53,9 +55,35 @@ public class Game implements Runnable {
         mouseManager = new MouseManager();
         pause = false;
         score = 0;
+        
         whatLevel = 1;
         this.userID=0;
         this.username="XXXXXXX";
+    }
+    public Nivel2 getNivel2(){
+        return nivel2;
+    }
+    public Nivel4 getNivel4(){
+        return nivel4;
+    }
+    public Nivel6 getNivel6(){
+        return nivel6;
+    }
+
+    public void setScoreTableID(int id){
+        this.ScoreTableID=id;
+    }
+    
+    public int getScoreTableID(){
+        return ScoreTableID;
+    } 
+
+    public int getLastScore() {
+        return lastScore;
+    }
+
+    public void setLastScore(int lastScore) {
+        this.lastScore = lastScore;
     }
     
     public void setUserID(int id){
@@ -112,9 +140,6 @@ public class Game implements Runnable {
         return height;
     }
 
-    public Nivel6 getNivel6() {
-        return nivel6;
-    }
 
     private void init() {
         display = new Display(title, getWidth(), getHeight());

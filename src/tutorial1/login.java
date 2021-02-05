@@ -20,7 +20,6 @@ import javax.swing.JTextField;
  */
 public class login{
     private JFrame frame;
-   // private Boton button;
     private JButton button;
     private JTextField usr;
     private JTextField password;
@@ -36,7 +35,7 @@ public class login{
         frame.setTitle("ingreso");
         frame.setSize(400,200);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         usr = new JTextField();
         usr.setBounds(150,20,100,30);
@@ -62,7 +61,7 @@ public class login{
         
         button = new JButton ("Enviar");
         button.setBounds(150,100,100,30);
-        button.addActionListener(new Esp(usr,password,game));
+        button.addActionListener(new Esp(usr,password,game,frame));
         frame.add(button);
         frame.setVisible(true);
     }
@@ -81,29 +80,32 @@ class Esp implements ActionListener{
     private JTextField uname;
     private JTextField pass;
     private Game game;
+    private JFrame frame;
     
-    public Esp(JTextField u,JTextField p,Game g){
+    public Esp(JTextField u,JTextField p,Game g,JFrame f){
         uname = u;
         pass = p;
         game = g;
+        frame = f;
     }
     
     public void actionPerformed(ActionEvent ae) {
+        
         System.out.println(uname.getText());
         System.out.println(pass.getText());
         
         //if the table for users is not created it creates one
-        try {
-            game.getDB().createUsrTable();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            game.getDB().createUsrTable();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //if the table for scores isnt created yet it creates one
-        try {//trouble with foreign key syntax
-            game.getDB().createScoresTable();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {//trouble with foreign key syntax
+//            game.getDB().createScoresTable();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //ads a user from the DatabaseManager Class
 //        try {
 //            game.getDB().Usr();
@@ -126,6 +128,8 @@ class Esp implements ActionListener{
         if(game.getUserID()!=0){
             try {
                 game.getDB().addScoreRow(game.getUserID());
+                game.setScoreTableID(game.getDB().getScoreID());
+                System.out.println(game.getScoreTableID());
             } catch (Exception ex) {
                 Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -133,18 +137,22 @@ class Esp implements ActionListener{
 
 
         //Prints the database in console
-        try {
-        game.getDB().get();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//        game.getDB().get();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         //shows the score table
-        try {
-            game.getDB().getScoreBoard();
-        } catch (Exception ex) {
-            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        try {
+//            game.getDB().getScoreBoard();
+//        } catch (Exception ex) {
+//            Logger.getLogger(Esp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        if(game.getUserID()!=0){
+            frame.dispose();
         }
+        
     }
     
 }

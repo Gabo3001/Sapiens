@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -23,15 +26,19 @@ public class Menu {
     private Boton start;
     private Boton help;
     private Boton back;
+    private Boton login;
+    private Boton pregunta;
     private Game game;
     private BufferStrategy bs;
     private Graphics g;
     private login log;
+    private quiz question;
     private boolean logVis;
     private boolean open;
     
     private JFrame jf;
     private JTextField jt = new JTextField();
+    private AddQuestion prof;
  
     
     String title;
@@ -44,7 +51,6 @@ public class Menu {
         this.height = height;
         this.game = game;
         info = false;
-
         songM = new SoundClip("/tutorial1/sounds/Inicio.wav",  -3f, true); 
         
     }
@@ -76,8 +82,14 @@ public class Menu {
 
     public void init() {
         //Start, help and back are initialized
+  
+
         log = new login(game);
-        start = new Boton(20, 150, 150, 75, game, 1);
+        
+        
+        start = new Boton(20, -150, 150, 75, game, 1);
+        login = new Boton(20, 150, 150, 75, game, 9);
+        pregunta = new Boton(20, -150, 150, 75, game, 10);
         help = new Boton(20, 235, 150, 75, game, 2);
         back = new Boton(310, 500, 150, 75, game, 3);
     }
@@ -95,10 +107,13 @@ public class Menu {
             setInfo(true);
             //The buttons start and help dissapear from the screen
             start.setX(start.getX() - 200);
+            login.setX(login.getX() - 200);
             help.setX(help.getX() - 200);
             //Back appear on the screen
             back.setY(back.getY() - 100);
-            
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
         }
         //if help is clicked
         if (back.intersecta(game.getMouseManager())) {
@@ -107,11 +122,15 @@ public class Menu {
             //The buttons start and help apear on the screen
             start.setX(start.getX() + 200);
             help.setX(help.getX() + 200);
+            login.setX(login.getX() + 200);
             //Back dissapear from the screen
             back.setY(back.getY() + 100);
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
         }
         //if start is clicked
-        if (start.intersecta(game.getMouseManager())&&game.getUserID()!=0) {
+        if (start.intersecta(game.getMouseManager())) {
             //The x and y of the mouse are set on 0
             game.getMouseManager().setX(0);
             game.getMouseManager().setY(0);
@@ -120,8 +139,44 @@ public class Menu {
             //The music stops
             songM.pause();
         }
-
-
+        //if the id is different to 0 and 42
+        if(game.getUserID() != 0 && game.getUserID() != 42){
+            //Login button dissapears
+            login.setX(-150);
+            //start button appears
+            start.setY(150);
+        }
+        //if the id correspong to the id of the teacher
+        if (game.getUserID() == 42){
+            //help and login button dissapear
+            help.setX(-150);
+            login.setX(-150);
+            //add question appear
+            pregunta.setY(150);
+            
+        }
+        //if loging button is clicked
+        if (login.intersecta(game.getMouseManager())) {
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
+        }
+        //if add question is clicked
+        if (pregunta.intersecta(game.getMouseManager())) {
+            //The x and y of the mouse are set on 0
+            game.getMouseManager().setX(0);
+            game.getMouseManager().setY(0);
+            prof=new AddQuestion(game);
+        }
+        //if the id correspong to the id of the teacher
+        if (game.getUserID() == 42){
+            //help and login button dissapear
+            help.setX(-150);
+            login.setX(-150);
+            //add question appear
+            pregunta.setY(150);
+            
+        }
 
         
     }
@@ -148,6 +203,8 @@ public class Menu {
             start.render(g);
             help.render(g);
             back.render(g);
+            login.render(g);
+            pregunta.render(g);
             bs.show();
             g.dispose();
            

@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,8 +43,11 @@ public class Nivel4 {
     private Boton save;
     private Animation next;
     private boolean start;
+    private boolean end;
     private int scene;
     private SoundClip songN4;
+    private quiz agricultural;
+    private boolean bQuiz;
 //    private Boton back;
 
     /**
@@ -65,12 +70,30 @@ public class Nivel4 {
         this.mvBk2 = 0;
         this.clock = 0;
         this.points = ": " + score;
+        this.aRight = true;
         this.score = 0;
         scene = 0;
         start = false;
+        end = false;
         this.next = new Animation(Assets.nextA, 500);
-        aRight = true;
+        this.bQuiz = false;
         songN4 = new SoundClip("/tutorial1/sounds/N4.wav", -3f, true);
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isBQuiz() {
+        return bQuiz;
+    }
+
+    public void setBQuiz(boolean b) {
+        this.bQuiz = b;
     }
 
     public void setStart(boolean start) {
@@ -181,7 +204,7 @@ public class Nivel4 {
             posY = (int) (Math.random() * 56) + 345;
             arrow.add(new Arrow4(getWidth(), posY, 54, 12, game));
         }
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 200; i++) {
             coin.add(new coin(getWidth() + i * 100, getHeight() - getHeight() / 5, 20, 30, game));
         }
 
@@ -282,6 +305,11 @@ public class Nivel4 {
                 //The song is pause
                 songN4.pause();
             }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //Thr level is reset
+                reset();
+            }
         } else {
             //When thw n key is press
             if (game.getKeyManager().next) {
@@ -308,15 +336,101 @@ public class Nivel4 {
         }
         //When the time finished
         if (getTimer() / 60 == 0) {
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+        }
+        //if the game ended
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                try {
+                    //The game is set on the level 5
+
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level4", game.getScore() + getScore() * 10);
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    game.getDB().getQuizInfo("Agricola", agricultural, game, "quiz2Score", "quiz2ID");
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                try {
+                    game.getDB().getScoreBoard();
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        //When the qiz is done
+        if (isBQuiz()) {
             //The x and y of the keymanadager are set on 0
             game.getMouseManager().setX(0);
             game.getMouseManager().setY(0);
+            //Last score is set on the last score you get through the level
+            game.setLastScore(game.getScore() + getScore() * 10);
             //The song is stop
             songN4.stop();
             //The game is set on the level 5
             game.setNivel(5);
         }
 
+    }
+
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset() {
+        //The timer is set back to 90 seconds
+        setTimer(60 * 90);
+        //Cronos is set with the initial timer
+        setCronos("tiempo: " + timer);
+        //mvbk is set on width
+        setMvBk(width);
+        //mvk2 is set on 0
+        setMvBk2(0);
+        //clock is set on 0
+        setClock(0);
+        //score is set on 0
+        setScore(0);
+        //points are draw acording to the score
+        setPoints(": " + score);
+        //aRight is set on true
+        setaRight(true);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //The song start from the begining
+        songN4.stop();
+        songN4.setfPosition(0);
+        //The player is set on its original position
+        player.setX(0);
+        player.setY(getHeight() - getHeight() / 4 - 20);
+        //The arrow andthe coins are initialice again
+        int posY;
+        for (int i = 0; i < arrow.size(); i++) {
+            Arrow4 quiver = arrow.get(i);
+            posY = (int) (Math.random() * 56) + 345;
+            quiver.setX(getWidth());
+            quiver.setY(posY);
+        }
+        for (int i = 0; i < coin.size(); i++) {
+            coin bitcoin = coin.get(i);
+            bitcoin.setX(getWidth() + i * 100);
+            bitcoin.setY(getHeight() - getHeight() / 5);
+        }
+        //The game is no longer on pause
+        game.setPause(false);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
     }
 
     public void render() {
@@ -343,8 +457,6 @@ public class Nivel4 {
 
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("Serif", Font.PLAIN, 20));
-                //draws the remaining time
-                g.drawString(cronos, 0 + getWidth() / 100, getHeight() - getHeight() / 25);
                 if (!game.isPause()) {
                     setTimer(getTimer() - 1);
                 }
@@ -354,6 +466,21 @@ public class Nivel4 {
                 g.setFont(new Font("Serif", Font.PLAIN, 35));
                 g.drawString(points, getWidth() - getWidth() / 6, getHeight() - getHeight() / 30);
                 setPoints(": " + getScore());
+                if (getTimer() / 60 <= 1) {
+                    g.drawImage(Assets.prog7, 300, 20, 200, 60, null);
+                } else if (getTimer() / 60 <= 15) {
+                    g.drawImage(Assets.prog6, 300, 20, 200, 60, null);
+                } else if (getTimer() / 60 <= 30) {
+                    g.drawImage(Assets.prog5, 300, 20, 200, 60, null);
+                } else if (getTimer() / 60 <= 45) {
+                    g.drawImage(Assets.prog4, 300, 20, 200, 60, null);
+                } else if (getTimer() / 60 <= 60) {
+                    g.drawImage(Assets.prog3, 300, 20, 200, 60, null);
+                } else if (getTimer() / 60 <= 75) {
+                    g.drawImage(Assets.prog2, 300, 20, 200, 60, null);
+                } else {
+                    g.drawImage(Assets.prog1, 300, 20, 200, 60, null);
+                }
                 if (game.isPause()) {
                     g.drawImage(Assets.pauseN4, 250, 50, 300, 400, null);
                     save.render(g);
@@ -370,6 +497,15 @@ public class Nivel4 {
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
             }
+            if (isEnd()) {
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + (game.getScore() + getScore() * 10), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
+            }
             bs.show();
             g.dispose();
         }
@@ -377,4 +513,3 @@ public class Nivel4 {
     }
 
 }
-

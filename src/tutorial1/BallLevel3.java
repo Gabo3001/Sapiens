@@ -74,19 +74,19 @@ public class BallLevel3 extends Item {
             // 3 derecha.abajo y 4 izquierda.abajo
             if (getDirection() == 1) {
                 setX(getX() + getSpeed());
-                setY(getY() - getSpeed());
+                setY(getY() - getSpeed()-1);
             }
             if (getDirection() == 2) {
                 setX(getX() - getSpeed());
-                setY(getY() - getSpeed());
+                setY(getY() - getSpeed()-1);
             }
             if (getDirection() == 3) {
                 setX(getX() + getSpeed());
-                setY(getY() + getSpeed());
+                setY(getY() + getSpeed()+1);
             }
             if (getDirection() == 4) {
                 setX(getX() - getSpeed());
-                setY(getY() + getSpeed());
+                setY(getY() + getSpeed()+1);
             }
 
             // Las siguientes condiciones representan las coliciones con las paredes

@@ -1,3 +1,15 @@
+//                try {
+//                    game.getDB().getQuizInfo("Scientifica",scientific,game,"quiz3Score","quiz3ID");
+//                } catch (Exception ex) {
+//                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            try {
+//                //The game is set on the level 5
+//                new DatabaseManager().updateScore(game.getScoreTableID(), "level6", game.getScore()+getScore()*10);
+//            } catch (Exception ex) {
+//                Logger.getLogger(Nivel4.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,13 +22,16 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Electel
  */
 public class Nivel6 {
-        private int width;
+
+    private int width;
     private int height;
     private Game game;
     String title;
@@ -37,8 +52,11 @@ public class Nivel6 {
     private Boton save;
     private Animation next;
     private boolean start;
+    private boolean end;
     private int scene;
     private SoundClip songN6;
+    private quiz scientific;
+    private boolean bQuiz;
 
     public Nivel6(String title, int width, int height, Game game) {
         this.title = title;
@@ -54,8 +72,26 @@ public class Nivel6 {
         lightsUp = 0;
         scene = 0;
         start = false;
+        end = false;
         this.next = new Animation(Assets.nextA, 500);
         songN6 = new SoundClip("/tutorial1/sounds/N6.wav", -3f, true);
+        this.bQuiz = false;
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
+
+    public boolean isBQuiz() {
+        return bQuiz;
+    }
+
+    public void setBQuiz(boolean b) {
+        this.bQuiz = b;
     }
 
     public void setStart(boolean start) {
@@ -125,7 +161,7 @@ public class Nivel6 {
     public void init() {
         A = new Boton(231, 440, 70, 60, game, 6);
         S = new Boton(381, 440, 70, 60, game, 7);
-        D = new Boton(532, 440, 70, 60, game, 8);
+        D = new Boton(531, 440, 70, 60, game, 8);
         for (int i = 0; i < 10; i++) {
             yellow.add(new Bulbo(228, -90, 80, 90, game, 1));
         }
@@ -148,7 +184,7 @@ public class Nivel6 {
                 songN6.play();
             }
             //if the lights up go below 0
-            if(getLightsUp() < 0){
+            if (getLightsUp() < 0) {
                 //set lights up in 0
                 setLightsUp(0);
             }
@@ -179,6 +215,8 @@ public class Nivel6 {
                     y.setVisible(false);
                     // LightsUp increase in one
                     setLightsUp(getLightsUp() + 1);
+                    //the score increase by 10
+                    game.setScore(game.getScore()+10);
                     //The function kstop is calles
                     game.getKeyManager().kStop();
                     //The sound of cristal is played
@@ -212,6 +250,8 @@ public class Nivel6 {
                     b.setVisible(false);
                     // LightsUp increase in one
                     setLightsUp(getLightsUp() + 1);
+                    //the score increase by 10
+                    game.setScore(game.getScore()+10);
                     //The function kstop is calles
                     game.getKeyManager().kStop();
                     Assets.cristal.play();
@@ -244,6 +284,8 @@ public class Nivel6 {
                     p.setVisible(false);
                     // LightsUp increase in one
                     setLightsUp(getLightsUp() + 1);
+                    //the score increase by 10
+                    game.setScore(game.getScore()+10);
                     //The function kstop is calles
                     game.getKeyManager().kStop();
                     Assets.cristal.play();
@@ -261,6 +303,11 @@ public class Nivel6 {
                 game.setNivel(0);
                 //The song is pause
                 songN6.pause();
+            }
+            //if reset is clicked
+            if (save.intersecta(game.getMouseManager()) && game.isPause()) {
+                //The level is reset
+                reset();
             }
         } else {
             //When thw n key is press
@@ -286,6 +333,84 @@ public class Nivel6 {
                 songN6.play();
             }
         }
+
+        if (getLightsUp() == 150) {
+            //the game is not start
+            setStart(false);
+            //the game end
+            setEnd(true);
+            //set scene on 4
+            setScene(4);
+        }
+        //if the game ended
+        if (isEnd()) {
+            //Next animation tick is on
+            this.next.tick();
+            if (game.getKeyManager().next) {
+                try {
+                    game.getDB().getQuizInfo("Scientifica", scientific, game, "quiz3Score", "quiz3ID");
+                } catch (Exception ex) {
+                    Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    //The game is set on the level 5
+                    new DatabaseManager().updateScore(game.getScoreTableID(), "level6", game.getScore());
+                } catch (Exception ex) {
+                    Logger.getLogger(Nivel6.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }
+
+        //When the qiz is done
+        if (isBQuiz()) {
+            //setLights up to 300
+            setLightsUp(300);
+            //the game end
+            songN6.stop();
+            //set end on false
+            setEnd(false);
+        }
+
+    }
+
+    /**
+     * This function reset the level one to its original state
+     */
+    public void reset() {
+        //set yellow, blue and purple right on true
+        setYellowRight(true);
+        setPurpleRight(true);
+        setBlueRight(true);
+        //set lights up on 0
+        setLightsUp(0);
+        //The scene is set on 0
+        setScene(0);
+        //Start is set on false
+        setStart(false);
+        //The song start from the begining
+        songN6.stop();
+        songN6.setfPosition(0);
+        //The bulbs are initialice again
+        for (int i = 0; i < yellow.size(); i++) {
+            Bulbo y = yellow.get(i);
+            y.setY(-90);
+        }
+        for (int i = 0; i < blue.size(); i++) {
+            Bulbo b = blue.get(i);
+            b.setY(-90);
+        }
+        for (int i = 0; i < purple.size(); i++) {
+            Bulbo p = purple.get(i);
+            p.setY(-90);
+        }
+        //The score is set to the same score as it started
+        game.setScore(game.getLastScore());
+        //The game is no longer on pause
+        game.setPause(false);
+        //set the mause position on 0s
+        game.getMouseManager().setX(0);
+        game.getMouseManager().setY(0);
     }
 
     public void render() {
@@ -343,6 +468,19 @@ public class Nivel6 {
                     g.drawImage(Assets.control6, 0, 0, width, height, null);
                     g.drawImage(next.getCurretFrame(), 230, 460, 300, 30, null);
                 }
+            }
+            if (isEnd()) {
+                g.setFont(new Font("Serif", Font.PLAIN, 50));
+                g.setColor(Color.WHITE);
+                g.drawImage(Assets.black, 200, 125, 400, 250, null);
+                g.drawString("GANASTE", 290, 200);
+                g.setFont(new Font("Serif", Font.PLAIN, 30));
+                g.drawString("Tu puntaje es: " + game.getScore(), 290, 250);
+                g.drawImage(next.getCurretFrame(), 250, 300, 300, 30, null);
+            }
+            //When the qiz is done
+            if (isBQuiz()) {
+                g.drawImage(Assets.fin, 0, 0, width, height, null);
             }
             bs.show();
             g.dispose();
